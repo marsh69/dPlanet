@@ -13,8 +13,10 @@
         {% endblock %}
     </head>
     <body>
-        Yay it works :)
+        {% block body %}
+            Yay it works :)
 
+        {% endblock %}
         {% block javascripts %}
             <script src="{{ asset('../public/assets/js/jquery-3.3.1.min.js') }}"></script>
             <script src="{{ asset('../public/assets/js/bootstrap.js') }}"></script>

@@ -5,13 +5,18 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 class Developer extends User
 {
+    use TimestampableEntity;
+
     /** @var string $firstName */
     protected $firstName = '';
     /** @var string $lastName */
     protected $lastName = '';
+    /** @var Image|null $profileImage */
+    protected $profileImage;
     /** @var Notification[]|Collection $notifications */
     protected $notifications;
     /** @var Message[]|Collection $sentMessages */
@@ -35,6 +40,24 @@ class Developer extends User
         $this->receivedMessages = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+    }
+
+    /**
+     * @return Image|null
+     */
+    public function getProfileImage(): ?Image
+    {
+        return $this->profileImage;
+    }
+
+    /**
+     * @param Image|null $profileImage
+     * @return Developer
+     */
+    public function setProfileImage(?Image $profileImage): Developer
+    {
+        $this->profileImage = $profileImage;
+        return $this;
     }
 
     /**
