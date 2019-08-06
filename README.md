@@ -34,6 +34,7 @@ Run the command `make` to see a list of make commands that you can use.
 -  Add githooks to enforce PSR coding style
 -  Discuss database management / backup management
 -  Discuss marketing/financial aspects (in hands of project creator)
+-  Add translations for multinationality
 
 ## Known quirks
 
