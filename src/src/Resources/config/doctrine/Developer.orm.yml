@@ -16,6 +16,7 @@ App\Entity\Developer:
       type: string
       options:
         default: ''
+    # TODO: Add remaining fields
     createdAt:
       type: datetime
       nullable: true

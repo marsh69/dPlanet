@@ -17,6 +17,24 @@ Setting up the application is as easy as:
 
 Run the command `make` to see a list of make commands that you can use.
 
+## Important to-do's:
+
+-  Discuss data model and make proper adjustements
+-  Apply final data model to the orm mappings
+-  Add form types for all orm mappings
+-  Add proper initial migration
+-  Add fixtures for all data
+-  Build login screen
+-  Build layout (and discuss front- and backend integration)
+-  Add tests
+-  Add more documentation
+-  Discuss deployment technique (Ansible)
+-  Create a dockerhub account for the project
+-  Discuss collaboration / code review process
+-  Add githooks to enforce PSR coding style
+-  Discuss database management / backup management
+-  Discuss marketing/financial aspects (in hands of project creator)
+
 ## Known quirks
 
 - Everything is still WIP
