@@ -9,10 +9,13 @@ services:
       context: ../
       dockerfile: docker/php-fpm/Dockerfile
     volumes:
-      - ../src:/app:cached
+      - ../src:/app/src:cached
       - ./php-fpm/bin/docker-entrypoint:/bin/docker-entrypoint:cached
     environment:
       DATABASE_PASSWORD: development
+      APP_ENV: dev
+      APP_DEBUG: "true"
+      APP_SECRET: thisisasampletokenthatiputhereonlyfordevelopmentproductionhasasecretsecretofcourse
 
   ssl:
     build:
@@ -31,7 +34,7 @@ services:
       cache_max_age: 1
     volumes:
       - development_ssl:/etc/letsencrypt/live/localhost
-      - ../assets:/var/www/html/assets:cached
+      - ../src/public/assets:/var/www/html/assets:cached
       - ./nginx/etc/nginx/temp:/etc/nginx/temp:cached
 
   mysql:

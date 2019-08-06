@@ -7,3 +7,6 @@ docker/nginx/Dockerfile
 docker/php-fpm/Dockerfile
 docker/docker-compose.yml
 docker/docker-compose.dev.yml
+src/var
+src/vendor
+src/public/save

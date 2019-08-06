@@ -9,10 +9,10 @@ require_once 'includes/form_handler/register_handler.php';
 <head>
 	<title>Welcome to developersPlanet</title>
 	
-	<script src='assets/js/jquery-3.3.1.min.js'></script>
-	<script src='assets/js/register.js'></script>
-	<link rel="stylesheet" type="text/css" href="assets/css/register_style.css?sd">
-	<link rel="stylesheet" type="text/css" href="assets/css/stars.css">
+	<script src='../public/assets/js/jquery-3.3.1.min.js'></script>
+	<script src='../public/assets/js/register.js'></script>
+	<link rel="stylesheet" type="text/css" href="../public/assets/css/register_style.css?sd">
+	<link rel="stylesheet" type="text/css" href="../public/assets/css/stars.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -43,7 +43,7 @@ require_once 'includes/form_handler/register_handler.php';
 
 		<div class='login_box'>
 		<div class="login_header">
-			<img src="assets/images/backgrounds/blue.png" style = "width: 100%;"><br>
+			<img src="../public/assets/images/backgrounds/blue.png" style = "width: 100%;"><br>
 			Login or sign up below!	
 	
 		</div>
