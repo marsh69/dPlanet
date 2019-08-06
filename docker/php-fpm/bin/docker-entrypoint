@@ -22,6 +22,8 @@ then
   else
     echo "Skipping APK installation, already done"
   fi
+  mkdir /home/php
+  chown -R php:php /home/php
 
   cat <<-EOF > /usr/local/etc/php/conf.d/xdebug.ini
 xdebug.remote_enable=1

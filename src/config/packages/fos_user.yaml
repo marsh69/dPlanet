@@ -1,0 +1,7 @@
+fos_user:
+  db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+  firewall_name: main
+  user_class: App\Entity\Developer
+  from_email:
+    address: "test@domain.com" # TODO
+    sender_name: "test@domain.com" # TODO

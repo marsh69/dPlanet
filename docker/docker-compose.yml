@@ -3,6 +3,7 @@ version: '3.3'
 networks:
   nginx: ~
   mysql: ~
+  cache: ~
 
 volumes:
   db-data: ~
@@ -16,10 +17,13 @@ services:
     networks:
       - nginx
       - mysql
+      - cache
     environment:
       DATABASE_NAME: dplanet
       DATABASE_USER: dplanet
       DATABASE_HOSTNAME: mysql
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
 
   # TODO: Persist logs with a volume
   nginx:
@@ -47,3 +51,12 @@ services:
       MYSQL_DATABASE: dplanet
       MYSQL_USER: dplanet
       MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+
+  # TODO: Ensure Redis is secure with username/password
+  redis:
+    image: redis:5.0.5-alpine
+    restart: always
+    networks:
+      - cache
+    expose:
+      - 6379

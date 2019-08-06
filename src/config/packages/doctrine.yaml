@@ -11,15 +11,27 @@ doctrine:
         host: '%env(resolve:DATABASE_HOSTNAME)%'
         dbname: '%env(resolve:DATABASE_NAME)%'
         user: '%env(resolve:DATABASE_USER)%'
-        password: '%env(resolve:DATABASE_PASSWORD)'
+        password: '%env(resolve:DATABASE_PASSWORD)%'
     orm:
         auto_generate_proxy_classes: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
-        mappings:
-            App:
-                is_bundle: false
-                type: yml
-                dir: '%kernel.project_dir%/src/Resources/config/doctrine'
-                prefix: 'App\Entity'
-                alias: App
+        entity_managers:
+            default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                auto_mapping: true
+                second_level_cache:
+                    enabled: true
+                metadata_cache_driver:
+                    type: predis
+                    host: "%env(REDIS_HOST)%"
+                query_cache_driver:
+                    type: predis
+                    host: "%env(REDIS_HOST)%"
+                result_cache_driver:
+                    type: predis
+                    host: "%env(REDIS_HOST)%"
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: yml
+                        dir: '%kernel.project_dir%/src/Resources/config/doctrine'
+                        prefix: 'App\Entity'
