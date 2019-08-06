@@ -1,0 +1,134 @@
+
+html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+
+a{
+    text-decoration: none;
+    color: #3498db;
+}
+
+.wrapper {
+    /*background-image: url("../images/backgrounds/Desktop.jpg");*/
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+    min-width: 950px;
+}
+
+.wrapper form{
+    text-align: center;
+}
+
+.wrapper form input[type="submit"]{
+    background-color: #21242E;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    margin: 5px 0 10px 0;
+    padding: 5px 10px;
+    color: #ffffff;
+    /* text-shadow: #ffffff 0.5px 0.5px 0; */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%;
+    font-weight: 900;
+}
+iframe{
+    overflow: hidden;
+}
+label{
+        color: #3c3933;
+}
+#avatar_div{
+display:none;
+    
+}
+#avatar_id{
+    position: absolute;
+    left: 104px
+}
+#signup_avatar{
+    font-size: 19px;
+}
+.wrapper form input[type="text"], input[type="email"], input[type="password"]{
+    border: 1px solid #e5e5e5;
+    margin-top: 5px;
+    width: 70%;
+    height: 35px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+.wrapper form input[type="text"]:hover, input[type="email"]:hover, input[type="password"]:hover{
+ border-color :#3498db;
+}
+
+.wrapper .login_box{
+    font-family: 'Open Sans', sans-serif;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    top: 7%;
+    width: 45%;
+    background-color: #ffffff;
+    border: 1px solid #EDEDED;
+    border-radius: 7px;
+    padding: 5px;
+    opacity: 0.80;
+    color: #d64024;
+    font-size: 14px;
+
+}
+
+.wrapper .login_header{
+    padding-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    width: 100%;
+    height: 130px;
+    background-color: #242731;
+    color: #ffffff;
+    text-align: center;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.banner{
+    font-family: 'Bellota-LightItalic', sans-selif;
+    width: 100%;
+    height: 135px;
+    background-color: #242731;
+    color: #ffffff;
+    text-align: center;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.wrapper .login_header h1{
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #2C6C96;
+    text-shadow: #73B6E2 0.5px 0.5px 0;
+    font-size: 250%;
+}
+
+.login_header{
+    width:100%;
+}
+.wrapper #second{
+    display: none;
+}
+
+.wrapper .profile_box{
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.wrapper .profile_box input{
+    width: 60%;
+}
