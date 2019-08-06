@@ -1,0 +1,49 @@
+version: '3.3'
+
+networks:
+  nginx: ~
+  mysql: ~
+
+volumes:
+  db-data: ~
+
+services:
+  php-fpm:
+    #image: TODO: Add image name
+    restart: always
+    expose:
+      - 9000
+    networks:
+      - nginx
+      - mysql
+    environment:
+      DATABASE_NAME: dplanet
+      DATABASE_USER: dplanet
+      DATABASE_HOSTNAME: mysql
+
+  # TODO: Persist logs with a volume
+  nginx:
+    #image: TODO: Add image name
+    restart: always
+    ports:
+      - 80:8080
+      - 443:8443
+    environment:
+      fastcgi_cache_valid: 60m
+      server_name: localhost
+      hsts_max_time: 360000000
+      cache_max_age: 60m
+    networks:
+      - nginx
+
+  mysql:
+    image: mysql:5.7
+    networks:
+      - mysql
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: dplanet
+      MYSQL_USER: dplanet
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'

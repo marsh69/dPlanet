@@ -1,7 +1,7 @@
 <?php
 include("includes/header.php");
-include_once ("includes/classes/User.php");
-include_once ("includes/classes/Post.php");
+include_once("includes/classes/User.php");
+include_once("includes/classes/Post.php");
 
 
 $message_obj = new Message($con, $userLoggedIn);

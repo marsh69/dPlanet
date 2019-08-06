@@ -1,6 +1,6 @@
 <?php
-include_once ("includes/header.php");
-include_once ("includes/form_handler/settings_handler.php");
+include_once("includes/header.php");
+include_once("includes/form_handler/settings_handler.php");
 ?>
 
 <script>

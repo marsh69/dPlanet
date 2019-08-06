@@ -43,7 +43,7 @@ require_once 'includes/form_handler/register_handler.php';
 
 		<div class='login_box'>
 		<div class="login_header">
-			<img src="assets/images/backgrounds/blue.png"style = "width: 100%;"><br>
+			<img src="assets/images/backgrounds/blue.png" style = "width: 100%;"><br>
 			Login or sign up below!	
 	
 		</div>

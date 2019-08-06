@@ -1,0 +1,9 @@
+.dockerignore
+.gitignore
+Makefile
+README.md
+docs/
+docker/nginx/Dockerfile
+docker/php-fpm/Dockerfile
+docker/docker-compose.yml
+docker/docker-compose.dev.yml

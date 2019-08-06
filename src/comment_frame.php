@@ -7,10 +7,10 @@
 <body>
 
 	<?php
-		require_once ('config/config.php');
-		include_once ("includes/classes/User.php");
-		include_once ("includes/classes/Post.php");
-		include_once ("includes/classes/Notification.php");
+		require_once('config/config.php');
+		include_once("includes/classes/User.php");
+		include_once("includes/classes/Post.php");
+		include_once("includes/classes/Notification.php");
 
 		if (isset($_SESSION['username'])){
 			// It is created when logged in(Check includes/form_handler/login_handler.php)

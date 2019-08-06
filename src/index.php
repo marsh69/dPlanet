@@ -1,8 +1,8 @@
 <?php
-require_once ('config/config.php');
-include_once ("includes/header.php");
-include_once ("includes/classes/User.php");
-include_once ("includes/classes/Post.php");
+require_once('config/config.php');
+include_once("includes/header.php");
+include_once("includes/classes/User.php");
+include_once("includes/classes/Post.php");
 
 if(isset($_POST['post'])){
 

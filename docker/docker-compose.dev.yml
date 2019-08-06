@@ -1,0 +1,39 @@
+version: '3.3'
+
+volumes:
+  development_ssl: ~
+
+services:
+  php-fpm:
+    build:
+      context: ../
+      dockerfile: docker/php-fpm/Dockerfile
+    volumes:
+      - ../src:/app:cached
+      - ./php-fpm/bin/docker-entrypoint:/bin/docker-entrypoint:cached
+    environment:
+      DATABASE_PASSWORD: development
+
+  ssl:
+    build:
+      context: ssl-dev
+    volumes:
+      - development_ssl:/ssl
+
+  nginx:
+    build:
+      context: ../
+      dockerfile: docker/nginx/Dockerfile
+    environment:
+      server_name: localhost
+      hsts_max_time: 0m
+      fastcgi_cache_valid: 1s
+      cache_max_age: 1
+    volumes:
+      - development_ssl:/etc/letsencrypt/live/localhost
+      - ../assets:/var/www/html/assets:cached
+      - ./nginx/etc/nginx/temp:/etc/nginx/temp:cached
+
+  mysql:
+    environment:
+      MYSQL_PASSWORD: development
