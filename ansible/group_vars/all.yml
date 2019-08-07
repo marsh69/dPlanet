@@ -1,0 +1,29 @@
+common_groups:
+  - name: "rungroup"
+    gid: "20000"
+  - name: "developer"
+    gid: "9000"
+
+sudo_groups:
+  - developer
+
+common_users:
+  - name: "developer"
+    group: "developer"
+    authorized_key: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtjo3fxl3gpQkywnXSZTVzJIzTiy3q8HCmPiyKVXCEQjPSwGN0s0T/sxHS3QqWvmWC0Qo3LQ/39rDhrNJOn+NGdIP6edEVdW4kfegI2n6nIQ0EyAKuMtx59S7nCSqo4hX9zaL3NhlBiKIYPAPxSmC91EiXEdQfMtn/dTHkZ5zWvbpDF7QHxaRwjxtqZhjoxWFLShijKmtijo0Tn9iiEHfUsS/cw+cJWM784k9MaCPdkzN9xewi4smpOS83rModhrZawCIqDRCa9K46T2K5XMQpac4pKvGrLbTCDwc0HzLR84IturpqF0b3ojriLZ1jP18rGEN5GP1Ij0aL0rH/iUaT
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCTv+EKsLUqwcRX1JxlLh/GxhyDLgeZox8faFC7FcyPcSGEQyHuuhPuQNDtpZghCBSlqF2oUrRIJVOi0GvsHXzEAo9fO2/CCG/2TGmZhxfrLuDqx7qx43mj9EAaKowG6xmmdjxbladAbHQWGVKo4vG753IGWjbMejU7Tkv4ylvYZRMJMubigF/gTWjjEtyEN7Mm89sZBOUlPTAZU+klL4VU2lYxvCILSQ4KDEqvDBVoSup+nA1VjXdwfVwSH04iYkGUax0C7OFZm9zqqyhpm56J4RmalRZEPDnr+6EomxXVhuMGGVZ3YUz67T1Qw6tVJbSLd6zc3wDPxOH+N4KieD1
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRXbY+wcMq0zSE6lF8xiL83cQk/7/Y4uV1AQ+9LlyV4F2hCUKXzXFXhNzpWFP0xWd4rtwgQ6zK188fOwl+YZHnfE/LswbSeNsjjbYm+z2ijMbrMMCcooY+hoVJI3tAx+7EUc8RKRs07hSGmmP8NhfuRghZw04nzui+fJkAE/Wd09Y1a+s5GucLbjJJEDJzuuvy/12Vow2QrGLNtbcr3N5SquZmp5nhHfua6NFQgVZ6jO17+2MqqcXObxFQzmWte7QKa1g6UoE/v1/WcOxmYkrYyMVtts7TKMXVWF/Kj+qOLnj9VIgWNHZ38hztb2nOiIQVrwz9bLx0UDZ29dm0zS5b
+    uid: "9000"
+  - name: "runuser"
+    group: "rungroup"
+    uid: "30000"
+
+default_user: runuser
+default_group: rungroup
+nginx_host_letsencrypt_email: djbatcat@gmail.com
+
+digitalocean_token:
+docker_username:
+docker_password:
+docker_email:

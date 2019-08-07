@@ -1,0 +1,21 @@
+---
+- name: "Ensure SSH is configured"
+  lineinfile:
+    path: "/etc/ssh/sshd_config"
+    state: "present"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  notify: "Restart sshd"
+  loop:
+    - { regexp: "^PermitRootLogin", line: "PermitRootLogin yes" }
+    - { regexp: "^PubkeyAuthentication", line: "PubkeyAuthentication yes" }
+    - { regexp: "^PasswordAuthentication", line: "PasswordAuthentication no" }
+    - { regexp: "^X11Forwarding", line: "X11Forwarding no" }
+    - { regexp: "^MaxAuthTries", line: "MaxAuthTries 2" }
+    - { regexp: "^AllowTcpForwarding", line: "AllowTcpForwarding yes" }
+    - { regexp: "^ClientAliveCountMax", line: "ClientAliveCountMax 3" }
+    - { regexp: "^ClientAliveInterval", line: "ClientAliveInterval 60" }
+    - { regexp: "^Compression" , line: "Compression delayed" }
+    - { regexp: "^MaxSessions", line: "MaxSessions 2" }
+    - { regexp: "^TCPKeepAlive", line: "TCPKeepAlive no" }
+    - { regexp: "^AllowAgentForwarding" , line: "AllowAgentForwarding no" }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Image
 {
@@ -18,7 +19,7 @@ class Image
     protected $filePath = '';
     /** @var string $publicPath */
     protected $publicPath = '';
-    /** @var resource|null $resource */
+    /** @var UploadedFile|null $resource */
     protected $resource;
 
     /**
@@ -94,18 +95,18 @@ class Image
     }
 
     /**
-     * @return resource|null
+     * @return UploadedFile|null
      */
-    public function getResource(): ?resource
+    public function getResource(): ?UploadedFile
     {
         return $this->resource;
     }
 
     /**
-     * @param resource|null $resource
+     * @param UploadedFile|null $resource
      * @return Image
      */
-    public function setResource(?resource $resource): Image
+    public function setResource(?UploadedFile $resource): Image
     {
         $this->resource = $resource;
         return $this;

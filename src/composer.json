@@ -20,7 +20,9 @@
         "symfony/templating": "4.3.*",
         "symfony/translation": "4.3.*",
         "symfony/validator": "4.3.*",
-        "symfony/yaml": "4.3.*"
+        "symfony/yaml": "4.3.*",
+        "ext-http": "*",
+        "ext-fileinfo": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.2",

@@ -43,6 +43,7 @@ class Developer extends User
     {
         parent::__construct();
 
+        $this->roles = ['ROLE_DEVELOPER'];
         $this->receivedNotifications = new ArrayCollection();
         $this->sentMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();

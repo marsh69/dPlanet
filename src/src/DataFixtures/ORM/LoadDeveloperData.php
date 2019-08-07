@@ -56,6 +56,7 @@ class LoadDeveloperData extends Fixture implements OrderedFixtureInterface
             ->setFirstName('developer')
             ->setLastName('developer')
             ->setEnabled(true)
+            ->setRoles(['ROLE_DEVELOPER'])
             ->setEmail('developer@dplanet.com');
 
         $manager->persist($developer);
@@ -68,6 +69,7 @@ class LoadDeveloperData extends Fixture implements OrderedFixtureInterface
                 ->setEmail($this->faker->email)
                 ->setEnabled($this->faker->boolean(80))
                 ->setPassword($this->developerPassword)
+                ->setRoles(['ROLE_DEVELOPER'])
                 ->setUsername($this->faker->userName);
 
             $this->setReference("user_$i", $developer);

@@ -1,0 +1,3 @@
+---
+- import_tasks: "build.yml"
+- import_tasks: "publish.yml"

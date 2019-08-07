@@ -21,7 +21,6 @@ services:
     environment:
       DATABASE_NAME: dplanet
       DATABASE_USER: dplanet
-      DATABASE_HOSTNAME: mysql
       REDIS_HOST: redis
       REDIS_PORT: 6379
 
@@ -39,20 +38,6 @@ services:
       cache_max_age: 60m
     networks:
       - nginx
-
-  mysql:
-    image: mysql:5.7
-    networks:
-      - mysql
-    volumes:
-      - db-data:/var/lib/mysql
-    restart: always
-    expose:
-      - 3306
-    environment:
-      MYSQL_DATABASE: dplanet
-      MYSQL_USER: dplanet
-      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
 
   # TODO: Ensure Redis is secure with username/password
   redis:

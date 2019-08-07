@@ -12,6 +12,7 @@ services:
       - ../src:/app/src:cached
       - ./php-fpm/bin/docker-entrypoint:/bin/docker-entrypoint:cached
     environment:
+      DATABASE_HOSTNAME: mysql
       DATABASE_PASSWORD: development
       APP_ENV: dev
       APP_DEBUG: "true"
@@ -38,7 +39,18 @@ services:
       - ./nginx/etc/nginx/temp:/etc/nginx/temp:cached
 
   mysql:
+    image: mysql:5.7
+    networks:
+      - mysql
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+    expose:
+      - 3306
     environment:
+      MYSQL_DATABASE: dplanet
+      MYSQL_USER: dplanet
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
       MYSQL_PASSWORD: development
     ports:
       - 3306:3306

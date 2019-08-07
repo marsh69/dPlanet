@@ -8,3 +8,4 @@ src/var
 /src/bin/.phpunit
 /src/.phpunit
 /src/.phpunit.result.cache
+*.retry

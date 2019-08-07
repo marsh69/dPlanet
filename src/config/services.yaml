@@ -1,9 +1,6 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    uploadDir: "%kernel.project_dir%/public/assets/images/uploads"
+    publicDir: "/assets/images/uploads"
 
 services:
     # default configuration for services in *this* file
@@ -28,3 +25,9 @@ services:
         class: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
         arguments:
             - '@snc_redis.default'
+
+    App\Service\UploadService:
+        class: App\Service\UploadService
+        arguments:
+            $uploadDir: '%uploadDir%'
+            $publicDir: '%publicDir%'

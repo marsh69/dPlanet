@@ -1,0 +1,17 @@
+---
+- name: "Build images with tag {{ docker_tag }}"
+  docker_image:
+    path: "{{ item.path }}"
+    dockerfile: "{{ item.dockerfile }}"
+    name: "{{ item.name }}"
+    tag: "{{ docker_tag }}"
+    buildargs: "{{ item.buildargs | default(omit) }}"
+  with_items: "{{ docker_images }}"
+
+- name: "Add latest tag to built images"
+  docker_image:
+    name: "{{ item.name }}:{{ docker_tag }}"
+    repository: "{{ item.name }}:latest"
+    pull: no
+  with_items: "{{ docker_images }}"
+  when: add_latest_tag

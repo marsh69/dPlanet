@@ -1,0 +1,7 @@
+---
+- name: "Ensure users in docker group"
+  user:
+    name: "{{ item.name }}"
+    groups: [docker]
+    append: yes
+  with_items: "{{ common_users }}"

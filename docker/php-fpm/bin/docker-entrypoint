@@ -24,6 +24,7 @@ then
   fi
   mkdir -p /home/php/.composer
   chown -R php:php /home/php
+  cp /app/src/bin/composer /bin/composer
 
   cat <<-EOF > /usr/local/etc/php/conf.d/xdebug.ini
 xdebug.remote_enable=1

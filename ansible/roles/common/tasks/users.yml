@@ -1,0 +1,32 @@
+---
+- name: "Ensure groups"
+  group:
+    name: "{{ item.name }}"
+    state: present
+    system: "{{ item.system | default(omit) }}"
+    gid: "{{ item.gid }}"
+  with_items: "{{ common_groups }}"
+
+- name: "Ensure users"
+  user:
+    group: "{{ item.group | default(omit) }}"
+    name: "{{ item.name }}"
+    groups: "{{ item.groups | default(omit) }}"
+    password: "{{ item.password | default(omit) }}"
+    shell: /bin/bash
+    uid: "{{ item.uid }}"
+  with_items: "{{ common_users }}"
+
+- name: "Ensure sudo permissions"
+  lineinfile:
+    path: /etc/sudoers
+    regexp: '^%{{ item }}'
+    line: '%{{ item }} ALL=(ALL:ALL) NOPASSWD:ALL'
+    validate: 'visudo -cf %s'
+  with_items: "{{ sudo_groups }}"
+
+- name: "Ensure authorized keys"
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.authorized_key | default('') }}"
+  with_items: "{{ common_users }}"
