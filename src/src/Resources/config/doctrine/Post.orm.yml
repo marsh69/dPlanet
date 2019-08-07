@@ -7,7 +7,18 @@ App\Entity\Post:
       generator:
         strategy: UUID
   fields:
-    # TODO: Add other fields
+    body:
+      type: text
+      options:
+        default: ''
+    isDeleted:
+      type: boolean
+      options:
+        default: false
+    isClosedByUser:
+      type: boolean
+      options:
+        default: false
     createdAt:
       type: datetime
       nullable: true
@@ -20,3 +31,20 @@ App\Entity\Post:
       gedmo:
         timestampable:
           on: update
+  manyToOne:
+    postedBy:
+      targetEntity: Developer
+      mappedBy: posts
+      inversedBy: posts
+  oneToMany:
+    likes:
+      targetEntity: Like
+      mappedBy: post
+      inversedBy: post
+    comments:
+      targetEntity: Comment
+      mappedBy: postedTo
+      inversedBy: postedTo
+  oneToOne:
+    image:
+      targetEntity: Image

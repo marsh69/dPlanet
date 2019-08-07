@@ -38,6 +38,36 @@ composer.install: ## Run composer install in the php container in development
 composer.update: ## Run composer update in the php container in development
 	make php.run cmd="bin/composer update"
 
+fixtures: ## Throw away the database and fill it with test data (only in development!)
+	make php.run cmd="bin/console doctrine:fixtures:load -n"
+
+migrations.diff: ## Generate a new migration based on the ORM files
+	make php.run cmd="bin/console doctrine:cache:clear-metadata"
+	make php.run cmd="bin/console doctrine:migrations:diff"
+
+migrations.migrate: ## Migrate the database
+	make php.run cmd="bin/console doctrine:migrations:migrate -n"
+
+schema.validate: ## Validate the mapping settings
+	make php.run cmd="bin/console doctrine:cache:clear-metadata"
+	make php.run cmd="bin/console doctrine:schema:validate"
+
+database.reset: ## Delete and recreate the database, then fill it with fixture data
+	echo ""
+	echo "I sincerely hope you know what you're doing..."
+	echo "Deleting database..."
+	echo ""
+	make php.run cmd="bin/console doctrine:database:drop --force"
+	make php.run cmd="bin/console doctrine:database:create"
+	make migrations.migrate
+	make fixtures
+
+cache.clear: ## Clear the cache
+	make php.run cmd="bin/console cache:clear"
+	make php.run cmd="bin/console doctrine:cache:clear-metadata"
+	make php.run cmd="bin/console doctrine:cache:clear-query"
+	make php.run cmd="bin/console doctrine:cache:clear-result"
+
 restart: ## Restart containers
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet restart
 

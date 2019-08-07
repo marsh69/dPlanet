@@ -1,5 +1,6 @@
 App\Entity\Like:
   type: entity
+  table: app_likes
   id:
     id:
       type: string
@@ -7,7 +8,10 @@ App\Entity\Like:
       generator:
         strategy: UUID
   fields:
-    # TODO: Add other fields
+    isDeleted:
+      type: boolean
+      options:
+        default: false
     createdAt:
       type: datetime
       nullable: true
@@ -20,3 +24,12 @@ App\Entity\Like:
       gedmo:
         timestampable:
           on: update
+  manyToOne:
+    developer:
+      targetEntity: Developer
+      mappedBy: likes
+      inversedBy: likes
+    post:
+      targetEntity: Post
+      mappedBy: likes
+      inversedBy: likes

@@ -7,6 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class FriendRequest
 {
     use IdTrait;
+    use IsDeletedTrait;
     use TimestampableEntity;
 
     /** @var Developer|null $sender */

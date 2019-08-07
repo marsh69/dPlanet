@@ -7,6 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Like
 {
     use IdTrait;
+    use IsDeletedTrait;
     use TimestampableEntity;
 
     /** @var Developer|null $developer */

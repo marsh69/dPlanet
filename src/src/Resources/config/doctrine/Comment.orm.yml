@@ -7,7 +7,14 @@ App\Entity\Comment:
       generator:
         strategy: UUID
   fields:
-    # TODO: Add other fields
+    body:
+      type: text
+      options:
+        default: ''
+    isDeleted:
+      type: boolean
+      options:
+        default: false
     createdAt:
       type: datetime
       nullable: true
@@ -20,3 +27,13 @@ App\Entity\Comment:
       gedmo:
         timestampable:
           on: update
+
+  manyToOne:
+    postedBy:
+      targetEntity: Developer
+      mappedBy: comments
+      inversedBy: comments
+    postedTo:
+      targetEntity: Post
+      mappedBy: comments
+      inversedBy: comments

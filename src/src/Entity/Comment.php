@@ -7,6 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Comment
 {
     use IdTrait;
+    use IsDeletedTrait;
     use TimestampableEntity;
 
     /** @var string $body */
@@ -15,8 +16,6 @@ class Comment
     protected $postedBy;
     /** @var Post|null $postedTo */
     protected $postedTo;
-    /** @var bool $isDeleted */
-    protected $isDeleted = false;
 
     /**
      * @return string
@@ -69,24 +68,6 @@ class Comment
     public function setPostedTo(?Post $postedTo): Comment
     {
         $this->postedTo = $postedTo;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDeleted(): bool
-    {
-        return $this->isDeleted;
-    }
-
-    /**
-     * @param bool $isDeleted
-     * @return Comment
-     */
-    public function setIsDeleted(bool $isDeleted): Comment
-    {
-        $this->isDeleted = $isDeleted;
         return $this;
     }
 }

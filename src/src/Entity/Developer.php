@@ -17,8 +17,8 @@ class Developer extends User
     protected $lastName = '';
     /** @var Image|null $profileImage */
     protected $profileImage;
-    /** @var Notification[]|Collection $notifications */
-    protected $notifications;
+    /** @var Notification[]|Collection $receivedNotifications */
+    protected $receivedNotifications;
     /** @var Message[]|Collection $sentMessages */
     protected $sentMessages;
     /** @var Message[]|Collection $receivedMessages */
@@ -27,6 +27,14 @@ class Developer extends User
     protected $likes;
     /** @var Comment[]|Collection $comments */
     protected $comments;
+    /** @var Notification[]|Collection $sentNotifications */
+    protected $sentNotifications;
+    /** @var Post[]|Collection $posts */
+    protected $posts;
+    /** @var FriendRequest[]|Collection $sentFriendRequests */
+    protected $sentFriendRequests;
+    /** @var FriendRequest[]|Collection $receivedFriendRequests */
+    protected $receivedFriendRequests;
 
     /**
      * Developer constructor.
@@ -35,11 +43,14 @@ class Developer extends User
     {
         parent::__construct();
 
-        $this->notifications = new ArrayCollection();
+        $this->receivedNotifications = new ArrayCollection();
         $this->sentMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->posts = new ArrayCollection();
+        $this->sentFriendRequests = new ArrayCollection();
+        $this->receivedFriendRequests = new ArrayCollection();
     }
 
     /**
@@ -99,18 +110,18 @@ class Developer extends User
     /**
      * @return Notification[]|Collection
      */
-    public function getNotifications()
+    public function getReceivedNotifications()
     {
-        return $this->notifications;
+        return $this->receivedNotifications;
     }
 
     /**
-     * @param Notification[]|Collection $notifications
+     * @param Notification[]|Collection $receivedNotifications
      * @return Developer
      */
-    public function setNotifications($notifications)
+    public function setReceivedNotifications($receivedNotifications)
     {
-        $this->notifications = $notifications;
+        $this->receivedNotifications = $receivedNotifications;
         return $this;
     }
 
@@ -184,5 +195,117 @@ class Developer extends User
     {
         $this->comments = $comments;
         return $this;
+    }
+
+    /**
+     * @return Notification[]|Collection
+     */
+    public function getSentNotifications()
+    {
+        return $this->sentNotifications;
+    }
+
+    /**
+     * @param Notification[]|Collection $sentNotifications
+     * @return Developer
+     */
+    public function setSentNotifications($sentNotifications)
+    {
+        $this->sentNotifications = $sentNotifications;
+        return $this;
+    }
+
+    /**
+     * @return Post[]|Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param Post[]|Collection $posts
+     * @return Developer
+     */
+    public function setPosts($posts)
+    {
+        $this->posts = $posts;
+        return $this;
+    }
+
+    /**
+     * @return FriendRequest[]|Collection
+     */
+    public function getSentFriendRequests()
+    {
+        return $this->sentFriendRequests;
+    }
+
+    /**
+     * @param FriendRequest[]|Collection $sentFriendRequests
+     * @return Developer
+     */
+    public function setSentFriendRequests($sentFriendRequests)
+    {
+        $this->sentFriendRequests = $sentFriendRequests;
+        return $this;
+    }
+
+    /**
+     * @return FriendRequest[]|Collection
+     */
+    public function getReceivedFriendRequests()
+    {
+        return $this->receivedFriendRequests;
+    }
+
+    /**
+     * @param FriendRequest[]|Collection $receivedFriendRequests
+     * @return Developer
+     */
+    public function setReceivedFriendRequests($receivedFriendRequests)
+    {
+        $this->receivedFriendRequests = $receivedFriendRequests;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfPosts(): int
+    {
+        return count($this->posts);
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfComments(): int
+    {
+        return count($this->comments);
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfLikes(): int
+    {
+        return count($this->likes);
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfSentMessages(): int
+    {
+        return count($this->sentMessages);
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfReceivedMessages(): int
+    {
+        return count($this->receivedFriendRequests);
     }
 }

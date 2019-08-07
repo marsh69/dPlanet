@@ -7,7 +7,10 @@ App\Entity\FriendRequest:
       generator:
         strategy: UUID
   fields:
-    # TODO: Add other fields
+    isDeleted:
+      type: boolean
+      options:
+        default: false
     createdAt:
       type: datetime
       nullable: true
@@ -20,3 +23,12 @@ App\Entity\FriendRequest:
       gedmo:
         timestampable:
           on: update
+  manyToOne:
+    sender:
+      targetEntity: Developer
+      mappedBy: sentFriendRequests
+      inversedBy: sentFriendRequests
+    receiver:
+      targetEntity: Developer
+      mappedBy: receivedFriendRequests
+      inversedBy: receivedFriendRequests

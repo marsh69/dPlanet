@@ -7,6 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Image
 {
     use IdTrait;
+    use IsDeletedTrait;
     use TimestampableEntity;
 
     /** @var string|null $mimeType */

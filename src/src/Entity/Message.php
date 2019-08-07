@@ -7,6 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Message
 {
     use IdTrait;
+    use IsDeletedTrait;
     use TimestampableEntity;
 
     /** @var Developer $sender */
@@ -15,19 +16,8 @@ class Message
     protected $receiver;
     /** @var string $body */
     protected $body = '';
-    /** @var \DateTime $date */
-    protected $date;
     /** @var bool $isOpened */
     protected $isOpened = false;
-
-    /**
-     * Message constructor.
-     * @throws \Exception
-     */
-    public function __construct()
-    {
-        $this->date = new \DateTime();
-    }
 
     /**
      * @return Developer
@@ -80,24 +70,6 @@ class Message
     public function setBody(string $body): Message
     {
         $this->body = $body;
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDate(): \DateTime
-    {
-        return $this->date;
-    }
-
-    /**
-     * @param \DateTime $date
-     * @return Message
-     */
-    public function setDate(\DateTime $date): Message
-    {
-        $this->date = $date;
         return $this;
     }
 

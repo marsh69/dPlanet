@@ -40,3 +40,5 @@ services:
   mysql:
     environment:
       MYSQL_PASSWORD: development
+    ports:
+      - 3306:3306

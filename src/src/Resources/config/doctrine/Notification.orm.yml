@@ -7,7 +7,22 @@ App\Entity\Notification:
       generator:
         strategy: UUID
   fields:
-    # TODO: Add other fields
+    message:
+      type: text
+      options:
+        default: ''
+    isViewed:
+      type: boolean
+      options:
+        default: false
+    isOpened:
+      type: boolean
+      options:
+        default: false
+    isDeleted:
+      type: boolean
+      options:
+        default: false
     createdAt:
       type: datetime
       nullable: true
@@ -20,3 +35,12 @@ App\Entity\Notification:
       gedmo:
         timestampable:
           on: update
+  manyToOne:
+    sender:
+      targetEntity: Developer
+      mappedBy: sentNotifications
+      inversedBy: sentNotifications
+    receiver:
+      targetEntity: Developer
+      mappedBy: receivedNotifications
+      inversedBy: receivedNotifications

@@ -7,7 +7,18 @@ App\Entity\Message:
       generator:
         strategy: UUID
   fields:
-    # TODO: Add other fields
+    body:
+      type: text
+      options:
+        default: ''
+    isOpened:
+      type: boolean
+      options:
+        default: false
+    isDeleted:
+      type: boolean
+      options:
+        default: false
     createdAt:
       type: datetime
       nullable: true
@@ -20,3 +31,12 @@ App\Entity\Message:
       gedmo:
         timestampable:
           on: update
+  manyToOne:
+    sender:
+      targetEntity: Developer
+      mappedBy: sentMessages
+      inversedBy: sentMessages
+    receiver:
+      targetEntity: Developer
+      mappedBy: receivedMessages
+      inversedBy: receivedMessages

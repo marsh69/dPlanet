@@ -9,6 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Post
 {
     use IdTrait;
+    use IsDeletedTrait;
     use TimestampableEntity;
 
     /** @var string $body */
@@ -19,6 +20,8 @@ class Post
     protected $isDeleted = false;
     /** @var bool $isClosedByUser */
     protected $isClosedByUser = false;
+    /** @var Comment[]|Collection $comments */
+    protected $comments;
     /** @var Collection|Like[] $likes */
     protected $likes;
     /** @var Image|null $image */
@@ -30,6 +33,7 @@ class Post
     public function __construct()
     {
         $this->likes = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -137,6 +141,24 @@ class Post
     public function setImage(?Image $image): Post
     {
         $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return Comment[]|Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Comment[]|Collection $comments
+     * @return Post
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
         return $this;
     }
 }

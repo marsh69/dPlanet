@@ -7,7 +7,26 @@ App\Entity\Image:
       generator:
         strategy: UUID
   fields:
-    # TODO: Add other fields
+    isDeleted:
+      type: boolean
+      options:
+        default: false
+    mimeType:
+      type: string
+      options:
+        default: ''
+    filename:
+      type: string
+      options:
+        default: ''
+    filePath:
+      type: string
+      options:
+        default: ''
+    publicPath:
+      type: string
+      options:
+        default: ''
     createdAt:
       type: datetime
       nullable: true

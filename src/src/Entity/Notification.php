@@ -7,6 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Notification
 {
     use IdTrait;
+    use IsDeletedTrait;
     use TimestampableEntity;
 
     /** @var Developer|null $sender */
@@ -15,10 +16,10 @@ class Notification
     protected $receiver;
     /** @var string $message */
     protected $message = '';
-    /** @var bool $viewed */
-    protected $viewed = false;
-    /** @var bool $opened */
-    protected $opened = false;
+    /** @var bool $isViewed */
+    protected $isViewed = false;
+    /** @var bool $isOpened */
+    protected $isOpened = false;
 
     /**
      * @return Developer|null
@@ -79,16 +80,16 @@ class Notification
      */
     public function isViewed(): bool
     {
-        return $this->viewed;
+        return $this->isViewed;
     }
 
     /**
-     * @param bool $viewed
+     * @param bool $isViewed
      * @return Notification
      */
-    public function setViewed(bool $viewed): Notification
+    public function setIsViewed(bool $isViewed): Notification
     {
-        $this->viewed = $viewed;
+        $this->isViewed = $isViewed;
         return $this;
     }
 
@@ -97,16 +98,16 @@ class Notification
      */
     public function isOpened(): bool
     {
-        return $this->opened;
+        return $this->isOpened;
     }
 
     /**
-     * @param bool $opened
+     * @param bool $isOpened
      * @return Notification
      */
-    public function setOpened(bool $opened): Notification
+    public function setIsOpened(bool $isOpened): Notification
     {
-        $this->opened = $opened;
+        $this->isOpened = $isOpened;
         return $this;
     }
 }

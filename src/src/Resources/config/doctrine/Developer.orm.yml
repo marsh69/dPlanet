@@ -16,7 +16,6 @@ App\Entity\Developer:
       type: string
       options:
         default: ''
-    # TODO: Add remaining fields
     createdAt:
       type: datetime
       nullable: true
@@ -29,3 +28,39 @@ App\Entity\Developer:
       gedmo:
         timestampable:
           on: update
+  oneToMany:
+    receivedNotifications:
+      targetEntity: Notification
+      mappedBy: receiver
+    sentMessages:
+      targetEntity: Message
+      mappedBy: sender
+      inversedBy: sender
+    receivedMessages:
+      targetEntity: Message
+      mappedBy: receiver
+    likes:
+      targetEntity: Like
+      mappedBy: developer
+      inversedBy: developer
+    comments:
+      targetEntity: Comment
+      mappedBy: postedBy
+      inversedBy: postedBy
+    sentNotifications:
+      targetEntity: Notification
+      mappedBy: sender
+    posts:
+      targetEntity: Post
+      mappedBy: postedBy
+      inversedBy: posts
+    sentFriendRequests:
+      targetEntity: FriendRequest
+      mappedBy: sender
+      inversedBy: sender
+    receivedFriendRequests:
+      targetEntity: FriendRequest
+      mappedBy: receiver
+  oneToOne:
+    profileImage:
+      targetEntity: Image

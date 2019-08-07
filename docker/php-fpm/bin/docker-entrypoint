@@ -22,7 +22,7 @@ then
   else
     echo "Skipping APK installation, already done"
   fi
-  mkdir /home/php
+  mkdir -p /home/php/.composer
   chown -R php:php /home/php
 
   cat <<-EOF > /usr/local/etc/php/conf.d/xdebug.ini
