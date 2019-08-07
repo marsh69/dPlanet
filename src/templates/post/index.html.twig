@@ -1,0 +1,16 @@
+{% extends "@App/base.html.twig" %}
+
+{% block container %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>This is a test page! Posts:</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                {{ post.body }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
