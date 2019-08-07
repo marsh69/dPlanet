@@ -24,4 +24,13 @@ class PostService
         $this->em = $em;
         $this->repository = $em->getRepository(Post::class);
     }
+
+    /**
+     * @param Post $post
+     */
+    public function save(Post $post): void
+    {
+        $this->em->persist($post);
+        $this->em->flush();
+    }
 }
