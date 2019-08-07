@@ -29,11 +29,11 @@ Run the command `make` to see a list of make commands that you can use.
 -  ~~Add form types for all orm mappings~~
 -  ~~Discuss deployment technique (Ansible)~~
 -  ~~Discuss collaboration / code review process~~
+-  ~~Create a dockerhub account for the project~~
 -  Build login screen -> half done, layout needs to be fixed
 -  Build layout (and discuss front- and backend integration)
 -  Add tests
 -  Add more documentation
--  Create a dockerhub account for the project
 -  Discuss database management / backup management
 -  Add translations for multinationality
 
