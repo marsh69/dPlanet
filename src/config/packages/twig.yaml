@@ -4,3 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
     paths:
         '%kernel.project_dir%/templates': App
+    form_themes: ['bootstrap_3_layout.html.twig']

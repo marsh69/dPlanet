@@ -48,9 +48,11 @@ App\Entity\Post:
   oneToOne:
     image:
       targetEntity: Image
+      cascade: [persist, remove]
   manyToMany:
     trends:
       targetEntity: Trend
+      inversedBy: posts
       joinColumns:
         trend_id:
           referencedColumnName: id

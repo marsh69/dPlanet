@@ -3,9 +3,12 @@
 src/vendor
 src/var
 /src/public/bundles/
+/src/public/assets/images/uploads/*
 /src/var/
 /src/vendor/
 /src/bin/.phpunit
 /src/.phpunit
 /src/.phpunit.result.cache
 *.retry
+/src/.php_cs
+/src/.php_cs.cache

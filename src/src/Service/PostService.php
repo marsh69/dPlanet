@@ -28,11 +28,19 @@ class PostService
     }
 
     /**
-     * @return Post[]
+     * @return Post[]|object[]
      */
     public function findAll(): array
     {
         return $this->repository->findAll();
+    }
+
+    /**
+     * @return Post[]|object[]
+     */
+    public function findActive(): array
+    {
+        return $this->repository->findBy(['isDeleted' => false]);
     }
 
     /**
@@ -45,6 +53,16 @@ class PostService
             $post->setImage($newImage);
         }
 
+        $this->em->persist($post);
+        $this->em->flush();
+    }
+
+    /**
+     * @param Post $post
+     */
+    public function delete(Post $post): void
+    {
+        $post->setIsDeleted(true);
         $this->em->persist($post);
         $this->em->flush();
     }

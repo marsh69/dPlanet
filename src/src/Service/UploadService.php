@@ -41,12 +41,12 @@ class UploadService
             return null;
         }
 
-        $fileName = md5(uniqid());
+        $fileName = md5(uniqid()) . '.' . $uploadedFile->guessClientExtension();
         $filePath = $this->uploadDir . DIRECTORY_SEPARATOR . $fileName;
-        $publicPath = $this->uploadDir . "/$fileName";
+        $publicPath = $this->publicDir . "/$fileName";
         $mimeType = mime_content_type($uploadedFile->getPathname());
 
-        move_uploaded_file($uploadedFile->getFilename(), $filePath);
+        $uploadedFile->move($this->uploadDir, $fileName);
 
         $image->setFilename($fileName);
         $image->setFilePath($filePath);

@@ -51,6 +51,17 @@ Run the command `make` to see a list of make commands that you can use.
 
 (WIP)
 
+### Style fixer
+
+All PHP code in this repository **must** be PSR compliant, to make this requirement
+easy to achieve you can run the command `make php.fix` to fix all your php code. It is
+also advisable to install php-cs-fixer in your IDE.
+
+### PhpStan
+
+To check if your php code is properly structured and does not contain easy-to-miss bugs
+we have set up PhpStan for you. You can run this checker by using `make php.stan`
+
 ### PhpMyAdmin
 
 In development phpmyadmin is running over at `http://localhost:8000`, you can

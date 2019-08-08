@@ -1,0 +1,3 @@
+App\Entity\Post:
+  body:
+    - Min: 5

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use App\Entity\Trend;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -23,7 +24,12 @@ class PostType extends AbstractType
             ->add('image', ImageType::class)
             ->add('trends', EntityType::class, [
                 'label' => 'Trends',
-                'multiple' => true
+                'multiple' => true,
+                'class' => Trend::class,
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
         ;
     }

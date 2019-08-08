@@ -182,4 +182,12 @@ class Post
         $this->trends = $trends;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfComments(): int
+    {
+        return count($this->comments);
+    }
 }

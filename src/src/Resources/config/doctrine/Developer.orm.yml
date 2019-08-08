@@ -64,3 +64,4 @@ App\Entity\Developer:
   oneToOne:
     profileImage:
       targetEntity: Image
+      cascade: [persist, remove]

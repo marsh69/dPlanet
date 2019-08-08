@@ -12,7 +12,7 @@ use Faker\Generator;
 
 class LoadPostData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 30;
+    const AMOUNT = 10;
 
     /** @var Generator $faker */
     protected $faker;
@@ -38,7 +38,8 @@ class LoadPostData extends Fixture implements OrderedFixtureInterface
                 ->setBody($this->faker->realText(400))
                 ->setIsClosedByUser($this->faker->boolean(90))
                 ->setTrends(new ArrayCollection([
-                    $this->getReference('trend_'. random_int(0, LoadTrendData::AMOUNT))
+                    $this->getReference('trend_'. random_int(0, LoadTrendData::AMOUNT)),
+                    $this->getReference('trend_'. random_int(0, LoadTrendData::AMOUNT)),
                 ]));
 
             $this->setReference("post_$i", $post);
