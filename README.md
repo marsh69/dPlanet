@@ -1,6 +1,6 @@
 # dPlanet
 
-![Developers planet banner](src/public/assets/images/backgrounds/banner1.png 'banner')
+![Developers planet banner](src/public/assets/images/backgrounds/banner2.png 'banner')
 
 A simple social media website to enhance your development skills.
 
