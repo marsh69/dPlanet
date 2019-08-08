@@ -1,0 +1,7 @@
+index:
+  prefix: ''
+  resource: "routes/index.yaml"
+
+posts:
+  prefix: posts
+  resource: "routes/posts.yaml"

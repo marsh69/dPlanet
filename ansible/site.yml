@@ -1,0 +1,26 @@
+---
+- hosts: all
+  gather_facts: no
+  tags: server_install
+  tasks:
+    - name: Ensure python
+      raw: sudo apt update && sudo apt -y install python
+
+- name: Ensure common roles
+  hosts: all
+  roles:
+    - { tags: server_install, role: geerlingguy.docker }
+    - { tags: server_install, role: geerlingguy.certbot }
+    - { tags: server_install, role: geerlingguy.pip }
+    - { tags: server_install, role: common }
+
+- name: Ensure dPlanet images
+  hosts: localhost
+  connection: local
+  roles:
+    - { tags: build_images, publish_images, role: dPlanet-images }
+
+- name: Ensure dPlanet
+  hosts: dPlanet
+  roles:
+    - { tags: server_deploy, role: dPlanet }

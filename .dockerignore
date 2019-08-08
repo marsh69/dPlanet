@@ -1,0 +1,14 @@
+.dockerignore
+.gitignore
+Makefile
+README.md
+docs/
+docker/nginx/Dockerfile
+docker/php-fpm/Dockerfile
+docker/docker-compose.yml
+docker/docker-compose.dev.yml
+src/var
+src/vendor
+src/bin/phpunit
+src/bin/composer
+src/public/save

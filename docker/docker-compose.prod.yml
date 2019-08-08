@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  nginx:
+    image: dplanet/nginx:${docker_tag}
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+    environment:
+      server_name: ${server_name}
+      hsts_max_time: 30000000
+      cache_max_time: 120m
+      fastcgi_cache_valid: 1m
+  php-fpm:
+    image: dplanet/php-fpm:${docker_tag}

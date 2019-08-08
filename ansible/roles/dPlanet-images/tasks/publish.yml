@@ -1,0 +1,23 @@
+---
+- name: "Ensure Docker login"
+  docker_login:
+    username: "{{ docker_username }}"
+    email: "{{ docker_email }}"
+    password: "{{ docker_password }}"
+  when: publish_images
+
+- name: "Push tagged images to registry with tag {{ docker_tag }}"
+  docker_image:
+    name: "{{ item.name }}"
+    tag: "{{ docker_tag }}"
+    push: yes
+  with_items: "{{ docker_images }}"
+  when: publish_images
+
+- name: "Push tagged images to registry with tag latest"
+  docker_image:
+    name: "{{ item.name }}"
+    tag: "latest"
+    push: yes
+  with_items: "{{ docker_images }}"
+  when: add_latest_tag and publish_images

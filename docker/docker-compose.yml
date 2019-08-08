@@ -1,0 +1,46 @@
+version: '3.3'
+
+networks:
+  nginx: ~
+  mysql: ~
+  cache: ~
+
+volumes:
+  db-data: ~
+  log: ~
+
+services:
+  php-fpm:
+    image: dplanet/php-fpm:latest
+    restart: always
+    expose:
+      - 9000
+    networks:
+      - nginx
+      - mysql
+      - cache
+    environment:
+      DATABASE_NAME: dplanet
+      DATABASE_USER: dplanet
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+  nginx:
+    image: dplanet/nginx:latest
+    restart: always
+    ports:
+      - 80:8080
+      - 443:8443
+    volumes:
+      - log:/var/log/nginx
+    networks:
+      - nginx
+
+  # TODO: Ensure Redis is secure with username/password
+  redis:
+    image: redis:5.0.5-alpine
+    restart: always
+    networks:
+      - cache
+    expose:
+      - 6379

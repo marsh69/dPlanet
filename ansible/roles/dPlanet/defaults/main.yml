@@ -1,0 +1,23 @@
+digitalocean_token: ""
+nginx_host_letsencrypt_email: example@example.com
+
+base_dir: ../../../..
+project_dir: /srv/app
+project_name: dplanet
+project_dir_files:
+  - { src: "{{ base_dir }}/docker/docker-compose.yml", dest: "{{ project_dir }}"}
+  - { src: "{{ base_dir }}/docker/docker-compose.prod.yml", dest: "{{ project_dir }}"}
+  - { src: "{{ base_dir }}/Makefile", dest: "{{ project_dir }}"}
+
+default_user: root
+default_group: root
+
+nginx_config_dir: /etc/dplanet/nginx
+nginx_files:
+  - { src: "{{ base_dir }}/docker/nginx/nginx.conf", dest: "{{ nginx_config_dir }}/nginx.conf" }
+  - { src: "{{ base_dir }}/docker/nginx/conf.d", dest: "{{ nginx_config_dir }}" }
+
+nginx_static_dir: /etc/dplanet/static
+nginx_static_files: []
+
+docker_secrets_directory: /run/secrets

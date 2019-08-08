@@ -1,0 +1,28 @@
+<html lang="en">
+    <head>
+        {% block head %}
+        <title>{% block title %}Developers Planet{% endblock %}</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            {% block stylesheets %}
+                <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/bootstrap.css') }}">
+                <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/style.css?sd') }}">
+                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+            {% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            {% include "@App/shared/header.html.twig" %}
+            {% block container %}{% endblock %}
+            {% include "@App/shared/footer.html.twig" %}
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('/assets/js/jquery-3.3.1.min.js') }}"></script>
+            <script src="{{ asset('/assets/js/bootstrap.js') }}"></script>
+            <script src="{{ asset('/assets/js/bootbox.min.js') }}"></script>
+            <script src="{{ asset('/assets/js/demo.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

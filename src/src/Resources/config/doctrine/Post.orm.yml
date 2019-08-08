@@ -1,0 +1,50 @@
+App\Entity\Post:
+  type: entity
+  id:
+    id:
+      type: string
+      id: true
+      generator:
+        strategy: UUID
+  fields:
+    body:
+      type: text
+      options:
+        default: ''
+    isDeleted:
+      type: boolean
+      options:
+        default: false
+    isClosedByUser:
+      type: boolean
+      options:
+        default: false
+    createdAt:
+      type: datetime
+      nullable: true
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      nullable: true
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    postedBy:
+      targetEntity: Developer
+      mappedBy: posts
+      inversedBy: posts
+  oneToMany:
+    likes:
+      targetEntity: Like
+      mappedBy: post
+      inversedBy: post
+    comments:
+      targetEntity: Comment
+      mappedBy: postedTo
+      inversedBy: postedTo
+  oneToOne:
+    image:
+      targetEntity: Image

@@ -1,0 +1,17 @@
+---
+- name: "Ensure user sessions are secure"
+  package:
+    name: "libpam-tmpdir"
+    state: "present"
+
+- name: "Ensure debian-goodies"
+  package:
+    name: "debian-goodies"
+    state: "present"
+
+- name: "Ensure kernel is hardened"
+  sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: "present"
+  loop: "{{ common_security_sysctl|dict2items }}"

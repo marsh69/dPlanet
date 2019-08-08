@@ -1,0 +1,33 @@
+parameters:
+    uploadDir: "%kernel.project_dir%/public/assets/images/uploads"
+    publicDir: "/assets/images/uploads"
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    app.cache.adapter:
+        class: Symfony\Component\Cache\Adapter\RedisAdapter
+        arguments:
+            - "@snc_redis.default"
+
+    app.session.handler:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
+        arguments:
+            - '@snc_redis.default'
+
+    App\Service\UploadService:
+        class: App\Service\UploadService
+        arguments:
+            $uploadDir: '%uploadDir%'
+            $publicDir: '%publicDir%'

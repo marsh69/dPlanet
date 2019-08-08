@@ -1,0 +1,5 @@
+fos_user:
+  resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+main:
+  resource: 'config/routes.yaml'

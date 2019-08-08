@@ -1,0 +1,11 @@
+.idea/
+.vscode/
+src/vendor
+src/var
+/src/public/bundles/
+/src/var/
+/src/vendor/
+/src/bin/.phpunit
+/src/.phpunit
+/src/.phpunit.result.cache
+*.retry

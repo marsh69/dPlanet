@@ -1,0 +1,66 @@
+App\Entity\Developer:
+  type: entity
+  table: fos_user
+  id:
+    id:
+      type: string
+      id: true
+      generator:
+        strategy: UUID
+  fields:
+    firstName:
+      type: string
+      options:
+        default: ''
+    lastName:
+      type: string
+      options:
+        default: ''
+    createdAt:
+      type: datetime
+      nullable: true
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      nullable: true
+      gedmo:
+        timestampable:
+          on: update
+  oneToMany:
+    receivedNotifications:
+      targetEntity: Notification
+      mappedBy: receiver
+    sentMessages:
+      targetEntity: Message
+      mappedBy: sender
+      inversedBy: sender
+    receivedMessages:
+      targetEntity: Message
+      mappedBy: receiver
+    likes:
+      targetEntity: Like
+      mappedBy: developer
+      inversedBy: developer
+    comments:
+      targetEntity: Comment
+      mappedBy: postedBy
+      inversedBy: postedBy
+    sentNotifications:
+      targetEntity: Notification
+      mappedBy: sender
+    posts:
+      targetEntity: Post
+      mappedBy: postedBy
+      inversedBy: posts
+    sentFriendRequests:
+      targetEntity: FriendRequest
+      mappedBy: sender
+      inversedBy: sender
+    receivedFriendRequests:
+      targetEntity: FriendRequest
+      mappedBy: receiver
+  oneToOne:
+    profileImage:
+      targetEntity: Image
