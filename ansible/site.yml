@@ -8,6 +8,8 @@
 
 - name: Ensure common roles
   hosts: all
+  vars_files:
+    - shared_vars/vault.yml
   roles:
     - { tags: server_install, role: geerlingguy.docker }
     - { tags: server_install, role: geerlingguy.certbot }
@@ -17,10 +19,14 @@
 - name: Ensure dPlanet images
   hosts: localhost
   connection: local
+  vars_files:
+    - shared_vars/vault.yml
   roles:
     - { tags: build_images, publish_images, role: dPlanet-images }
 
 - name: Ensure dPlanet
   hosts: dPlanet
+  vars_files:
+    - shared_vars/vault.yml
   roles:
     - { tags: server_deploy, role: dPlanet }
