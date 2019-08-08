@@ -48,3 +48,12 @@ App\Entity\Post:
   oneToOne:
     image:
       targetEntity: Image
+  manyToMany:
+    trends:
+      targetEntity: Trend
+      joinColumns:
+        trend_id:
+          referencedColumnName: id
+      inverseJoinColumns:
+        post_id:
+          referencedColumnName: id

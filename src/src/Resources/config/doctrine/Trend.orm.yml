@@ -1,0 +1,29 @@
+App\Entity\Trend:
+   type: entity
+   id:
+     id:
+       type: string
+       id: true
+       generator:
+         strategy: UUID
+   fields:
+     name:
+       type: string
+       options:
+         default: ''
+     createdAt:
+       type: datetime
+       nullable: true
+       gedmo:
+         timestampable:
+           on: create
+     updatedAt:
+       type: datetime
+       nullable: true
+       gedmo:
+         timestampable:
+           on: update
+   manyToMany:
+    posts:
+      targetEntity: Post
+      mappedBy: trends
