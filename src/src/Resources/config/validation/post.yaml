@@ -1,0 +1,11 @@
+App\Entity\Post:
+  properties:
+    body:
+      - NotBlank: ~
+      - Length:
+          min: 5
+          max: 1000
+    trends:
+      - Count:
+          min: 0
+          max: 5
