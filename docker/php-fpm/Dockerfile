@@ -34,7 +34,7 @@ WORKDIR /app/src
 
 COPY --chown=php:php --from=builder /app/src/vendor /app/src/vendor
 COPY --chown=php:php docker/php-fpm /
-COPY src/ /app/src/
+COPY --chown=php:php src/ /app/src/
 
 ENV APP_ENV prod
 ENV APP_DEBUG false
