@@ -24,6 +24,7 @@ class ImageService
     {
         $this->em = $em;
         $this->repository = $em->getRepository(Image::class);
+        $this->uploadService = $uploadService;
     }
 
     /**
