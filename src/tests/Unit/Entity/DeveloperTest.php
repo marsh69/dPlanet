@@ -15,4 +15,7 @@ class DeveloperTest extends TestCase
 
     /** @var string $class */
     protected $class = Developer::class;
+
+    /** @var array $excludedGetters */
+    protected $excludedGetters = ['getRoles'];
 }
