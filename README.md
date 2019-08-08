@@ -13,8 +13,7 @@ make use of the makefile.
 Setting up the application is as easy as:
 1. `git clone` the application and navigate to the project's directory
 2. Run `make up` to start the application in development mode
-3. Run `make composer.install` to install the dependencies in the php containers
-4. Go to [localhost](https://localhost) to see the application, this might take some time 
+3. Go to [localhost](https://localhost) to see the application, this might take some time 
 
 Additionally you can also use `make fixtures` to generate test data and clear
 the database.
