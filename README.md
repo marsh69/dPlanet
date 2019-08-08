@@ -48,4 +48,8 @@ Run the command `make` to see a list of make commands that you can use.
 ## Deployment
 
 (WIP)
-=======
+
+### PhpMyAdmin
+
+In development phpmyadmin is running over at `http://localhost:8000`, you can
+use this interface to directly view the data in the database.

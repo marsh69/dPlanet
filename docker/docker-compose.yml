@@ -2,7 +2,6 @@ version: '3.3'
 
 networks:
   nginx: ~
-  mysql: ~
   cache: ~
 
 volumes:
@@ -17,7 +16,6 @@ services:
       - 9000
     networks:
       - nginx
-      - mysql
       - cache
     environment:
       DATABASE_NAME: dplanet
