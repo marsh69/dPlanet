@@ -4,6 +4,7 @@ namespace App\DataFixtures\ORM;
 
 use App\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -35,7 +36,10 @@ class LoadPostData extends Fixture implements OrderedFixtureInterface
                     $this->getReference('user_' . random_int(0, LoadDeveloperData::AMOUNT))
                 )
                 ->setBody($this->faker->realText(400))
-                ->setIsClosedByUser($this->faker->boolean(90));
+                ->setIsClosedByUser($this->faker->boolean(90))
+                ->setTrends(new ArrayCollection([
+                    $this->getReference('trend_'. random_int(0, LoadTrendData::AMOUNT))
+                ]));
 
             $this->setReference("post_$i", $post);
 

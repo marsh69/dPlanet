@@ -3,6 +3,9 @@ version: '3.3'
 volumes:
   development_ssl: ~
 
+networks:
+  mysql: ~
+
 services:
   php-fpm:
     build:
@@ -11,6 +14,8 @@ services:
     volumes:
       - ../src:/app/src:cached
       - ./php-fpm/bin/docker-entrypoint:/bin/docker-entrypoint:cached
+    networks:
+      - mysql
     environment:
       DATABASE_HOSTNAME: mysql
       DATABASE_PASSWORD: development
@@ -23,6 +28,16 @@ services:
       context: ssl-dev
     volumes:
       - development_ssl:/ssl
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    networks:
+      - mysql
+      - nginx
+    environment:
+      PMA_HOST: mysql
+    ports:
+      - 8000:80
 
   nginx:
     build:
