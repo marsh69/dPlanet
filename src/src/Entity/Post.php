@@ -24,6 +24,8 @@ class Post
     protected $comments;
     /** @var Collection|Like[] $likes */
     protected $likes;
+    /** @var Trend[]|Collection $trends */
+    protected $trends;
     /** @var Image|null $image */
     protected $image;
 
@@ -34,6 +36,7 @@ class Post
     {
         $this->likes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->trends = new ArrayCollection();
     }
 
     /**
@@ -159,6 +162,24 @@ class Post
     public function setComments($comments)
     {
         $this->comments = $comments;
+        return $this;
+    }
+
+    /**
+     * @return Trend[]|Collection
+     */
+    public function getTrends()
+    {
+        return $this->trends;
+    }
+
+    /**
+     * @param Trend[]|Collection $trends
+     * @return Post
+     */
+    public function setTrends($trends)
+    {
+        $this->trends = $trends;
         return $this;
     }
 }
