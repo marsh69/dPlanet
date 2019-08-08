@@ -20,6 +20,16 @@ down: ## Stop containers
 php.run: ## Run a command in the php container, requires a 'cmd' argument
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm ${cmd}
 
+php.fix: ## Run the php-cs-fixer over all the code in the repository
+	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm /app/src/vendor/bin/php-cs-fixer fix /app/src/src
+
+php.stan: ## Run phpstan to check php code
+	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm /app/src/vendor/bin/phpstan analyze -c /app/src/phpstan.neon --level=4 -a autoload.php /app/src/src
+
+php.hooks: ## Run hooks like phpstan and php-cs-fixer
+	make php.fix
+	make php.stan
+
 test: ## Run phpunit tests
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit
 

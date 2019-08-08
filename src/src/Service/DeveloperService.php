@@ -28,11 +28,19 @@ class DeveloperService
     }
 
     /**
-     * @return Developer[]
+     * @return Developer[]|object[]
      */
     public function findAll(): array
     {
         return $this->repository->findAll();
+    }
+
+    /**
+     * @return Developer[]|object[]
+     */
+    public function findActive(): array
+    {
+        return $this->repository->findBy(['isDeleted' => false]);
     }
 
     /**

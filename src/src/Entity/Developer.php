@@ -309,4 +309,12 @@ class Developer extends User
     {
         return count($this->receivedFriendRequests);
     }
+
+    /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
 }

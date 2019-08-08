@@ -11,7 +11,7 @@ use Faker\Generator;
 
 class LoadCommentData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 30;
+    const AMOUNT = 20;
 
     /** @var Generator $faker */
     protected $faker;

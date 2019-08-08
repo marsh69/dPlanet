@@ -1,16 +1,41 @@
 {% extends "@App/base.html.twig" %}
 
 {% block container %}
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>This is a test page! Posts:</h1>
-    <ul>
-        {% for post in posts %}
-            <li>
-                {{ post.body }}
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col-12">
+            <h1>Posts of today</h1>
+            <p>Note that this is just an example page for now!</p>
+            <a href="{{ path('posts.create') }}">
+                <button class="btn btn-primary">New</button>
+            </a>
+            <hr/>
+            {% for post in posts %}
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        {{ post.postedBy.fullName }} posted:
+                    </div>
+                    <div class="panel-body">
+                        {% if post.image %}
+                            <img src="{{ post.image.publicPath }}" style="max-width: 300px" alt="{{ post.image.filename }}">
+                        {% endif %}
+                        <p>{{ post.body }}</p>
+                        <p class="text-muted">
+                            Trends: {{ post.trends | map(trend => trend.name) | join(', ') }}
+                        </p>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-default">
+                            {{ post.amountOfComments }} comments
+                        </button>
+                        <a href="{{ path('posts.edit', { 'post': post.id }) }}">
+                            <button class="btn btn-primary">Edit</button>
+                        </a>
+                        <a href="{{ path('posts.delete', { 'post': post.id }) }}">
+                            <button class="btn btn-danger">Delete</button>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

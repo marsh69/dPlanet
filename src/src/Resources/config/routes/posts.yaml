@@ -1,3 +1,15 @@
 posts.index:
   path: /
   controller: App\Controller\PostController::index
+
+posts.create:
+  path: /new
+  controller: App\Controller\PostController::create
+
+posts.edit:
+  path: /{post}/edit
+  controller: App\Controller\PostController::edit
+
+posts.delete:
+  path: /{post}/delete
+  controller: App\Controller\PostController::delete

@@ -12,7 +12,30 @@ use Faker\Generator;
 
 class LoadTrendData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 50;
+    const AMOUNT = 20;
+    const TRENDS = [
+        'Java',
+        'Deep Learning',
+        'Scrum',
+        'Kanban',
+        'C#', #5
+        'C++',
+        'C',
+        'PHP',
+        'Javascript',
+        'ReactJS', #10
+        'AngularJS',
+        'VueJS',
+        'Docker',
+        'Kubernetes',
+        'K8S', #15
+        'OpenShift',
+        'Ansible',
+        'Symfony',
+        'EntityFramework',
+        'A.I.', #20
+        'UX'
+    ];
 
     /** @var Generator $faker */
     protected $faker;
@@ -30,11 +53,11 @@ class LoadTrendData extends Fixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < self::AMOUNT + 1; $i++) {
+        foreach (self::TRENDS as $key => $trendName) {
             $trend = (new Trend())
-                ->setName($this->faker->word);
+                ->setName($trendName);
 
-            $this->setReference("trend_$i", $trend);
+            $this->setReference("trend_$key", $trend);
 
             $manager->persist($trend);
         }

@@ -17,7 +17,7 @@ trait IdTrait
 
     /**
      * @param string $id
-     * @return IdTrait
+     * @return self
      */
     public function setId(string $id)
     {

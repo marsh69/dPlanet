@@ -17,7 +17,7 @@ trait IsDeletedTrait
 
     /**
      * @param bool $isDeleted
-     * @return IsDeletedTrait
+     * @return self
      */
     public function setIsDeleted(bool $isDeleted)
     {
