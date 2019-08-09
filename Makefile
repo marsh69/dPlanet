@@ -30,7 +30,7 @@ php.hooks: ## Run hooks like phpstan and php-cs-fixer
 	make php.fix
 	make php.stan
 
-yarn.add: ## Open the webpack devserver shell, requires a 'cmd' argument
+yarn.add: ## Add a dependency to the yarn container for webpack
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u node webpack yarn add --ignore-engines ${cmd}
 
 test: ## Run phpunit tests
