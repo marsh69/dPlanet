@@ -1,6 +1,6 @@
 parameters:
-    uploadDir: "%kernel.project_dir%/public/assets/images/uploads"
-    publicDir: "/assets/images/uploads"
+    uploadDir: "%kernel.project_dir%/public/uploads"
+    publicDir: "/uploads"
 
 services:
     _defaults:

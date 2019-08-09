@@ -1,6 +1,6 @@
 # dPlanet
 
-![Developers planet banner](src/public/assets/images/backgrounds/banner2.png 'banner')
+![Developers planet banner](src/assets/images/backgrounds/banner2.png 'banner')
 
 A simple social media website to enhance your development skills.
 
@@ -33,6 +33,9 @@ Run the command `make` to see a list of make commands that you can use.
 -  ~~Discuss collaboration / code review process~~
 -  ~~Create a dockerhub account for the project~~
 -  Build login screen -> half done, layout needs to be fixed
+-  Add style fixer
+-  Add es linter
+-  Add prettier configuration
 -  Build layout
 -  Add tests
 -  Add more documentation
