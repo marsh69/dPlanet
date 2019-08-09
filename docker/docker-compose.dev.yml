@@ -29,6 +29,16 @@ services:
     volumes:
       - development_ssl:/ssl
 
+  webpack:
+    image: yarnpkg/node-yarn:node7
+    user: node
+    volumes:
+      - ../src:/app:cached
+    ports:
+      - 8080:8080
+    working_dir: /app
+    command: ["/bin/sh", "-c", "yarn install && npm rebuild node-sass && yarn watch"]
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     networks:

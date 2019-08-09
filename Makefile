@@ -30,6 +30,9 @@ php.hooks: ## Run hooks like phpstan and php-cs-fixer
 	make php.fix
 	make php.stan
 
+yarn.add: ## Open the webpack devserver shell, requires a 'cmd' argument
+	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u node webpack yarn add --ignore-engines ${cmd}
+
 test: ## Run phpunit tests
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit
 

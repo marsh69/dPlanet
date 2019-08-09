@@ -4,36 +4,20 @@
         <title>{% block title %}Developers Planet{% endblock %}</title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            {% block stylesheets %}
-                <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/bootstrap.css') }}">
-                <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/select2.css') }}">
-                <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/style.css') }}">
-                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-                <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
-            {% endblock %}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
         {% endblock %}
     </head>
     <body>
         {% block body %}
-            <div id="stars"></div>
-            <div id="stars2"></div>
-            <div id="stars3"></div>
             {% include "@App/shared/header.html.twig" %}
-            <div class="wrapper">
+            <div class="container">
                 {% block container %}{% endblock %}
             </div>
         {% endblock %}
         {% block javascripts %}
-            <script src="{{ asset('/assets/js/jquery-3.3.1.min.js') }}"></script>
-            <script src="{{ asset('/assets/js/bootstrap.js') }}"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-            <script>
-                // TODO: Refactor this later (frontend)
-                $(document).ready(function() {
-                    $('.select2').select2();
-                });
-            </script>
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </body>
 </html>
