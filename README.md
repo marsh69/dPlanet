@@ -33,7 +33,7 @@ Run the command `make` to see a list of make commands that you can use.
 -  ~~Discuss collaboration / code review process~~
 -  ~~Create a dockerhub account for the project~~
 -  Build login screen -> half done, layout needs to be fixed
--  Build layout (and discuss front- and backend integration)
+-  Build layout
 -  Add tests
 -  Add more documentation
 -  Discuss database management / backup management
