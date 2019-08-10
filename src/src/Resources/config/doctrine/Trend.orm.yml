@@ -11,6 +11,10 @@ App\Entity\Trend:
        type: string
        options:
          default: ''
+     isDeleted:
+       type: boolean
+       options:
+         default: false
      createdAt:
        type: datetime
        nullable: true

@@ -1,0 +1,10 @@
+App\Entity\Trend:
+  attributes:
+    id:
+      groups: [default, trend]
+    name:
+      groups: [default, trend]
+    hits:
+      groups: [trend]
+    posts:
+      groups: [trend]

@@ -190,4 +190,20 @@ class Post
     {
         return count($this->comments);
     }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfLikes(): int
+    {
+        return count($this->likes);
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfTrends(): int
+    {
+        return count($this->trends);
+    }
 }

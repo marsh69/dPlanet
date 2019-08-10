@@ -1,4 +1,4 @@
-FROM yarnpkg/node-yarn:node7 AS build
+FROM node:12.8.0-alpine AS build
 
 WORKDIR /build
 

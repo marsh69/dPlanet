@@ -1,0 +1,4 @@
+trends.index:
+  path: /
+  controller: App\Controller\TrendController::index
+  methods: [GET]

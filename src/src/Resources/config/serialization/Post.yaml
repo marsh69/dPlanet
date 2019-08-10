@@ -1,0 +1,20 @@
+App\Entity\Post:
+  attributes:
+    id:
+      groups: [default, post]
+    body:
+      groups: [post]
+    amountOfComments:
+      groups: [post]
+    amountOfLikes:
+      groups: [post]
+    amountOfTrends:
+      groups: [post]
+    postedBy:
+      groups: [post]
+    comments:
+      groups: [post]
+    trends:
+      groups: [post]
+    likes:
+      groups: [post]

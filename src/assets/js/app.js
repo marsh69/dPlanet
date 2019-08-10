@@ -1,10 +1,8 @@
-import 'jquery';
 import 'bootstrap-scss';
-import { activateSelect2 } from './select2';
+import { activateSelect2 } from './modules/select2';
+import { domContentLoadedCallback } from './utils/domcontentloadercallback';
 
 import '../images/backgrounds/logo.png';
 import '../css/app.scss';
 
-window.addEventListener('DOMContentLoaded', (event) => {
-    activateSelect2();
-});
+domContentLoadedCallback([activateSelect2]);

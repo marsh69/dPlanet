@@ -5,22 +5,30 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Service\PostService;
+use FOS\RestBundle\Context\Context;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PostController extends AbstractController
+class PostController extends AbstractFOSRestController
 {
     /** @var PostService $postService */
     protected $postService;
+    /** @var Context $defaultContext */
+    protected $defaultContext;
 
     /**
      * PostController constructor.
      * @param PostService $postService
+     * @param Context $context
      */
-    public function __construct(PostService $postService)
+    public function __construct(PostService $postService, Context $context)
     {
         $this->postService = $postService;
+        $this->defaultContext = $context;
+
+        $this->defaultContext->setGroups(['default', 'post']);
     }
 
     /**
@@ -29,9 +37,28 @@ class PostController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        return $this->render('@App/post/index.html.twig', [
-            'posts' => $this->postService->findActive()
-        ]);
+        $posts = $this->postService->findActive();
+
+        $view = $this->view($posts, 200)
+            ->setTemplateData(['posts' => $posts])
+            ->setTemplate('@App/post/index.html.twig')
+            ->setContext($this->defaultContext);
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @param Request $request
+     * @param Post $post
+     * @return Response
+     */
+    public function show(Request $request, Post $post): Response
+    {
+        $view = $this->view($post, 200)
+            ->setTemplateData(['post' => $post])
+            ->setContext($this->defaultContext);
+
+        return $this->handleView($view);
     }
 
     /**
@@ -51,11 +78,15 @@ class PostController extends AbstractController
             return $this->redirectToRoute('posts.index');
         }
 
-        return $this->render('@App/post/form.html.twig', [
-            'form' => $form->createView(),
-            'post' => $post,
-            'title' => 'New post'
-        ]);
+        $view = $this->view($form->getErrors(), 400)
+            ->setTemplateData([
+                'form' => $form->createView(),
+                'post' => $post,
+            ])
+            ->setTemplate('@App/post/form.html.twig')
+            ->setContext($this->defaultContext);
+
+        return $this->handleView($view);
     }
 
     /**
@@ -75,11 +106,15 @@ class PostController extends AbstractController
             return $this->redirectToRoute('posts.index');
         }
 
-        return $this->render('@App/post/form.html.twig', [
-            'form' => $form->createView(),
-            'post' => $post,
-            'title' => $post->getPostedBy()->getFirstName() . '\'s post'
-        ]);
+        $view = $this->view($form->getErrors(), 400)
+            ->setTemplateData([
+                'form' => $form->createView(),
+                'post' => $post,
+            ])
+            ->setTemplate('@App/post/form.html.twig')
+            ->setContext($this->defaultContext);
+
+        return $this->handleView($view);
     }
 
     /**
@@ -90,6 +125,11 @@ class PostController extends AbstractController
     public function delete(Request $request, Post $post): Response
     {
         $this->postService->delete($post);
-        return $this->redirectToRoute('posts.index');
+
+        $view = $this->redirectView('/posts')
+            ->setData($post)
+            ->setContext($this->defaultContext);
+
+        return $this->handleView($view);
     }
 }

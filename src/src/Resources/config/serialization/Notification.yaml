@@ -1,0 +1,4 @@
+App\Entity\Notification:
+  attributes:
+    id:
+      groups: [default, image]

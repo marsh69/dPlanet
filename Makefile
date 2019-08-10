@@ -20,6 +20,9 @@ down: ## Stop containers
 php.run: ## Run a command in the php container, requires a 'cmd' argument
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm ${cmd}
 
+php.sh: ## Open the shell of the php container
+	docker exec -u php -it dplanet_php-fpm_1 sh
+
 php.fix: ## Run the php-cs-fixer over all the code in the repository
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm /app/src/vendor/bin/php-cs-fixer fix /app/src/src
 
@@ -32,6 +35,9 @@ php.hooks: ## Run hooks like phpstan and php-cs-fixer
 
 yarn.add: ## Add a dependency to the yarn container for webpack
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u node webpack yarn add --ignore-engines ${cmd}
+
+webpack.restart: ## Restart the webpack container
+	docker restart dplanet_webpack_1
 
 test: ## Run phpunit tests
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit
