@@ -12,3 +12,5 @@ services:
       fastcgi_cache_valid: 1m
   php-fpm:
     image: dplanet/php-fpm:${docker_tag}
+    environment:
+      CORS_ALLOW_ORIGIN: thedeveloperplanet.com

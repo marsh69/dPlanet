@@ -1,0 +1,4 @@
+App\Entity\Like:
+  attributes:
+    id:
+      groups: [default, like]

@@ -15,9 +15,6 @@ snc_redis:
             client: cache
             entity_manager: default
             document_manager: default
-        result_cache:
-            client: cache
-            entity_manager: [default, read]
         query_cache:
             client: cache
             entity_manager: default

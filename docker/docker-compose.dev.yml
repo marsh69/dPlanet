@@ -19,6 +19,7 @@ services:
     environment:
       DATABASE_HOSTNAME: mysql
       DATABASE_PASSWORD: development
+      CORS_ALLOW_ORIGIN: localhost
       APP_ENV: dev
       APP_DEBUG: "true"
       APP_SECRET: thisisasampletokenthatiputhereonlyfordevelopmentproductionhasasecretsecretofcourse
@@ -30,7 +31,7 @@ services:
       - development_ssl:/ssl
 
   webpack:
-    image: yarnpkg/node-yarn:node7
+    image: node:12.8.0-alpine
     user: node
     volumes:
       - ../src:/app:cached

@@ -22,6 +22,7 @@ services:
       DATABASE_USER: dplanet
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      CORS_ALLOW_ORIGIN: localhost, thedeveloperplanet.com
 
   nginx:
     image: dplanet/nginx:latest

@@ -1,0 +1,4 @@
+App\Entity\Image:
+  attributes:
+    id:
+      groups: [default, image]

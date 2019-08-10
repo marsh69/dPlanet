@@ -1,0 +1,4 @@
+App\Entity\Comment:
+  attributes:
+    id:
+      groups: [default, comment]

@@ -7,6 +7,7 @@ Encore.setOutputPath(`${baseFolder}/public/assets`)
   .setPublicPath(publicAssetsFolder)
 
   .addEntry('app', `${baseFolder}/assets/js/app.js`)
+  .addEntry('posts', `${baseFolder}/assets/js/posts.js`)
 
   .splitEntryChunks()
 

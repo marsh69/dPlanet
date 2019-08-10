@@ -3,17 +3,17 @@ doctrine:
         # configure these for your database server
         driver: 'pdo_mysql'
         server_version: '5.7'
-        charset: utf8mb4
+        charset: utf8
         default_table_options:
-            charset: utf8mb4
-            collate: utf8mb4_unicode_ci
+            charset: utf8
+            collate: utf8
 
         host: '%env(resolve:DATABASE_HOSTNAME)%'
         dbname: '%env(resolve:DATABASE_NAME)%'
         user: '%env(resolve:DATABASE_USER)%'
         password: '%env(resolve:DATABASE_PASSWORD)%'
     orm:
-        auto_generate_proxy_classes: true
+        auto_generate_proxy_classes: false
         entity_managers:
             default:
                 naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -24,9 +24,6 @@ doctrine:
                     type: predis
                     host: "%env(REDIS_HOST)%"
                 query_cache_driver:
-                    type: predis
-                    host: "%env(REDIS_HOST)%"
-                result_cache_driver:
                     type: predis
                     host: "%env(REDIS_HOST)%"
                 mappings:

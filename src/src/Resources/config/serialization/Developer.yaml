@@ -1,0 +1,4 @@
+App\Entity\Developer:
+  attributes:
+    id:
+      groups: [default, developer]
