@@ -37,6 +37,7 @@ services:
     ports:
       - 8080:8080
     working_dir: /app
+    restart: always
     command: ["/bin/sh", "-c", "yarn install && npm rebuild node-sass && yarn watch"]
 
   phpmyadmin:
@@ -60,7 +61,7 @@ services:
       cache_max_age: 1
     volumes:
       - development_ssl:/etc/letsencrypt/live/localhost
-      - ../src/public/assets:/var/www/html/assets:cached
+      - ../src/public:/var/www/html:cached
       - ./nginx/etc/nginx/temp:/etc/nginx/temp:cached
 
   mysql:
