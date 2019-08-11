@@ -1,0 +1,5 @@
+---
+all:
+  hosts:
+    test.thedevelopersplanet.com:
+      ansible_user: root
