@@ -18,6 +18,7 @@ services:
       - nginx
       - cache
     environment:
+      DATABASE_HOSTNAME: mysql
       DATABASE_NAME: dplanet
       DATABASE_USER: dplanet
       REDIS_HOST: redis
@@ -43,3 +44,18 @@ services:
       - cache
     expose:
       - 6379
+
+  # TODO: Add a dedicated database later instead of using a container
+  mysql:
+    image: mysql:5.7
+    networks:
+      - mysql
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: dplanet
+      MYSQL_USER: dplanet
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'

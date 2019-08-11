@@ -1,5 +1,7 @@
 # dPlanet
 
+[![Build Status](https://travis-ci.com/marsh69/dPlanet.svg?branch=master)](https://travis-ci.com/marsh69/dPlanet)
+
 ![Developers planet banner](src/assets/images/backgrounds/banner2.png 'banner')
 
 A simple social media website to enhance your development skills.
