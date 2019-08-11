@@ -7,15 +7,6 @@
     owner: root
     group: root
 
-- name: "Prepare extra domain names"
-  set_fact:
-    additional_domain_command: ""
-
-- name: "Add extra domains to variable"
-  set_fact:
-    additional_domain_command: "{{ additional_domain_command }} -d {{ item }} -d *.{{item}}"
-  with_items: "{{ additional_domains }}"
-
 - name: "Run certbot challenges"
   command: "certbot certonly
     --agree-tos
@@ -23,7 +14,6 @@
     -m {{ nginx_host_letsencrypt_email }}
     -d {{ '*.' + inventory_hostname }}
     -d {{ inventory_hostname }}
-    {{ additional_domain_command }}
     --expand
     --dns-digitalocean-credentials=/etc/letsencrypt/credentials.ini
     -n"
