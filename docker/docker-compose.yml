@@ -47,7 +47,7 @@ services:
 
   # TODO: Add a dedicated database later instead of using a container
   mysql:
-    image: mysql:5.7
+    image: dplanet/mysql:latest
     networks:
       - mysql
     volumes:

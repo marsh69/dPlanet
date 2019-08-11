@@ -36,6 +36,24 @@
     email: "{{ docker_email }}"
     password: "{{ docker_password }}"
 
+- name: "Ensure {{ docker_secrets_directory }} folder exists"
+  file:
+    state: directory
+    path: "{{ docker_secrets_directory }}"
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+    mode: '550'
+
+- name: "Ensure vault secrets are in secret folder"
+  copy:
+    dest: "{{ docker_secrets_directory }}/{{ item.key }}"
+    content: "{{ item.value }}"
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+    mode: '550'
+  no_log: true
+  loop: "{{ lookup('dict', docker_secrets) }}"
+
 - name: "Restart Docker containers from {{ project_name }} with files in {{ project_dir }} with tag {{ docker_tag }}"
   environment:
     server_name: "{{ inventory_hostname }}"
