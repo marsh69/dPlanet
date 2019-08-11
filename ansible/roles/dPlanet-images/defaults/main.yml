@@ -2,6 +2,16 @@ docker_images:
   - dockerfile: docker/nginx/Dockerfile
     path: ../
     name: dplanet/nginx
+  - dockerfile: docker/php-fpm/Dockerfile
+    path: ../
+    name: dplanet/php-fpm
+#  TODO: Add these in
+#  - dockerfile: docker/redis/Dockerfile
+#    path: ./
+#    name: dplanet/redis
+#  - dockerfile: docker/mysql/Dockerfile
+#    path: ./
+#    name: dplanet/mysql
 
 docker_tag: latest
 add_latest_tag: yes

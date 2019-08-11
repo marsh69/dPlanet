@@ -93,11 +93,11 @@ cache.clear: ## Clear the cache
 restart: ## Restart containers
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet restart
 
-prod.up: ## Start containers
-	docker-compose -f docker/docker-compose.yml -p dplanet up -d
+vault.edit: ## Edit the secrets in the vault (requires .dplanet_password to be present
+	ansible-vault edit ansible/shared_vars/vault.yml --vault-password-file=../.dplanet-vault-password
 
-prod.down: ## Stop containers
-	docker-compose -f docker/docker-compose.yml -p dplanet down
+vault.expand: ## Expand the vault secrets locally
+	ansible-playbook -i ansible/inventories/development --vault-password-file=../.dplanet-vault-password ansible/expand-secrets-dev.yml
 
-prod.restart: ## Restart containers in production mdoe
-	docker-compose -f docker/docker-compose.yml -p dplanet restart
+ansible.deploy.test: ## Deploy latest build to the testserver manually
+	ansible-playbook -i ansible/inventories/test ansible/site.yml -e docker_tag=latest --vault-password-file=../.vault-password
