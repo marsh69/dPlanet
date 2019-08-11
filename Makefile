@@ -23,6 +23,9 @@ php.run: ## Run a command in the php container, requires a 'cmd' argument
 php.sh: ## Open the shell of the php container
 	docker exec -u php -it dplanet_php-fpm_1 sh
 
+php.logs: ## Get the php logs in realtime
+	docker logs -f dplanet_php-fpm_1
+
 php.fix: ## Run the php-cs-fixer over all the code in the repository
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm /app/src/vendor/bin/php-cs-fixer fix /app/src/src
 
