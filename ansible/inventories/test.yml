@@ -1,5 +1,7 @@
 ---
-all:
+dPlanet:
   hosts:
     test.thedevelopersplanet.com:
       ansible_user: root
+  vars:
+    publish_images: yes
