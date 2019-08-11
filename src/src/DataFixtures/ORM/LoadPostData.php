@@ -38,8 +38,8 @@ class LoadPostData extends Fixture implements OrderedFixtureInterface
                 ->setBody($this->faker->realText(400))
                 ->setIsClosedByUser($this->faker->boolean(90))
                 ->setTrends(new ArrayCollection([
-                    $this->getReference('trend_'. random_int(0, LoadTrendData::AMOUNT)),
-                    $this->getReference('trend_'. random_int(0, LoadTrendData::AMOUNT)),
+                    $this->getReference('trend_'. random_int(0, LoadTrendData::AMOUNT / 2)),
+                    $this->getReference('trend_'. random_int(LoadTrendData::AMOUNT / 2, LoadTrendData::AMOUNT)),
                 ]));
 
             $this->setReference("post_$i", $post);
