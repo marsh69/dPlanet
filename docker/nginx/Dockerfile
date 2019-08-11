@@ -9,8 +9,7 @@ RUN yarn install --ignore-engines \
 
 FROM nginx:1.17.2-alpine
 
-COPY --chown=root:root docker/nginx/ /
-COPY src/public/assets /var/www/html/assets/
+COPY docker/nginx/ /
 COPY --from=build /build/public/assets/ var/www/html/assets/
 
 ENTRYPOINT /bin/docker-entrypoint
