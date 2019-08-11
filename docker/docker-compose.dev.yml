@@ -17,7 +17,6 @@ services:
     networks:
       - mysql
     environment:
-      DATABASE_HOSTNAME: mysql
       DATABASE_PASSWORD: development
       CORS_ALLOW_ORIGIN: localhost
       APP_ENV: dev
@@ -66,18 +65,7 @@ services:
       - ./nginx/etc/nginx/temp:/etc/nginx/temp:cached
 
   mysql:
-    image: mysql:5.7
-    networks:
-      - mysql
-    volumes:
-      - db-data:/var/lib/mysql
-    restart: always
-    expose:
-      - 3306
     environment:
-      MYSQL_DATABASE: dplanet
-      MYSQL_USER: dplanet
-      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
       MYSQL_PASSWORD: development
     ports:
       - 3306:3306
