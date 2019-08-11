@@ -13,8 +13,8 @@ before_script:
   - echo -e $vaultpassword > ../.vault-password
 
 script: # TODO: Re-enable when we have servers
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ansible-playbook -i ansible/inventories/test ansible/site.yml -e docker_tag=stable-$TRAVIS_COMMIT --vault-password-file=../.vault-password -e publish_images=true; fi
-#  - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ansible-playbook -i ansible/inventories/test ansible/site.yml -e docker_tag=test-$TRAVIS_COMMIT --vault-password-file=../.vault-password -e publish_images=true; fi
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ansible-playbook -i ansible/inventories/test.yml ansible/site.yml -e docker_tag=stable-$TRAVIS_COMMIT --vault-password-file=../.vault-password -e publish_images=true; fi
+#  - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ansible-playbook -i ansible/inventories/test.yml ansible/site.yml -e docker_tag=test-$TRAVIS_COMMIT --vault-password-file=../.vault-password -e publish_images=true; fi
   - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ansible-playbook -i ansible/inventories/development ansible/site.yml --skip-tags=server_install -e docker_tag=unstable-$TRAVIS_COMMIT --vault-password-file=../.vault-password --tags=build_images; fi
 
 services:
