@@ -31,7 +31,8 @@ EOF
 
 fi
 
-su -s /bin/sh -c \
+. /bin/expand-secrets.sh && \
+  su -s /bin/sh -c \
     "bin/console cache:clear --env=${APP_ENV} --no-debug \
     && bin/console --no-interaction doctrine:cache:clear-metadata \
     && bin/console --no-interaction doctrine:cache:clear-query \

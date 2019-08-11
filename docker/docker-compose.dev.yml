@@ -65,6 +65,9 @@ services:
       - ./nginx/etc/nginx/temp:/etc/nginx/temp:cached
 
   mysql:
+    build:
+      context: ../
+      dockerfile: docker/mysql/Dockerfile
     environment:
       MYSQL_PASSWORD: development
     ports:

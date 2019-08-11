@@ -1,10 +1,16 @@
 version: '3.5'
 
+volumes:
+  uploads: ~
+  bundles: ~
+
 services:
   nginx:
     image: dplanet/nginx:${docker_tag}
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
+      - uploads:/var/www/html/uploads
+      - bundles:/var/www/html/bundles
     environment:
       server_name: ${server_name}
       hsts_max_time: 30000000
@@ -14,3 +20,19 @@ services:
     image: dplanet/php-fpm:${docker_tag}
     environment:
       CORS_ALLOW_ORIGIN: thedeveloperplanet.com
+      APP_ENV: prod
+      APP_DEBUG: "false"
+      DATABASE_PASSWORD: <<DOCKER-SECRET:DB_PASSWORD>>
+    volumes:
+      - uploads:/app/public/uploads
+      - bundles:/app/public/bundles
+    secrets:
+      - DB_PASSWORD
+  mysql:
+    image: dplanet/mysql:${docker_tag}
+    environment:
+      MYSQL_PASSWORD: <<DOCKER-SECRET:DB_PASSWORD>>
+
+secrets:
+  DB_PASSWORD:
+    file: ${secrets_folder}/DB_PASSWORD
