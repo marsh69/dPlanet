@@ -5,10 +5,12 @@ docker_images:
   - dockerfile: docker/php-fpm/Dockerfile
     path: ../
     name: dplanet/php-fpm
-#  TODO: Add these in
-#  - dockerfile: docker/redis/Dockerfile
-#    path: ./
-#    name: dplanet/redis
+    buildargs:
+      USER_ID: 30000
+      GROUP_ID: 20000
+  - dockerfile: docker/redis/Dockerfile
+    path: ../
+    name: dplanet/redis
   - dockerfile: docker/mysql/Dockerfile
     path: ../
     name: dplanet/mysql

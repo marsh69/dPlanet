@@ -36,9 +36,8 @@ services:
     networks:
       - nginx
 
-  # TODO: Ensure Redis is secure with username/password
   redis:
-    image: redis:5.0.5-alpine
+    image: dplanet/redis:latest
     restart: always
     networks:
       - cache

@@ -16,6 +16,7 @@
     -d {{ inventory_hostname }}
     --expand
     --dns-digitalocean-credentials=/etc/letsencrypt/credentials.ini
+    --dns-digitalocean-propagation-seconds=30
     -n"
 
 - name: "Copy service and timer templates for certbot"

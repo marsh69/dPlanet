@@ -23,16 +23,28 @@ services:
       APP_ENV: prod
       APP_DEBUG: "false"
       DATABASE_PASSWORD: <<DOCKER-SECRET:DB_PASSWORD>>
+      REDIS_PASSWORD: <<DOCKER-SECRET:REDIS_PASSWORD>>
     volumes:
       - uploads:/app/public/uploads
       - bundles:/app/public/bundles
     secrets:
       - DB_PASSWORD
+      - REDIS_PASSWORD
+
   mysql:
     image: dplanet/mysql:${docker_tag}
     environment:
       MYSQL_PASSWORD: <<DOCKER-SECRET:DB_PASSWORD>>
 
+  redis:
+    image: dplanet/redis:${docker_tag}
+    environment:
+      REDIS_PASSWORD: <<DOCKER-SECRET:REDIS_PASSWORD>>
+    secrets:
+      - REDIS_PASSWORD
+
 secrets:
   DB_PASSWORD:
     file: ${secrets_folder}/DB_PASSWORD
+  REDIS_PASSWORD:
+    file: ${secrets_folder}/REDIS_PASSWORD
