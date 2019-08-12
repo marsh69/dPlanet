@@ -22,10 +22,10 @@ doctrine:
                     enabled: true
                 metadata_cache_driver:
                     type: predis
-                    host: "%env(REDIS_HOST)%"
+                    host: redis://%env(REDIS_PASSWORD)%@%env(REDIS_HOST)%/3"
                 query_cache_driver:
                     type: predis
-                    host: "%env(REDIS_HOST)%"
+                    host: redis://%env(REDIS_PASSWORD)%@%env(REDIS_HOST)%/4"
                 mappings:
                     App:
                         is_bundle: false

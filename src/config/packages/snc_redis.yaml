@@ -3,12 +3,12 @@ snc_redis:
         default:
             type: predis
             alias: default
-            dsn: "%env(REDIS_HOST)%"
+            dsn: "redis://%env(REDIS_PASSWORD)%@%env(REDIS_HOST)%/1"
             logging: true
         cache:
             type: predis
             alias: cache
-            dsn: "%env(REDIS_HOST)%"
+            dsn: "redis://%env(REDIS_PASSWORD)%@%env(REDIS_HOST)%/2"
             logging: true
     doctrine:
         metadata_cache:

@@ -1,8 +1,13 @@
 FROM php:7.3-fpm-alpine as builder
+
+ARG USER_ID
+ARG GROUP_ID
+
 COPY src/composer.json src/composer.lock src/symfony.lock /app/src/
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN addgroup -g 1000 php \
-    && adduser -u 1000 -s /bin/sh -S php \
+
+RUN addgroup -g ${GROUP_ID} php \
+    && adduser -u ${USER_ID} -s /bin/sh -S php \
     && mkdir -p /app \
     && chown -R php:php /app \
     && apk add --update --no-cache --virtual \
