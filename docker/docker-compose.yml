@@ -59,4 +59,4 @@ services:
     environment:
       MYSQL_DATABASE: dplanet
       MYSQL_USER: dplanet
-      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
