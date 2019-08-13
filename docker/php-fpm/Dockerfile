@@ -10,7 +10,7 @@ RUN addgroup -g ${GROUP_ID} php \
     && adduser -u ${USER_ID} -s /bin/sh -S php \
     && mkdir -p /app \
     && chown -R php:php /app \
-    && apk add --update --no-cache git \
+    && apk add --update git \
     && composer install -d /app/src --optimize-autoloader --no-interaction --no-suggest --no-scripts
 
 # Runtime
