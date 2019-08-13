@@ -35,7 +35,7 @@ services:
   mysql:
     environment:
       MYSQL_PASSWORD_FILE: /run/secrets/DB_PASSWORD
-      MYSQL_ROOT_PASSWORD: /run/secrets/DB_ROOT_PASSWORD
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/DB_ROOT_PASSWORD
     secrets:
       - DB_PASSWORD
       - DB_ROOT_PASSWORD
