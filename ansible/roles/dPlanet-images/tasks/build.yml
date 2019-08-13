@@ -6,7 +6,7 @@
       dockerfile: "{{ item.dockerfile }}"
       path: "{{ item.path }}"
       pull: false
-      buildargs: "{{ item.buildargs | default(omit) }}"
+      args: "{{ item.buildargs | default(omit) }}"
     name: "{{ item.name }}"
     tag: "{{ docker_tag }}"
   with_items: "{{ docker_images }}"
