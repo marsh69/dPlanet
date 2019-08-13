@@ -59,7 +59,7 @@
     server_name: "{{ inventory_hostname }}"
     docker_tag: "{{ docker_tag }}"
     secrets_folder: "{{ docker_secrets_directory }}"
-  docker_service:
+  docker_compose:
     state: present
     restarted: yes
     project_name: "{{ project_name }}"

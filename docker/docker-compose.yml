@@ -48,7 +48,7 @@ services:
 
   # TODO: Add a dedicated database later instead of using a container
   mysql:
-    image: dplanet/mysql:latest
+    image: mysql:5.7
     networks:
       - mysql
     volumes:
@@ -59,4 +59,3 @@ services:
     environment:
       MYSQL_DATABASE: dplanet
       MYSQL_USER: dplanet
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'

@@ -71,6 +71,7 @@ services:
       dockerfile: docker/mysql/Dockerfile
     environment:
       MYSQL_PASSWORD: development
+      MYSQL_ROOT_PASSWORD: developmentroot
     ports:
       - 3306:3306
 
