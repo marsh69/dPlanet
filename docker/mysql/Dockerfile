@@ -1,5 +1,5 @@
-FROM mysql:5.7
+FROM mysql:8.0
 
 COPY docker/expand-secrets.sh /bin/expand-secrets.sh
 
-CMD ["/bin/sh", "-c", ". /bin/expand-secrets.sh && /entrypoint.sh mysqld --bind-address=0.0.0.0"]
+CMD ["/bin/sh", "-c", ". /bin/expand-secrets.sh && docker-entrypoint.sh mysqld"]
