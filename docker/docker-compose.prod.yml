@@ -35,6 +35,8 @@ services:
     image: dplanet/mysql:${docker_tag}
     environment:
       MYSQL_PASSWORD: <<DOCKER-SECRET:DB_PASSWORD>>
+    secrets:
+      - DB_PASSWORD
 
   redis:
     image: dplanet/redis:${docker_tag}
