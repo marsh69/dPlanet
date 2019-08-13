@@ -18,6 +18,7 @@ services:
     networks:
       - nginx
       - cache
+      - mysql
     environment:
       DATABASE_HOSTNAME: mysql
       DATABASE_NAME: dplanet

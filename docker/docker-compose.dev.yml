@@ -3,9 +3,6 @@ version: '3.3'
 volumes:
   development_ssl: ~
 
-networks:
-  mysql: ~
-
 services:
   php-fpm:
     build:
