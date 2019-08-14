@@ -28,7 +28,7 @@ Encore.setOutputPath(`${baseFolder}/public/assets`)
 
   .enableSassLoader()
   .copyFiles({
-    from: '/app/assets/images',
+    from: `${baseFolder}/assets/images`,
     to: 'assets/[path][mname].[hash:8].[ext]',
   })
 

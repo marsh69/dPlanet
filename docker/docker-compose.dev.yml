@@ -34,10 +34,10 @@ services:
     image: node:12.8.0-alpine
     user: node
     volumes:
-      - ../src:/app:cached
+      - ../src:/app/src:cached
     ports:
       - 8080:8080
-    working_dir: /app
+    working_dir: /app/src
     restart: always
     command: ["/bin/sh", "-c", "yarn install && npm rebuild node-sass && yarn watch"]
 

@@ -7,7 +7,7 @@
       path: "{{ item.path }}"
       pull: false
       args: "{{ item.buildargs | default(omit) }}"
-      cache_from: "{{ item.name }}:latest"
+#      cache_from: "{{ item.name }}:latest" TODO: Fix this later in the pipeline
     name: "{{ item.name }}"
     tag: "{{ docker_tag }}"
   with_items: "{{ docker_images }}"
