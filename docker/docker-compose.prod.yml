@@ -36,6 +36,8 @@ services:
     environment:
       MYSQL_PASSWORD_FILE: /run/secrets/DB_PASSWORD
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/DB_ROOT_PASSWORD
+    ports:
+      - 127.0.0.1:6612:3306 # For SSH tunnels
     secrets:
       - DB_PASSWORD
       - DB_ROOT_PASSWORD
