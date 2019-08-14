@@ -1,4 +1,6 @@
 App\Entity\Notification:
   attributes:
     id:
-      groups: [default, image]
+      groups: [default, notification]
+    message:
+      groups: [default, notification]
