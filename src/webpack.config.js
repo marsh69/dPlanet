@@ -1,6 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
 
-const baseFolder = '/app';
+const baseFolder = '/app/src';
 const publicAssetsFolder = '/assets';
 
 Encore.setOutputPath(`${baseFolder}/public/assets`)

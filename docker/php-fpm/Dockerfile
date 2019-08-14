@@ -18,9 +18,9 @@ RUN addgroup -g ${GROUP_ID} php \
 # Webpack
 FROM node:12.8.0-alpine AS webpack
 
-WORKDIR /app
+WORKDIR /app/src
 
-COPY src/ /app/
+COPY src/ /app/src/
 
 RUN yarn install --ignore-engines \
     && yarn build
@@ -56,7 +56,7 @@ ENTRYPOINT "docker-entrypoint"
 COPY --chown=php:php docker/php-fpm /
 COPY --chown=php:php docker/expand-secrets.sh /bin/expand-secrets.sh
 COPY --chown=php:php --from=builder /app/src/vendor /app/src/vendor
-COPY --chown=php:php --from=webpack /app/public /app/public
+COPY --chown=php:php --from=webpack /app/src/public /app/src/public
 COPY --chown=php:php src/ /app/src/
 
 # Test with composer
