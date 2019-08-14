@@ -16,7 +16,7 @@ posts.edit:
 posts.delete:
   path: /{post}/delete
   controller: App\Controller\PostController::delete
-  methods: [GET, DELETE]
+  methods: [DELETE]
 
 posts.show:
   path: /{post}

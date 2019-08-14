@@ -18,3 +18,5 @@ App\Entity\Post:
       groups: [post]
     likes:
       groups: [post]
+    image:
+      groups: [post]

@@ -2,3 +2,5 @@ App\Entity\Developer:
   attributes:
     id:
       groups: [default, developer]
+    fullName:
+      groups: [default, developer]

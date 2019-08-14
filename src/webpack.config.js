@@ -33,6 +33,7 @@ Encore.setOutputPath(`${baseFolder}/public/assets`)
   })
 
   .enableReactPreset()
+  .enableTypeScriptLoader()
 
   // .enableEslintLoader()
 

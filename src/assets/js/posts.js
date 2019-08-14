@@ -1,14 +1,11 @@
-import { axios } from './modules/axios';
-import { domContentLoadedCallback } from './utils/domcontentloadercallback';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-/**
- * Try out axios to see if a json response is returned
- */
-const axiosDemo = () => {
-  axios
-    .get('/posts')
-    .then(res => res.data)
-    .then(jsonResult => console.log(jsonResult));
+import { domContentLoadedCallback } from './utils/domcontentloadercallback';
+import { PostList } from './react/components/post/PostList';
+
+const reactRender = () => {
+  ReactDOM.render(<PostList />, document.querySelector('#PostList'));
 };
 
-domContentLoadedCallback([axiosDemo]);
+domContentLoadedCallback([reactRender]);
