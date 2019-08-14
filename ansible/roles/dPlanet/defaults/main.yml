@@ -7,7 +7,6 @@ project_name: dplanet
 project_dir_files:
   - { src: "{{ base_dir }}/docker/docker-compose.yml", dest: "{{ project_dir }}"}
   - { src: "{{ base_dir }}/docker/docker-compose.prod.yml", dest: "{{ project_dir }}"}
-  - { src: "{{ base_dir }}/Makefile", dest: "{{ project_dir }}"}
 
 default_user: root
 default_group: root

@@ -48,7 +48,8 @@
   copy:
     dest: "{{ docker_secrets_directory }}/{{ item.key }}"
     content: "{{ item.value }}"
-    owner: "{{ default_user }}"
+#    owner: "{{ default_user }}"
+    owner: "999" # TODO: Fix this, mysql won't have permission tho these otherwise
     group: "{{ default_group }}"
     mode: '550'
   no_log: true
