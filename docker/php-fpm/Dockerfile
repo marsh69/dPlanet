@@ -48,16 +48,16 @@ RUN mkdir -p /app \
 
 WORKDIR /app/src
 
-COPY --chown=php:php --from=builder /app/src/vendor /app/src/vendor
-COPY --chown=php:php docker/php-fpm /
-COPY --chown=php:php src/ /app/src/
-COPY --chown=php:php --from=webpack /app/public /app/public
-COPY --chown=php:php docker/expand-secrets.sh /bin/expand-secrets.sh
-
 ENV APP_ENV prod
 ENV APP_DEBUG false
 
 ENTRYPOINT "docker-entrypoint"
+
+COPY --chown=php:php docker/php-fpm /
+COPY --chown=php:php docker/expand-secrets.sh /bin/expand-secrets.sh
+COPY --chown=php:php --from=builder /app/src/vendor /app/src/vendor
+COPY --chown=php:php --from=webpack /app/public /app/public
+COPY --chown=php:php src/ /app/src/
 
 # Test with composer
 FROM runtime AS test
