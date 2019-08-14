@@ -1,17 +1,23 @@
 ---
 - name: "Build images with tag {{ docker_tag }}"
   docker_image:
-    path: "{{ item.path }}"
-    dockerfile: "{{ item.dockerfile }}"
+    source: build
+    build:
+      dockerfile: "{{ item.dockerfile }}"
+      path: "{{ item.path }}"
+      pull: false
+      args: "{{ item.buildargs | default(omit) }}"
+#      cache_from: "{{ item.name }}:latest" TODO: Fix this later in the pipeline
     name: "{{ item.name }}"
     tag: "{{ docker_tag }}"
-    buildargs: "{{ item.buildargs | default(omit) }}"
   with_items: "{{ docker_images }}"
 
 - name: "Add latest tag to built images"
   docker_image:
+    source: pull
+    build:
+      pull: no
     name: "{{ item.name }}:{{ docker_tag }}"
     repository: "{{ item.name }}:latest"
-    pull: no
   with_items: "{{ docker_images }}"
-  when: add_latest_tag
+  when: add_latest_tag|bool

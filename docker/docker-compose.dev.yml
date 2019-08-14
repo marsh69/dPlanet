@@ -3,9 +3,6 @@ version: '3.3'
 volumes:
   development_ssl: ~
 
-networks:
-  mysql: ~
-
 services:
   php-fpm:
     build:
@@ -37,10 +34,10 @@ services:
     image: node:12.8.0-alpine
     user: node
     volumes:
-      - ../src:/app:cached
+      - ../src:/app/src:cached
     ports:
       - 8080:8080
-    working_dir: /app
+    working_dir: /app/src
     restart: always
     command: ["/bin/sh", "-c", "yarn install && npm rebuild node-sass && yarn watch"]
 
@@ -69,11 +66,9 @@ services:
       - ./nginx/etc/nginx/temp:/etc/nginx/temp:cached
 
   mysql:
-    build:
-      context: ../
-      dockerfile: docker/mysql/Dockerfile
     environment:
       MYSQL_PASSWORD: development
+      MYSQL_ROOT_PASSWORD: developmentroot
     ports:
       - 3306:3306
 

@@ -1,6 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
 
-const baseFolder = '/app';
+const baseFolder = '/app/src';
 const publicAssetsFolder = '/assets';
 
 Encore.setOutputPath(`${baseFolder}/public/assets`)
@@ -28,7 +28,7 @@ Encore.setOutputPath(`${baseFolder}/public/assets`)
 
   .enableSassLoader()
   .copyFiles({
-    from: '/app/assets/images',
+    from: `${baseFolder}/assets/images`,
     to: 'assets/[path][mname].[hash:8].[ext]',
   })
 

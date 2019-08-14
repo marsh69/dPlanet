@@ -98,6 +98,3 @@ vault.edit: ## Edit the secrets in the vault (requires .dplanet_password to be p
 
 vault.expand: ## Expand the vault secrets locally
 	ansible-playbook -i ansible/inventories/development --vault-password-file=../.dplanet-vault-password ansible/expand-secrets-dev.yml
-
-ansible.deploy.test: ## Deploy latest build to the testserver manually
-	ansible-playbook -i ansible/inventories/test ansible/site.yml -e docker_tag=latest --vault-password-file=../.vault-password

@@ -14,6 +14,17 @@ RUN addgroup -g ${GROUP_ID} php \
        git \
     && composer install -d /app/src --optimize-autoloader --no-interaction --no-suggest --no-scripts
 
+
+# Webpack
+FROM node:12.8.0-alpine AS webpack
+
+WORKDIR /app/src
+
+COPY src/ /app/src/
+
+RUN yarn install --ignore-engines \
+    && yarn build
+
 # Runtime
 FROM php:7.3-fpm-alpine AS runtime
 
@@ -37,15 +48,16 @@ RUN mkdir -p /app \
 
 WORKDIR /app/src
 
-COPY --chown=php:php --from=builder /app/src/vendor /app/src/vendor
-COPY --chown=php:php docker/php-fpm /
-COPY --chown=php:php src/ /app/src/
-COPY --chown=php:php docker/expand-secrets.sh /bin/expand-secrets.sh
-
 ENV APP_ENV prod
 ENV APP_DEBUG false
 
 ENTRYPOINT "docker-entrypoint"
+
+COPY --chown=php:php docker/php-fpm /
+COPY --chown=php:php docker/expand-secrets.sh /bin/expand-secrets.sh
+COPY --chown=php:php --from=builder /app/src/vendor /app/src/vendor
+COPY --chown=php:php --from=webpack /app/src/public /app/src/public
+COPY --chown=php:php src/ /app/src/
 
 # Test with composer
 FROM runtime AS test

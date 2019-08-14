@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.3'
 
 volumes:
   uploads: ~
@@ -16,6 +16,7 @@ services:
       hsts_max_time: 30000000
       cache_max_time: 120m
       fastcgi_cache_valid: 1m
+
   php-fpm:
     image: dplanet/php-fpm:${docker_tag}
     environment:
@@ -32,9 +33,14 @@ services:
       - REDIS_PASSWORD
 
   mysql:
-    image: dplanet/mysql:${docker_tag}
     environment:
-      MYSQL_PASSWORD: <<DOCKER-SECRET:DB_PASSWORD>>
+      MYSQL_PASSWORD_FILE: /run/secrets/DB_PASSWORD
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/DB_ROOT_PASSWORD
+    ports:
+      - 127.0.0.1:6612:3306 # For SSH tunnels
+    secrets:
+      - DB_PASSWORD
+      - DB_ROOT_PASSWORD
 
   redis:
     image: dplanet/redis:${docker_tag}
@@ -48,3 +54,5 @@ secrets:
     file: ${secrets_folder}/DB_PASSWORD
   REDIS_PASSWORD:
     file: ${secrets_folder}/REDIS_PASSWORD
+  DB_ROOT_PASSWORD:
+    file: ${secrets_folder}/DB_ROOT_PASSWORD
