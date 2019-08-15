@@ -1,12 +1,6 @@
 import * as React from 'react';
-import {Post} from "../../model/Post";
 
-type PostElementProps = {
-    post: Post;
-    key: number;
-}
-
-export const PostElement = ({post}: PostElementProps) => {
+export const PostElement = ({ post }) => {
   const getPostImage = () =>
     post.image ? (
       <img src={post.image.publicPath} alt={post.image.fileName} />

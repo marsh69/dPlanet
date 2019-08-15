@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { domContentLoadedCallback } from './utils/domcontentloadercallback';
+import { domContentLoadedCallback } from './modules/domcontentloadercallback';
 import { PostList } from './react/components/post/PostList';
 
 const reactRender = () => {
