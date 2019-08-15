@@ -33,9 +33,8 @@ Encore.setOutputPath(`${baseFolder}/public/assets`)
   })
 
   .enableReactPreset()
-  .enableTypeScriptLoader()
 
-  // .enableEslintLoader()
+  // .enableEslintLoader() TODO: Activate this
 
   .enableIntegrityHashes(Encore.isProduction());
 
