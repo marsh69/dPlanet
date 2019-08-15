@@ -2,13 +2,3 @@ App\Entity\Comment:
   attributes:
     id:
       groups: [default, comment]
-    body:
-      groups: [default, comment]
-    postedBy:
-      groups: [default, comment]
-    postedTo:
-      groups: [comment]
-    createdAt:
-      groups: [default, comment]
-    updatedAt:
-      groups: [default, comment]

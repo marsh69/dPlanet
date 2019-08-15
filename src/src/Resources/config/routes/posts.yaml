@@ -20,5 +20,5 @@ posts.delete:
 
 posts.show:
   path: /{post}
-  controller: App\Controller\PostController::show
+  controller: App\Controller\PostController:show
   methods: [GET]

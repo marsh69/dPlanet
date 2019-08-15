@@ -20,7 +20,3 @@ App\Entity\Post:
       groups: [post]
     image:
       groups: [post]
-    createdAt:
-      groups: [default, post]
-    updatedAt:
-      groups: [default, post]
