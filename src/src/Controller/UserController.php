@@ -19,6 +19,5 @@ class UserController extends AbstractFOSRestController
         return $this->render('user/index.html.twig',[
             'name' => $name
         ]);
-
     }
 }
