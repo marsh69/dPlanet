@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,8 +13,9 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
-    {   $name = $request->get('name');
+    public function index(Request $request): Response
+    {   
+        $name = $request->get('name');
         return $this->render('user/index.html.twig',[
             'name' => $name
         ]);
