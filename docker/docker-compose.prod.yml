@@ -26,8 +26,8 @@ services:
       DATABASE_PASSWORD: <<DOCKER-SECRET:DB_PASSWORD>>
       REDIS_PASSWORD: <<DOCKER-SECRET:REDIS_PASSWORD>>
     volumes:
-      - uploads:/app/public/uploads
-      - bundles:/app/public/bundles
+      - uploads:/app/src/public/uploads
+      - bundles:/app/src/public/bundles
     secrets:
       - DB_PASSWORD
       - REDIS_PASSWORD
