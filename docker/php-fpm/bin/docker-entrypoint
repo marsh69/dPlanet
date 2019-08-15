@@ -31,6 +31,9 @@ EOF
 
 fi
 
+# Ensure named volumes are owned by php
+chown -R php:php /app
+
 . /bin/expand-secrets.sh && \
   su -s /bin/sh -c \
     "bin/console cache:clear --env=${APP_ENV} --no-debug \
