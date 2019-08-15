@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 /**
- * @param format
+ * @param {string} format
  * @returns {function(string): string}
  */
 export const formatDate = (format) => (dateString) => {

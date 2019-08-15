@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CommentElement } from '../Comment/CommentElement';
+import { CommentElement } from '../comment/CommentElement';
 import { formatDateDefault } from '../../../modules/stringUtils';
 
 import '../../../../css/modules/post.scss';
