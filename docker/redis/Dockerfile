@@ -1,5 +1,12 @@
-FROM redis:5.0.5-alpine
+FROM alpine:3.9
 
-COPY docker/expand-secrets.sh /expand-secrets.sh
+RUN apk add --no-cache redis
 
-CMD ["/bin/sh", "-c", ". /expand-secrets.sh && redis-server --requirepass $REDIS_PASSWORD"]
+COPY docker/expand-secrets.sh /bin/expand-secrets.sh
+COPY docker/redis/ /
+
+EXPOSE 6379
+
+RUN chown -R redis:redis /var/redis
+
+CMD ["/bin/sh", "-c", ". expand-secrets.sh && redis-server /var/redis/redis.conf --requirepass $REDIS_PASSWORD"]

@@ -1,9 +1,9 @@
 /**
  * @param {Array<Function>} callbacks
  */
-export const domContentLoadedCallback = callbacks => {
+export const domContentLoadedCallback = (callbacks) => {
   window.addEventListener('DOMContentLoaded', () => {
-    callbacks.forEach(callback => {
+    callbacks.forEach((callback) => {
       callback();
     });
   });
