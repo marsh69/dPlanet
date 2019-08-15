@@ -33,6 +33,10 @@ Encore.setOutputPath(`${baseFolder}/public/assets`)
   })
 
   .enableReactPreset()
+  .configureWatchOptions(() => ({
+    poll: true,
+    ignored: /node_modules/,
+  }))
 
   // .enableEslintLoader() TODO: Activate this
 
