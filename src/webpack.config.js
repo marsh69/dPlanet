@@ -33,8 +33,12 @@ Encore.setOutputPath(`${baseFolder}/public/assets`)
   })
 
   .enableReactPreset()
+  .configureWatchOptions(() => ({
+    poll: true,
+    ignored: /node_modules/,
+  }))
 
-  // .enableEslintLoader()
+  // .enableEslintLoader() TODO: Activate this
 
   .enableIntegrityHashes(Encore.isProduction());
 

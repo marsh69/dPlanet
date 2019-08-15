@@ -36,6 +36,9 @@
         "phpstan/phpstan": "^0.11.12",
         "symfony/phpunit-bridge": "^4.3",
         "symfony/profiler-pack": "^1.0",
+        "symfony/routing": "4.3.*",
+        "symfony/maker-bundle": "^1.12",
+        "symfony/debug-pack": "^1.0",
         "symfony/test-pack": "^1.0"
     },
     "config": {

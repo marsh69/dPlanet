@@ -32,15 +32,23 @@ php.fix: ## Run the php-cs-fixer over all the code in the repository
 php.stan: ## Run phpstan to check php code
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm /app/src/vendor/bin/phpstan analyze -c /app/src/phpstan.neon --level=4 -a autoload.php /app/src/src
 
-php.hooks: ## Run hooks like phpstan and php-cs-fixer
+php.hooks: hooks
+hooks: ## Run hooks like phpstan and php-cs-fixer
 	make php.fix
 	make php.stan
+	make js.fix
 
 yarn.add: ## Add a dependency to the yarn container for webpack
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u node webpack yarn add --ignore-engines ${cmd}
 
+js.fix: ## Run prettier
+	docker exec dplanet_webpack_1 /app/src/node_modules/prettier/bin-prettier.js fix --write /app/src/assets/js/**/* /app/src/assets/css/**/*
+
 webpack.restart: ## Restart the webpack container
 	docker restart dplanet_webpack_1
+
+webpack.logs: ## Get the logs of the webpack container
+	docker logs dplanet_webpack_1 -f
 
 test: ## Run phpunit tests
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit

@@ -9,3 +9,7 @@ posts:
 trends:
   prefix: trends
   resource: "routes/trends.yaml"
+
+profile:
+  prefix: profile
+  resource: "routes/profile.yaml"

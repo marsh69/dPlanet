@@ -17,3 +17,5 @@ framework:
 
     templating:
         engines: ['twig', 'php']
+
+    http_method_override: true

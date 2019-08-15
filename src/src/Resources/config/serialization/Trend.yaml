@@ -1,7 +1,7 @@
 App\Entity\Trend:
   attributes:
     id:
-      groups: [default, trend]
+      groups: [trend]
     name:
       groups: [default, trend]
     hits:

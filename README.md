@@ -62,6 +62,8 @@ All PHP code in this repository **must** be PSR compliant, to make this requirem
 easy to achieve you can run the command `make php.fix` to fix all your php code. It is
 also advisable to install php-cs-fixer in your IDE.
 
+Prettier is also installed and can be invoked with `make js.fix`.
+
 ### PhpStan
 
 To check if your php code is properly structured and does not contain easy-to-miss bugs

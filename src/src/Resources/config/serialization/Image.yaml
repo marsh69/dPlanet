@@ -1,4 +1,8 @@
 App\Entity\Image:
   attributes:
-    id:
+    publicPath:
       groups: [default, image]
+    fileName:
+      groups: [default, image]
+    mimeType:
+      groups: [image]
