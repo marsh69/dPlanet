@@ -9,5 +9,5 @@ export const PostList = () => {
     fetchData('/posts').then((data) => setPosts(data));
   }, []);
 
-  return posts.map((post, key) => <PostElement key={key} post={post} />);
+  return posts.map((post) => <PostElement key={post.id} post={post} />);
 };

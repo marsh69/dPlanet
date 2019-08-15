@@ -1,25 +1,38 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import { CommentElement } from '../Comment/CommentElement';
+import { formatDateDefault } from '../../../modules/stringUtils';
+
+import '../../../../css/modules/post.scss';
 
 export const PostElement = ({ post }) => {
-  const getPostImage = () =>
-    post.image ? (
-      <img src={post.image.publicPath} alt={post.image.fileName} />
-    ) : null;
+  const [commentsVisible, setCommentsVisible] = useState(false);
+
+  const toggleComments = () => setCommentsVisible(!commentsVisible);
 
   return (
-    <div className="card">
-      <div className="card-header">{post.postedBy.fullName} posted:</div>
+    <div className="card post__card">
+      <div className="card-header d-flex justify-content-between bg-info text-white">
+        <span>
+          <strong>{post.postedBy.fullName}</strong> posted:
+        </span>
+        <span className="text-muted">{formatDateDefault(post.createdAt)}</span>
+      </div>
       <div className="card-body">
-        {getPostImage()}
+        {post.image ? (
+          <img src={post.image.publicPath} alt={post.image.fileName} />
+        ) : null}
         <p>{post.body}</p>
         <p className="text-muted">
-          Trends: {post.trends.map(trend => trend.name).join(', ')}
+          Trends: {post.trends.map((trend) => trend.name).join(', ')}
         </p>
-      </div>
-      <div className="card-footer">
-        <button className="btn btn-default">
+        <button className="btn btn-link" onClick={toggleComments}>
           {post.amountOfComments} comments
         </button>
+        {commentsVisible
+          ? post.comments.map((comment) => (
+              <CommentElement key={comment.id} comment={comment} />
+            ))
+          : null}
       </div>
     </div>
   );
