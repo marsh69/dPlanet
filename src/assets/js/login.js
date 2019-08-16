@@ -2,6 +2,9 @@ import { domContentLoadedCallback } from './modules/domcontentloadercallback';
 import { postFormData } from './modules/fetch';
 import { selectElements } from './modules/easySelector';
 
+/**
+ * TODO: Add loading state
+ */
 const addEventListenerToLoginForm = () => {
   const { form, username, password, error } = selectElements({
     form: '#login-form',
