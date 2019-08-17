@@ -23,15 +23,34 @@ the database. The **frontend** is running on [localhost](https://localhost) and 
 
 ## Known quirks
 
-- Everything is still WIP
+- Everything is still very WIP
 
 ## Workflow
 
-(WIP)
+We currently do not yet possess a Scrum/Kanban board to keep track of our progress, this is partially due to the size
+of our development team. We hope in the future to start utilizing such a progress tracker. For now, we keep our
+discussions in our Discord. 
+
+Our main branch is the master, which houses our current production code and is automatically deployed to production. 
+This branch is on lockdown and can only be edited with pull requests. The develop branch contains the code that is expected
+to be deployed to production in the next release, you will typically find new features and recent bugfixes in this branch.
+This branch automatically deploys to the test server. The develop branch is merged into the master branch during a deployment
+to kick off the deployment process. All feature and bugfix branches are expected to be merged into the develop branch 
+through a pull request.
+
+### Pull requests
+
+To ensure quality of our codebase, all new features and bugfixes have to go through a code review process. This is
+typically done through a pull request. Please make sure the branch you're merging has a feature/ or bugfix/ prefix and
+make sure it passed the build checks set in place. Also, please give a minimal summary on your changes.
 
 ### Infrastructure
 
 ![Infrastructure](docs/Infrastructure_drawio.png "Infrastructure diagram")
+
+Our infrastructure consists of a single-server setup with an Nginx handling requets from the internet. This Nginx contains
+the built ReactJS files and is connected to the php-fpm container that processes PHP requests. The Symfony framework handles
+this request in our scripts and talks to a MySQL database and a Redis database after it produces a result.
 
 ### Deployment
 
