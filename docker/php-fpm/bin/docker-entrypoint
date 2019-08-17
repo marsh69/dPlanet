@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-if [[ "$APP_DEBUG" = 'true' ]]
+if [ "$APP_DEBUG" = 'true' ]
 then
   if ! apk list | grep php7-pear >/dev/null 2>&1;
   then
