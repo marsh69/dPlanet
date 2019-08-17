@@ -1,0 +1,4 @@
+profile.index:
+  path: /{user}
+  controller: App\Controller\UserController::index
+  methods: [GET]

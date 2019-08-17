@@ -55,6 +55,18 @@
   no_log: true
   loop: "{{ lookup('dict', docker_secrets) }}"
 
+- name: "Ensure {{ private_key_path }}"
+  openssl_privatekey:
+    path: "{{ private_key_path }}"
+    passphrase: "{{ docker_secrets.JWT_PASSPHRASE }}"
+    size: 2048
+
+- name: "Ensure {{ public_key_path }}"
+  openssl_publickey:
+    privatekey_path: "{{ private_key_path }}"
+    privatekey_passphrase: "{{ docker_secrets.JWT_PASSPHRASE }}"
+    path: "{{ public_key_path }}"
+
 - name: "Restart Docker containers from {{ project_name }} with files in {{ project_dir }} with tag {{ docker_tag }}"
   environment:
     server_name: "{{ inventory_hostname }}"

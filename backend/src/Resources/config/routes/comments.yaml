@@ -1,0 +1,9 @@
+comments.edit:
+  path: /{comment}
+  controller: App\Controller\CommentController::edit
+  methods: [PATCH]
+
+comments.delete:
+  path: /{comment}
+  controller: App\Controller\CommentController::delete
+  methods: [DELETE]

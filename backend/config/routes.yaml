@@ -1,0 +1,18 @@
+app.swagger_ui:
+  path: /api
+  methods: [GET]
+  defaults: { _controller: nelmio_api_doc.controller.swagger_ui, area: default }
+
+app.swagger:
+  path: /api.json
+  methods: [GET]
+  controller: nelmio_api_doc.controller.swagger
+
+app.token:
+  path: /api/token
+  controller: 'App\Controller\SecurityController::login'
+  methods: [POST]
+
+main:
+  prefix: /api
+  resource: 'config/routes.yaml'

@@ -12,15 +12,19 @@ services:
         USER_ID: 1000
         GROUP_ID: 1000
     volumes:
-      - ../src:/app/src:cached
+      - ../backend:/app/src:cached
       - ./php-fpm/bin/docker-entrypoint:/bin/docker-entrypoint:cached
+      - development_ssl:/ssl
     networks:
       - mysql
     environment:
       DATABASE_PASSWORD: development
       CORS_ALLOW_ORIGIN: localhost
       REDIS_PASSWORD: developmentredispassword
+      JWT_PASSPHRASE: 'developmentsecret'
       APP_ENV: dev
+      JWT_SECRET: '/ssl/privkey.pem'
+      JWT_PUBLIC: '/ssl/fullchain.pem'
       APP_DEBUG: "true"
       APP_SECRET: thisisasampletokenthatiputhereonlyfordevelopmentproductionhasasecretsecretofcourse
 
@@ -29,17 +33,6 @@ services:
       context: ssl-dev
     volumes:
       - development_ssl:/ssl
-
-  webpack:
-    image: node:12.8.0-alpine
-    user: node
-    volumes:
-      - ../src:/app/src:cached
-    ports:
-      - 8080:8080
-    working_dir: /app/src
-    restart: always
-    command: ["/bin/sh", "-c", "yarn install && npm rebuild node-sass && yarn watch"]
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -60,9 +53,11 @@ services:
       hsts_max_time: 0m
       fastcgi_cache_valid: 1s
       cache_max_age: 1
+      default_action: 'proxy_pass http://node:3000'
     volumes:
       - development_ssl:/etc/letsencrypt/live/localhost
-      - ../src/public:/var/www/html:cached
+      - ../backend/public/uploads:/var/www/html/uploads:cached
+      - ../backend/public/bundles:/var/www/html/bundles:cached
       - ./nginx/etc/nginx/temp:/etc/nginx/temp:cached
 
   mysql:
@@ -78,3 +73,17 @@ services:
       dockerfile: docker/redis/Dockerfile
     environment:
       REDIS_PASSWORD: developmentredispassword
+
+  node:
+    image: node:12.8.1-alpine
+    user: node
+    expose:
+      - 3000
+    networks:
+      - nginx
+    volumes:
+      - ../frontend:/app
+    working_dir: /app
+    environment:
+      NODE_ENV: dev
+    command: ["/bin/sh", "-c", "yarn install && npm start"]

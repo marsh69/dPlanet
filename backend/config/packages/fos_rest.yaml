@@ -1,0 +1,16 @@
+fos_rest:
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true
+            xml: true
+        templating_formats:
+            html: true
+    param_fetcher_listener: true
+    routing_loader:
+        default_format: json
+    format_listener:
+        rules:
+            - { path: ^/, prefer_extension: false, fallback_format: false, priorities: [ json ] }
+    serializer:
+        serialize_null: true

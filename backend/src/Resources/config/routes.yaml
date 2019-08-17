@@ -1,0 +1,15 @@
+posts:
+  prefix: posts
+  resource: "routes/posts.yaml"
+
+trends:
+  prefix: trends
+  resource: "routes/trends.yaml"
+
+comments:
+  prefix: comments
+  resource: "routes/comments.yaml"
+
+profile:
+  prefix: users
+  resource: "routes/users.yaml"
