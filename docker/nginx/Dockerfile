@@ -10,6 +10,6 @@ RUN yarn install \
 FROM nginx:1.17.2-alpine
 
 COPY docker/nginx/ /
-COPY --from=build /app/build/* var/www/html/
+COPY --from=build /app/build/ var/www/html/
 
 ENTRYPOINT /bin/docker-entrypoint
