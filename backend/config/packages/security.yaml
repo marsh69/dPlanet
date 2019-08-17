@@ -1,0 +1,42 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_DEVELOPER:   ~
+        ROLE_MODERATOR:   ROLE_DEVELOPER
+        ROLE_ADMIN:       ROLE_MODERATOR
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
+    firewalls:
+        login:
+            pattern:  ^/api/token
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path:               /api/token
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+        dev:
+            pattern: ^/(_(profiler|wdt))/
+            security: false
+        docs:
+            pattern: ^/(api|api.json)$
+            security: false
+        api:
+            pattern:   ^/api
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+                provider: fos_userbundle
+
+    access_control:
+        - { path: ^/api/token,    roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/user,     roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [POST] }
+        - { path: ^/(api|api.json)$,         roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,          roles: IS_AUTHENTICATED_FULLY }

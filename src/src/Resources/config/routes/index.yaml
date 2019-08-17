@@ -1,4 +1,0 @@
-index.index:
-  path: /
-  controller: App\Controller\IndexController::index
-  methods: [GET]

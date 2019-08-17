@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.com/marsh69/dPlanet.svg?branch=master)](https://travis-ci.com/marsh69/dPlanet)
 
-![Developers planet banner](src/assets/images/backgrounds/banner2.png 'banner')
-
 A simple social media website to enhance your development skills.
 
 ## Prerequisites
@@ -20,29 +18,8 @@ Setting up the application is as easy as:
 3. Go to [localhost](https://localhost) to see the application, this might take some time 
 
 Additionally you can also use `make fixtures` to generate test data and clear
-the database.
-
-Run the command `make` to see a list of make commands that you can use.
-
-## Important to-do's:
-
--  ~~Discuss data model and make proper adjustements~~
--  ~~Apply final data model to the orm mappings~~
--  ~~Add proper initial migration~~
--  ~~Add fixtures for all data~~
--  ~~Add form types for all orm mappings~~
--  ~~Discuss deployment technique (Ansible)~~
--  ~~Discuss collaboration / code review process~~
--  ~~Create a dockerhub account for the project~~
--  Build login screen -> half done, layout needs to be fixed
--  Add style fixer
--  Add es linter
--  Add prettier configuration
--  Build layout
--  Add tests
--  Add more documentation
--  Discuss database management / backup management
--  Add translations for multinationality
+the database. The **frontend** is running on [localhost](https://localhost) and the backend is running on 
+[localhost/api](https://localhost/api).
 
 ## Known quirks
 
@@ -52,9 +29,15 @@ Run the command `make` to see a list of make commands that you can use.
 
 (WIP)
 
-## Deployment
+### Deployment
 
-(WIP)
+The **master** branch automatically deploys to our production server, the **develop** branch to the test server. For
+this reason both of these branches are locked down and can only be changed with pull requests.
+
+### Https in development
+
+When you first open the homepage your browser will most likely alarm you that you're visiting an insecure page, this is completely
+normal and you can ignore the warning. 
 
 ### Style fixer
 

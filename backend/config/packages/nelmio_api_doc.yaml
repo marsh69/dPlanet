@@ -1,0 +1,19 @@
+nelmio_api_doc:
+    documentation:
+        schemes: [https]
+        info:
+            title: The Developer Planet
+            description: The Backend API of the TheDeveloperSPlanet API
+            version: 1.0.0
+        securityDefinitions:
+            Bearer:
+                type: apiKey
+                description: 'Value: Bearer {jwt}'
+                in: header
+                tokenUrl: /api/token
+                name: Authorization
+        security:
+            - Bearer: []
+    areas:
+        path_patterns:
+            - ^/api/.*

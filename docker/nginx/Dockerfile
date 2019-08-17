@@ -1,15 +1,15 @@
-FROM node:12.8.0-alpine AS build
+FROM node:12.8.1-alpine AS build
 
-WORKDIR /app/src
+COPY frontend/ /app/
 
-COPY src/ /app/src/
+WORKDIR /app
 
-RUN yarn install --ignore-engines \
+RUN yarn install \
     && yarn build
 
 FROM nginx:1.17.2-alpine
 
 COPY docker/nginx/ /
-COPY --from=build /app/src/public var/www/html
+COPY --from=build /app/build/* var/www/html
 
 ENTRYPOINT /bin/docker-entrypoint

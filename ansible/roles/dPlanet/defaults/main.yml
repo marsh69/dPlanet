@@ -20,3 +20,5 @@ nginx_static_dir: /etc/dplanet/static
 nginx_static_files: []
 
 docker_secrets_directory: /run/secrets
+private_key_path: "{{ docker_secrets_directory }}/keys/privatekey.pem"
+public_key_path: "{{ docker_secrets_directory }}/keys/publickey.pem"
