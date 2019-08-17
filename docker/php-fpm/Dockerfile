@@ -12,7 +12,7 @@ RUN addgroup -g ${GROUP_ID} php \
     && chown -R php:php /app \
     && apk add --update --no-cache --virtual \
        git \
-    && composer install -d /app/src --optimize-autoloader --no-interaction --no-suggest --no-scripts
+    && composer install -d /app/src --optimize-autoloader --no-interaction --no-suggest --no-scripts --no-dev
 
 # Runtime
 FROM php:7.3-fpm-alpine AS runtime
@@ -50,7 +50,8 @@ COPY --chown=php:php backend/ /app/src/
 # Test with composer
 FROM runtime AS test
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN /app/src/bin/phpunit --testsuite=unit,integration
+RUN composer install -d /app/src --optimize-autoloader --no-interaction --no-suggest --no-scripts \
+    && /app/src/bin/phpunit --testsuite=unit,integration
 
 # Final image
 FROM runtime
