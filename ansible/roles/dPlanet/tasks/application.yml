@@ -60,6 +60,8 @@
     path: "{{ private_key_path }}"
     passphrase: "{{ docker_secrets.JWT_PASSPHRASE }}"
     size: 2048
+    type: RSA
+    cipher: aes256
 
 - name: "Ensure {{ public_key_path }}"
   openssl_publickey:
