@@ -56,6 +56,7 @@ class PostController extends AbstractFOSRestController
     {
         $view = $this->view($post, 200)
             ->setTemplateData(['post' => $post])
+            ->setTemplate('@App/post/show.html.twig')
             ->setContext($this->defaultContext);
 
         return $this->handleView($view);

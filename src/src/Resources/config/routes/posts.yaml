@@ -22,3 +22,8 @@ posts.show:
   path: /{post}
   controller: App\Controller\PostController::show
   methods: [GET]
+
+posts.comments.create:
+  path: /{post}/comments/new
+  controller: App\Controller\CommentController::create
+  methods: [POST, GET]

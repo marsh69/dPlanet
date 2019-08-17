@@ -28,9 +28,7 @@ class MessageType extends AbstractType
                     'class' => 'select2'
                 ]
             ])
-            ->add('body', TextareaType::class, [
-                'label' => 'Message'
-            ])
+            ->add('body', TextareaType::class)
         ;
     }
 

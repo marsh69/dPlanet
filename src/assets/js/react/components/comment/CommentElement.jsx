@@ -9,7 +9,7 @@ export const CommentElement = ({ comment }) => {
       <div className="card-body">
         <p>{comment.body}</p>
         <div className="d-flex justify-content-between text-muted">
-          <em>{comment.postedBy.fullName}</em>
+          <em>{comment.postedBy.username}</em>
           <span>{formatDateDefault(comment.createdAt)}</span>
         </div>
       </div>

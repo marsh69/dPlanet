@@ -19,7 +19,10 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('body', TextAreaType::class, [
-                'label' => 'Your comment'
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Your comment'
+                ]
             ])
         ;
     }
