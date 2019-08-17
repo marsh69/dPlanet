@@ -13,7 +13,7 @@ export const PostElement = ({ post }) => {
     <div className="card post__card">
       <div className="card-header d-flex justify-content-between bg-info text-white">
         <span>
-          <strong>{post.postedBy.fullName}</strong> posted:
+          <strong>{post.postedBy.username}</strong> posted:
         </span>
         <span className="text-muted">{formatDateDefault(post.createdAt)}</span>
       </div>
@@ -28,6 +28,9 @@ export const PostElement = ({ post }) => {
         <button className="btn btn-link" onClick={toggleComments}>
           {post.amountOfComments} comments
         </button>
+        <a href={`/posts/${post.id}/comments/new`}>
+          <button className="btn btn-link">Post a comment</button>
+        </a>
         {commentsVisible
           ? post.comments.map((comment) => (
               <CommentElement key={comment.id} comment={comment} />

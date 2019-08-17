@@ -1,6 +1,8 @@
 parameters:
     uploadDir: "%kernel.project_dir%/public/uploads"
     publicDir: "/uploads"
+    allowed_seconds_to_edit: 300
+    allowed_seconds_to_delete: 600
 
 services:
     _defaults:
@@ -38,3 +40,8 @@ services:
         arguments:
             $uploadDir: '%uploadDir%'
             $publicDir: '%publicDir%'
+
+    App\Security\CommentVoter:
+        $allowedSecondsToDelete: '%allowed_seconds_to_delete%'
+        $allowedSecondsToEdit: '%allowed_seconds_to_edit%'
+

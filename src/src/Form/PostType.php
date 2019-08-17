@@ -30,7 +30,6 @@ class PostType extends AbstractType
                 'required' => false
             ])
             ->add('trends', EntityType::class, [
-                'label' => 'Trends (max. 5)',
                 'multiple' => true,
                 'class' => Trend::class,
                 'choice_label' => 'name',

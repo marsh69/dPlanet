@@ -1,0 +1,47 @@
+{% extends "@App/base.html.twig" %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Post by {{ post.postedBy.username }}</h1>
+            <div class="card post__card">
+                <div class="card-header d-flex justify-content-between bg-info text-white">
+            <span>
+              <strong>{{- post.postedBy.username }}</strong> posted:
+            </span>
+                    <span class="text-muted">{formatDateDefault(post.createdAt)}</span>
+                </div>
+                <div class="card-body">
+                    <p>{{- post.body -}}</p>
+                    <p class="text-muted">
+                        Trends: {{ post.trends | map(e => e.name) | join(', ') -}}
+                    </p>
+                    <a href={{ path('posts.comments.create', { post: post.id }) }}>
+                        <button class="btn btn-link">Post a comment</button>
+                    </a>
+                    {% for comment in post.comments %}
+                        <div class="card comment__card">
+                            <div class="card-body">
+                                <p>{{- comment.body -}}</p>
+                                <div class="d-flex justify-content-between text-muted">
+                                    <em>{{- comment.postedBy.username -}}</em>
+                                    <span>{{- comment.createdAt | date('dd-mm-YYYY') -}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('posts') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('posts') }}
+{% endblock %}

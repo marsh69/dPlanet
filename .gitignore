@@ -11,8 +11,8 @@ src/var
 /src/.phpunit
 /src/.phpunit.result.cache
 *.retry
-/src/.php_cs
-/src/.php_cs.cache
+.php_cs
+.php_cs.cache
 /src/node_modules/
 /src/npm-debug.log
 /src/yarn-error.log

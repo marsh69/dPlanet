@@ -21,7 +21,6 @@ class FriendRequestType extends AbstractType
             ->add('receiver', EntityType::class, [
                 'class' => Developer::class,
                 'multiple' => true,
-                'label' => 'Send friend request(s) to',
                 'attr' => [
                     'class' => 'select2'
                 ]
