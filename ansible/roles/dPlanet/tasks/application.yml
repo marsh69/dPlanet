@@ -55,6 +55,13 @@
   no_log: true
   loop: "{{ lookup('dict', docker_secrets) }}"
 
+- name: "Ensure {{ keys_folder }}"
+  file:
+    state: directory
+    path: "{{ keys_folder }}"
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+
 - name: "Ensure {{ private_key_path }}"
   openssl_privatekey:
     path: "{{ private_key_path }}"
