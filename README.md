@@ -29,6 +29,10 @@ the database. The **frontend** is running on [localhost](https://localhost) and 
 
 (WIP)
 
+### Infrastructure
+
+![Infrastructure](docs/Infrastructure_drawio.png "Infrastructure diagram")
+
 ### Deployment
 
 The **master** branch automatically deploys to our production server, the **develop** branch to the test server. For
