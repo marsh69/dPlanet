@@ -2,6 +2,21 @@
 
 [![Build Status](https://travis-ci.com/marsh69/dPlanet.svg?branch=master)](https://travis-ci.com/marsh69/dPlanet)
 
+- [dPlanet](#dplanet)
+  * [Prerequisites](#prerequisites)
+  * [Getting started](#getting-started)
+  * [Known quirks](#known-quirks)
+  * [Workflow](#workflow)
+    + [Pull requests](#pull-requests)
+    + [Infrastructure](#infrastructure)
+    + [Deployment](#deployment)
+    + [Https in development](#https-in-development)
+    + [Style fixer](#style-fixer)
+    + [PhpStan](#phpstan)
+    + [PhpMyAdmin](#phpmyadmin)
+
+
+
 A simple social media website to enhance your development skills.
 
 ## Prerequisites
