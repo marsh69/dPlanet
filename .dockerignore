@@ -8,10 +8,10 @@ docker/php-fpm/Dockerfile
 docker/redis/Dockerfile
 docker/docker-compose.yml
 docker/docker-compose.dev.yml
-src/var/cache/prod/*
-src/var/cache/dev
-src/var/log/*
-src/vendor
-src/bin/composer
-/src/public/assets/*
-/src/public/uploads/*
+backend/var/cache/prod/*
+backend/var/cache/dev
+backend/var/log/*
+backend/vendor
+backend/bin/composer
+/backend/public/assets/*
+/backend/public/uploads/*

@@ -16,6 +16,7 @@ services:
       hsts_max_time: 30000000
       cache_max_time: 120m
       fastcgi_cache_valid: 1m
+      default_action: 'try_files $$uri $$uri/ /index.html =404'
 
   php-fpm:
     image: dplanet/php-fpm:${docker_tag}
@@ -24,13 +25,18 @@ services:
       APP_ENV: prod
       APP_DEBUG: "false"
       DATABASE_PASSWORD: <<DOCKER-SECRET:DB_PASSWORD>>
+      JWT_PASSPHRASE: <<DOCKER-SECRET:JWT_PASSPHRASE>>
+      JWT_SECRET: '/ssl/privatekey.pem'
+      JWT_PUBLIC: '/ssl/publickey.pem'
       REDIS_PASSWORD: <<DOCKER-SECRET:REDIS_PASSWORD>>
     volumes:
       - uploads:/app/src/public/uploads
       - bundles:/app/src/public/bundles
+      - /run/secrets/keys:/ssl
     secrets:
       - DB_PASSWORD
       - REDIS_PASSWORD
+      - JWT_PASSPHRASE
 
   mysql:
     environment:
@@ -56,3 +62,5 @@ secrets:
     file: ${secrets_folder}/REDIS_PASSWORD
   DB_ROOT_PASSWORD:
     file: ${secrets_folder}/DB_ROOT_PASSWORD
+  JWT_PASSPHRASE:
+    file: ${secrets_folder}/JWT_PASSPHRASE

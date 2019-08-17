@@ -1,0 +1,51 @@
+parameters:
+    uploadDir: "%kernel.project_dir%/public/uploads"
+    publicDir: "/uploads"
+    allowed_seconds_to_edit: 300
+    allowed_seconds_to_delete: 600
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Controller,Entity,Migrations,Tests,Kernel.php}'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    app.cache.adapter:
+        class: Symfony\Component\Cache\Adapter\RedisAdapter
+        arguments:
+            - "@snc_redis.default"
+
+    app.session.handler:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
+        arguments:
+            - '@snc_redis.default'
+
+    App\EventListener\AuthenticationSuccessListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
+
+    Gedmo\Sortable\SortableListener:
+        class: Gedmo\Sortable\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    FOS\RestBundle\Context\Context:
+        class: FOS\RestBundle\Context\Context
+
+    App\Service\UploadService:
+        class: App\Service\UploadService
+        arguments:
+            $uploadDir: '%uploadDir%'
+            $publicDir: '%publicDir%'
+
+    App\Security\CommentVoter:
+        $allowedSecondsToDelete: '%allowed_seconds_to_delete%'
+        $allowedSecondsToEdit: '%allowed_seconds_to_edit%'
+
