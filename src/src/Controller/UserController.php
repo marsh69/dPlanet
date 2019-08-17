@@ -13,10 +13,10 @@ class UserController extends AbstractFOSRestController
      * @return Response
      */
     public function index(Request $request): Response
-    {   
+    {
         $name = $request->get('name');
 
-        return $this->render('@App/user/index.html.twig',[
+        return $this->render('@App/user/index.html.twig', [
             'name' => $name
         ]);
     }

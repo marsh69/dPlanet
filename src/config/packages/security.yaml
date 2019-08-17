@@ -1,4 +1,3 @@
-# config/packages/security.yaml
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
@@ -9,7 +8,6 @@ security:
         ROLE_ADMIN:       ROLE_MODERATOR
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username_email
@@ -22,7 +20,9 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
+
+                success_handler: 'App\Handler\AuthenticationHandler'
+                failure_handler: 'App\Handler\AuthenticationHandler'
 
             logout:       true
             anonymous:    true

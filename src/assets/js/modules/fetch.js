@@ -13,3 +13,22 @@ export const fetchData = (url, params = {}, headers = {}) => {
     headers,
   }).then((response) => response.json());
 };
+
+/**
+ * @param {string} url
+ * @param {Object<string, string | int | boolean>} body
+ * @returns {Promise<any | never>}
+ */
+export const postFormData = (url, body) => {
+  const formData = new URLSearchParams();
+
+  Object.keys(body).forEach((key) => formData.set(key, body[key]));
+
+  return fetch(url, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      accept: 'application/json',
+    },
+  }).then((response) => response.json());
+};
