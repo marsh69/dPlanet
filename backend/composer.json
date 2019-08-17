@@ -28,7 +28,6 @@
         "symfony/templating": "4.3.*",
         "symfony/translation": "4.3.*",
         "symfony/validator": "4.3.*",
-        "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
