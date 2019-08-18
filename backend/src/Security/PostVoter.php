@@ -55,7 +55,7 @@ class PostVoter extends Voter
      */
     protected function isOwner(Post $post, TokenInterface $token): bool
     {
-        $secondsPassed = (new \DateTime())->getTimestamp() - (new \DateTime($post->getCreatedAt()))->getTimestamp();
+        $secondsPassed = (new \DateTime())->getTimestamp() - $post->getCreatedAt()->getTimestamp();
         return $post->getPostedBy() === $token->getUser() && $secondsPassed <= $this->allowedSecondsToEdit;
     }
 }

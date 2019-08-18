@@ -55,7 +55,7 @@ class CommentVoter extends Voter
      */
     protected function isOwner(Comment $comment, TokenInterface $token): bool
     {
-        $secondsPassed = (new \DateTime())->getTimestamp() - (new \DateTime($comment->getCreatedAt()))->getTimestamp();
+        $secondsPassed = (new \DateTime())->getTimestamp() - $comment->getCreatedAt()->getTimestamp();
         return $comment->getPostedBy() === $token->getUser() && $secondsPassed <= $this->allowedSecondsToEdit;
     }
 }
