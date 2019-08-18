@@ -42,6 +42,7 @@ node.sh: node.shell
 node.shell: ## Enter the shell of the node container
 	docker exec -it -u node dplanet_node_1 sh
 
+js.fix: node.fix
 node.fix: ## Run prettier over the code
 	docker exec -it -u node dplanet_node_1 /app/node_modules/prettier/bin-prettier.js fix --write /app/src/**/*
 
