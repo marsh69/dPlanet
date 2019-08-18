@@ -59,6 +59,19 @@ To ensure quality of our codebase, all new features and bugfixes have to go thro
 typically done through a pull request. Please make sure the branch you're merging has a feature/ or bugfix/ prefix and
 make sure it passed the build checks set in place. Also, please give a minimal summary on your changes.
 
+### Checklist
+
+In order to ensure quality and consistency in this codebase, a few checks must be made before adding in any new code.
+Please consider these our code standards:
+- Every PHP method **must** have an associated docblock (make sure you use types like `Developer[]`) if possible
+- Every PHP method **should** have type hints *unless* it created need for overloading OR vendor code gets in the way
+- Every PHP property **must** have a one-line docblock determining its type
+- All PHP code **should** be tested, however we are not too strict on this at the moment
+- All PHP code **should** be php-stan tested with `make php.stan`
+- All javascript helper functions **must** contain a docblock with associated typehints
+
+Rules may be subject to change in the future.
+
 ### Infrastructure
 
 ![Infrastructure](docs/Infrastructure_drawio.png "Infrastructure diagram")
