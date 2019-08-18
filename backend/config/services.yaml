@@ -2,7 +2,6 @@ parameters:
     uploadDir: "%kernel.project_dir%/public/uploads"
     publicDir: "/uploads"
     allowed_seconds_to_edit: 300
-    allowed_seconds_to_delete: 600
 
 services:
     _defaults:
@@ -39,6 +38,9 @@ services:
     FOS\RestBundle\Context\Context:
         class: FOS\RestBundle\Context\Context
 
+    FOS\RestBundle\View\View:
+        class: FOS\RestBundle\View\View
+
     App\Service\UploadService:
         class: App\Service\UploadService
         arguments:
@@ -46,6 +48,8 @@ services:
             $publicDir: '%publicDir%'
 
     App\Security\CommentVoter:
-        $allowedSecondsToDelete: '%allowed_seconds_to_delete%'
         $allowedSecondsToEdit: '%allowed_seconds_to_edit%'
 
+    App\Security\PostVoter:
+        $allowedSecondsToEdit: '%allowed_seconds_to_edit%'
+    

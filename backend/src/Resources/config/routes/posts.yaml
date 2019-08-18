@@ -13,6 +13,11 @@ posts.create:
   controller: App\Controller\PostController::create
   methods: [POST]
 
+posts.comments:
+  path: /{post}/comments
+  controller: App\Controller\CommentController:byPost
+  methods: [GET]
+
 posts.comments.create:
   path: /{post}/comments
   controller: App\Controller\CommentController::create

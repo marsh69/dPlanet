@@ -1,6 +1,6 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "require": {
         "php": "^7.1.3",
         "ext-ctype": "*",
@@ -16,10 +16,9 @@
         "sensio/framework-extra-bundle": "^5.4",
         "snc/redis-bundle": "^3.1",
         "stof/doctrine-extensions-bundle": "^1.3",
-        "symfony/asset": "4.3.*",
+        "symfony/asset": "^4.3.3",
         "symfony/console": "4.3.*",
         "symfony/flex": "^1.3.1",
-        "symfony/form": "4.3.*",
         "symfony/framework-bundle": "4.3.*",
         "symfony/monolog-bundle": "^3.4",
         "symfony/orm-pack": "^1.0",

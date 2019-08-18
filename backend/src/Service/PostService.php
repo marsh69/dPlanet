@@ -36,14 +36,6 @@ class PostService
     }
 
     /**
-     * @return Post[]|object[]
-     */
-    public function findActive(): array
-    {
-        return $this->repository->findBy(['isDeleted' => false]);
-    }
-
-    /**
      * @param Post $post
      */
     public function save(Post $post): void

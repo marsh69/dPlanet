@@ -3,7 +3,7 @@ nelmio_api_doc:
         schemes: [https]
         info:
             title: The Developer Planet
-            description: The Backend API of the TheDeveloperSPlanet API
+            description: The Backend API of the TheDevelopersPlanet API
             version: 1.0.0
         securityDefinitions:
             Bearer:

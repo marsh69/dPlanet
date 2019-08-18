@@ -1,7 +1,7 @@
 App\Entity\Comment:
   properties:
     body:
-    - NotBlank: ~
-    - Length:
-        min: 5
-        max: 1000
+      - NotBlank: ~
+      - Length:
+          min: 5
+          max: 1000

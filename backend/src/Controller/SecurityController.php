@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\View\View;
 use http\Exception\BadMethodCallException;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 
-class SecurityController extends AbstractFOSRestController
+class SecurityController
 {
     /**
      * @SWG\Post(
@@ -31,9 +30,9 @@ class SecurityController extends AbstractFOSRestController
      *     ),
      * )
      *
-     * @return Response
+     * @return View
      */
-    public function login(): Response
+    public function login(): View
     {
         throw new BadMethodCallException('This method should not have been called! Is the firewall correctly installed?');
     }
