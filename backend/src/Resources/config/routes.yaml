@@ -10,6 +10,6 @@ comments:
   prefix: comments
   resource: "routes/comments.yaml"
 
-profile:
-  prefix: users
-  resource: "routes/users.yaml"
+developer:
+  prefix: developers
+  resource: "routes/developers.yaml"

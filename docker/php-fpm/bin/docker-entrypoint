@@ -32,8 +32,9 @@ EOF
 fi
 
 # Ensure named volumes are owned by php
-chown -R php:php /app
-chown -R php:php /ssl
+chown -Rc php:php /app/src/public/bundles
+chown -Rc php:php /app/src/public/uploads
+chown -Rc php:php /ssl
 
 . /bin/expand-secrets.sh && \
   su -s /bin/sh -c \

@@ -15,3 +15,4 @@ backend/vendor
 backend/bin/composer
 /backend/public/assets/*
 /backend/public/uploads/*
+frontend/node_modules

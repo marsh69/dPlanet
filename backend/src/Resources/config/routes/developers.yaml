@@ -1,0 +1,10 @@
+users.index:
+  path: /
+  controller: App\Controller\DeveloperController::index
+  methods: [GET]
+
+users.create:
+  path: /
+  controller: App\Controller\DeveloperController::create
+  methods: [POST]
+
