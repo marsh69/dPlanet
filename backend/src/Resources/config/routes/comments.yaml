@@ -11,7 +11,7 @@ comments.show:
 comments.edit:
   path: /{comment}
   controller: App\Controller\CommentController::edit
-  methods: [PATCH]
+  methods: [PUT]
 
 comments.delete:
   path: /{comment}
