@@ -30,7 +30,7 @@ php.fix: ## Run the php-cs-fixer over all the code in the repository
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm /app/src/vendor/bin/php-cs-fixer fix /app/src/src
 
 php.stan: ## Run phpstan to check php code
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm /app/src/vendor/bin/phpstan analyze -c /app/src/phpstan.neon --level=4 -a autoload.php /app/src/src
+	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm /app/src/vendor/bin/phpstan analyze -c /app/src/phpstan.neon --level=2 -a autoload.php /app/src/src
 
 php.hooks: hooks
 hooks: ## Run hooks like phpstan and php-cs-fixer
@@ -40,11 +40,11 @@ hooks: ## Run hooks like phpstan and php-cs-fixer
 
 node.sh: node.shell
 node.shell: ## Enter the shell of the node container
-	docker exec -it -u node dplanet_node_1 sh
+	docker exec -itu node dplanet_node_1 sh
 
 js.fix: node.fix
 node.fix: ## Run prettier over the code
-	docker exec -it -u node dplanet_node_1 /app/node_modules/prettier/bin-prettier.js fix --write /app/src/**/*
+	docker exec -itu node dplanet_node_1 /app/node_modules/prettier/bin-prettier.js fix --write /app/src/**/*
 
 test: ## Run phpunit tests
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit

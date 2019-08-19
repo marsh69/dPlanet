@@ -61,17 +61,14 @@ class Delete
      * @param Developer $developer
      * @return View
      */
-    public function delete(Developer $developer): View
+    public function __invoke(Developer $developer): View
     {
         if (!$this->security->isGranted('delete', $developer)) {
             return $this->view->setStatusCode(Response::HTTP_FORBIDDEN);
         };
 
-        $this->security->isGranted('delete', $developer);
-
         $this->developerService->delete($developer);
 
-        return $this->view->setData($developer)
-            ->setStatusCode(Response::HTTP_OK);
+        return $this->view->setData($developer);
     }
 }

@@ -23,3 +23,8 @@ trends:
   prefix: trends
   resource: "routes/trends.yaml"
   trailing_slash_on_root: false
+
+likes:
+  prefix: likes
+  resource: "routes/likes.yaml"
+  trailing_slash_on_root: false

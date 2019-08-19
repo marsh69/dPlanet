@@ -69,7 +69,6 @@ class Delete
 
         $this->postService->delete($post);
 
-        return $this->view->setData($post)
-            ->setStatusCode(Response::HTTP_OK);
+        return $this->view->setData($post);
     }
 }

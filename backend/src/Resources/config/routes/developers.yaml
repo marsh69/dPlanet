@@ -13,6 +13,11 @@ developers.show:
   controller: App\Action\Developer\Show
   methods: [GET]
 
+developers.likes.list:
+  path: /{developer}/likes
+  controller: App\Action\Like\ByDeveloper
+  methods: [GET]
+
 developers.edit:
   path: /{developer}
   controller: App\Action\Developer\Edit

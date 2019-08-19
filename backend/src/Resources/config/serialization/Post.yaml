@@ -16,11 +16,9 @@ App\Entity\Post:
       groups: [post]
     trends:
       groups: [post]
-    likes:
-      groups: [post]
     image:
       groups: [post]
     createdAt:
-      groups: [default, post]
+      groups: [default]
     updatedAt:
-      groups: [default, post]
+      groups: [default]

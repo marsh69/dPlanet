@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action\Comment;
+namespace App\Action\Post;
 
 use App\Entity\Post;
 use FOS\RestBundle\Context\Context;
@@ -8,7 +8,7 @@ use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 
-class ByPost
+class CommentsIndex
 {
     /** @var View $view */
     protected $view;

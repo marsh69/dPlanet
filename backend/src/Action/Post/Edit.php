@@ -93,7 +93,6 @@ class Edit
 
         $this->postService->save($post);
 
-        return $this->view->setData($post)
-            ->setStatusCode(Response::HTTP_OK);
+        return $this->view->setData($post);
     }
 }
