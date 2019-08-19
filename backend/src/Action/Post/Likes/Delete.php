@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Action\Developer;
+namespace App\Action\Post\Likes;
 
 use App\Entity\Developer;
+use App\Entity\Post;
 use App\Service\LikeService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
@@ -11,8 +12,10 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 
-class LikesIndex
+class Delete
 {
+    /** @var LikeService $likeService */
+    protected $likeService;
     /** @var View $view */
     protected $view;
     /** @var Security $security */
@@ -20,15 +23,18 @@ class LikesIndex
 
     /**
      * Index constructor.
+     * @param LikeService $likeService
      * @param View $view
      * @param Context $context
      * @param Security $security
      */
     public function __construct(
+        LikeService $likeService,
         View $view,
         Context $context,
         Security $security
     ) {
+        $this->likeService = $likeService;
         $this->view = $view;
         $this->security = $security;
 
@@ -38,28 +44,39 @@ class LikesIndex
     }
 
     /**
-     * @SWG\Get(
-     *     summary="Get the comments of a post",
+     * @SWG\Delete(
+     *     summary="Delete a like",
      *     produces={"application/json"},
      *     @SWG\Response(
      *         response=200,
      *         description="Success",
      *         @Model(type=App\Entity\Like::class, groups={"like"})
-     *    )
+     *    ),
+     *    @SWG\Response(
+     *        response=403,
+     *        description="Forbidden",
+     *    ),
      * )
-     * @SWG\Tag(name="Developer")
+     * @SWG\Tag(name="Post")
      *
+     * @param Post $post
      * @param Developer $developer
      * @return View
      */
-    public function __invoke(Developer $developer): View
+    public function __invoke(Post $post, Developer $developer): View
     {
-        if (!$this->security->isGranted('list_likes', $developer)) {
+        $like = $this->likeService->findOneBy(['post' => $post, 'developer' => $developer]);
+
+        if (!$like) {
+            return $this->view->setStatusCode(Response::HTTP_OK);
+        }
+
+        if (!$this->security->isGranted('delete', $like)) {
             return $this->view->setStatusCode(Response::HTTP_FORBIDDEN);
         };
 
-        return $this->view->setData(
-            $developer->getLikes()
-        );
+        $this->likeService->delete($like);
+
+        return $this->view->setData($like);
     }
 }

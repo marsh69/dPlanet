@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action\Post;
+namespace App\Action\Post\Likes;
 
 use App\Entity\Developer;
 use App\Entity\Post;
@@ -12,7 +12,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 
-class LikesIndex
+class Index
 {
     /** @var View $view */
     protected $view;

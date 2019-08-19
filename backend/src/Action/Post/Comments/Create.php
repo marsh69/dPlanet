@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Action\Post;
+namespace App\Action\Post\Comments;
 
-use App\Entity\Like;
+use App\Entity\Comment;
 use App\Entity\Post;
-use App\Service\LikeService;
+use App\Service\CommentService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -13,10 +13,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-class LikesCreate
+class Create
 {
-    /** @var LikeService $likeService */
-    protected $likeService;
+    /** @var CommentService $commentService */
+    protected $commentService;
     /** @var View $view */
     protected $view;
     /** @var Security $security */
@@ -24,42 +24,54 @@ class LikesCreate
 
     /**
      * Index constructor.
-     * @param LikeService $likeService
+     * @param CommentService $commentService
      * @param View $view
      * @param Context $context
      * @param Security $security
      */
     public function __construct(
-        LikeService $likeService,
+        CommentService $commentService,
         View $view,
         Context $context,
         Security $security
     ) {
-        $this->likeService = $likeService;
+        $this->commentService = $commentService;
         $this->view = $view;
         $this->security = $security;
 
         $this->view->setContext(
-            $context->addGroups(['default', 'like'])
+            $context->addGroups(['default', 'comment'])
         );
     }
 
     /**
-     * @ParamConverter("like", class="App\Entity\Like", converter="fos_rest.request_body")
+     * @ParamConverter("comment", class="App\Entity\Comment", converter="fos_rest.request_body")
      * @SWG\Post(
-     *     summary="Add a like to a post",
+     *     summary="Add a comment to a post",
      *     @SWG\Response(
      *         response=200,
      *         description="Success",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="body",
+     *         in="body",
+     *         type="json",
+     *         description="JSON Payload",
+     *         format="application/json",
+     *         @SWG\Schema(
+     *             type="object",
+     *             @SWG\Property(property="body", type="string", example="I like this post a lot!"),
+     *         )
      *     ),
      * )
      * @SWG\Tag(name="Post")
      *
      * @param Post $post
+     * @param Comment $comment
      * @param ConstraintViolationListInterface $violationList
      * @return View
      */
-    public function __invoke(Post $post, ConstraintViolationListInterface $violationList): View
+    public function __invoke(Post $post, Comment $comment, ConstraintViolationListInterface $violationList): View
     {
         if ($violationList->count() > 0) {
             return $this->view
@@ -67,24 +79,12 @@ class LikesCreate
                 ->setStatusCode(Response::HTTP_BAD_REQUEST);
         }
 
-        $user = $this->security->getUser();
+        $comment->setPostedTo($post)
+            ->setPostedBy($this->security->getUser());
 
-        $existingLike = $this->likeService->findOneBy(['post' => $post, 'developer' => $user]);
+        $this->commentService->save($comment);
 
-        if ($existingLike) {
-            return $this->view->setStatusCode(Response::HTTP_CONFLICT)
-                ->setData(['message' => 'Like already exists!']);
-        }
-
-
-        $like = (new Like())
-            ->setDeveloper($this->security->getUser())
-            ->setPost($post);
-
-        $this->likeService->save($like);
-
-
-        return $this->view->setData($like)
+        return $this->view->setData($comment)
             ->setStatusCode(Response::HTTP_CREATED);
     }
 }
