@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace App\Action\Security;
 
 use FOS\RestBundle\View\View;
 use http\Exception\BadMethodCallException;
 use Swagger\Annotations as SWG;
 
-class SecurityController
+class Login
 {
     /**
      * @SWG\Post(
@@ -29,10 +29,11 @@ class SecurityController
      *         )
      *     ),
      * )
+     * @SWG\Tag(name="Authentication")
      *
      * @return View
      */
-    public function login(): View
+    public function __invoke(): View
     {
         throw new BadMethodCallException('This method should not have been called! Is the firewall correctly installed?');
     }

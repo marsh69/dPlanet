@@ -1,34 +1,34 @@
 posts.index:
   path: /
-  controller: App\Controller\PostController::index
+  controller: App\Action\Post\Index
   methods: [GET]
 
 posts.show:
   path: /{post}
-  controller: App\Controller\PostController::show
+  controller: App\Action\Post\Show
   methods: [GET]
 
 posts.create:
   path: /
-  controller: App\Controller\PostController::create
+  controller: App\Action\Post\Create
   methods: [POST]
 
 posts.comments:
   path: /{post}/comments
-  controller: App\Controller\CommentController:byPost
+  controller: App\Action\Comment\ByPost
   methods: [GET]
 
 posts.comments.create:
   path: /{post}/comments
-  controller: App\Controller\CommentController::create
+  controller: App\Action\Comment\Create
   methods: [POST]
 
 posts.edit:
   path: /{post}
-  controller: App\Controller\PostController::edit
+  controller: App\Action\Post\Edit
   methods: [PUT]
 
 posts.delete:
   path: /{post}
-  controller: App\Controller\PostController::delete
+  controller: App\Action\Post\Delete
   methods: [DELETE]
