@@ -67,11 +67,8 @@ class Delete
             return $this->view->setStatusCode(Response::HTTP_FORBIDDEN);
         };
 
-        $this->security->isGranted('delete', $comment);
-
         $this->commentService->delete($comment);
 
-        return $this->view->setData($comment)
-            ->setStatusCode(Response::HTTP_OK);
+        return $this->view->setData($comment);
     }
 }

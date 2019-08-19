@@ -1,4 +1,8 @@
 App\Entity\Like:
   attributes:
-    id:
-      groups: [default, like]
+    developer:
+      groups: [like]
+    isDeleted:
+      groups: [default]
+    post:
+      groups: [like]

@@ -93,7 +93,6 @@ class Edit
 
         $this->trendService->save($trend);
 
-        return $this->view->setData($trend)
-            ->setStatusCode(Response::HTTP_OK);
+        return $this->view->setData($trend);
     }
 }

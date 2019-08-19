@@ -11,6 +11,7 @@ class PostVoter extends Voter
 {
     use VoteAttributeTrait;
 
+    const LIST_LIKES = 'list_likes';
     const EDIT = 'edit';
     const DELETE = 'delete';
     const ATTRIBUTES = [self::EDIT, self::DELETE];
@@ -34,7 +35,7 @@ class PostVoter extends Voter
 
         $this->permissions = [
             'isOwner' => [self::DELETE, self::EDIT],
-            'isAdmin' => [self::DELETE, self::EDIT],
+            'isAdmin' => [self::DELETE, self::EDIT, self::LIST_LIKES],
             'isModerator' => [self::EDIT],
         ];
     }

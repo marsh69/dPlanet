@@ -82,7 +82,7 @@ class Edit
      * @param ConstraintViolationListInterface $violationList
      * @return View
      */
-    public function edit(Developer $developer, Developer $newDeveloper, ConstraintViolationListInterface $violationList): View
+    public function __invoke(Developer $developer, Developer $newDeveloper, ConstraintViolationListInterface $violationList): View
     {
         if (!$this->security->isGranted('edit', $developer)) {
             return $this->view->setStatusCode(Response::HTTP_FORBIDDEN);
@@ -101,7 +101,6 @@ class Edit
 
         $this->developerService->save($developer);
 
-        return $this->view->setData($developer)
-            ->setStatusCode(Response::HTTP_OK);
+        return $this->view->setData($developer);
     }
 }

@@ -1,0 +1,4 @@
+likes.index:
+  path: /
+  controller: App\Action\Like\Index
+  methods: [GET]

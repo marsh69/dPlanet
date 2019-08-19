@@ -1,8 +1,8 @@
 App\Entity\Developer:
   attributes:
     id:
-      groups: [default, developer]
+      groups: [default]
     fullName:
-      groups: [default, developer]
+      groups: [default]
     username:
-      groups: [default, developer]
+      groups: [default]

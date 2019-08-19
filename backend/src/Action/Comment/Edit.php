@@ -90,7 +90,6 @@ class Edit
 
         $this->commentService->save($comment);
 
-        return $this->view->setData($comment)
-            ->setStatusCode(Response::HTTP_OK);
+        return $this->view->setData($comment);
     }
 }

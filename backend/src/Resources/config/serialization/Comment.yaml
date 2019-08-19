@@ -1,14 +1,14 @@
 App\Entity\Comment:
   attributes:
     id:
-      groups: [default, comment]
+      groups: [default]
     body:
-      groups: [default, comment]
+      groups: [default]
     postedBy:
-      groups: [default, comment]
+      groups: [default]
     postedTo:
       groups: [comment]
     createdAt:
-      groups: [default, comment]
+      groups: [default]
     updatedAt:
-      groups: [default, comment]
+      groups: [default]

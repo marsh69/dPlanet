@@ -23,6 +23,21 @@ posts.comments.create:
   controller: App\Action\Comment\Create
   methods: [POST]
 
+posts.likes.list:
+  path: /{post}/likes
+  controller: App\Action\Like\ByPost
+  methods: [GET]
+
+posts.likes.create:
+  path: /{post}/likes
+  controller: App\Action\Like\Create
+  methods: [POST]
+
+posts.likes.delete:
+  path: /{post}/likes/{developer}
+  controller: App\Action\Like\Delete
+  methods: [DELETE]
+
 posts.edit:
   path: /{post}
   controller: App\Action\Post\Edit

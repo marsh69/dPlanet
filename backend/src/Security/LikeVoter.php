@@ -2,28 +2,24 @@
 
 namespace App\Security;
 
-use App\Entity\Comment;
-use App\Entity\Developer;
+use App\Entity\Like;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class DeveloperVoter extends Voter
+class LikeVoter extends Voter
 {
     use VoteAttributeTrait;
 
     const LIST = 'list';
-    const SHOW = 'show';
-    const EDIT = 'edit';
     const DELETE = 'delete';
-    const LIST_LIKES = 'list_likes';
-    const ATTRIBUTES = [self::LIST, self::EDIT, self::DELETE, self::SHOW, self::LIST_LIKES];
+    const ATTRIBUTES = [self::LIST, self::DELETE];
 
     /** @var AccessDecisionManagerInterface $decisionManager */
     protected $decisionManager;
 
     /**
-     * CommentVoter constructor.
+     * LikeVoter constructor.
      * @param AccessDecisionManagerInterface $decisionManager
      */
     public function __construct(
@@ -32,11 +28,11 @@ class DeveloperVoter extends Voter
         $this->decisionManager = $decisionManager;
 
         $this->permissions = [
-            'isOwner' => [self::SHOW, self::LIST_LIKES],
-            'isAdmin' => [self::DELETE, self::EDIT, self::LIST, self::SHOW, self::LIST_LIKES],
-            'isModerator' => [self::SHOW],
+            'isOwner' => [self::DELETE],
+            'isAdmin' => [self::DELETE, self::LIST],
         ];
     }
+
 
     /**
      * @param string $attribute
@@ -45,16 +41,17 @@ class DeveloperVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return $subject instanceof Comment && in_array($attribute, self::ATTRIBUTES);
+        return $subject instanceof Like && in_array($attribute, self::ATTRIBUTES);
     }
 
     /**
-     * @param Developer $developer
+     * @param Like $like
      * @param TokenInterface $token
      * @return bool
+     * @throws \Exception
      */
-    protected function isOwner(Developer $developer, TokenInterface $token): bool
+    protected function isOwner(Like $like, TokenInterface $token): bool
     {
-        return $developer === $token->getUser();
+        return $like->getDeveloper() === $token->getUser();
     }
 }
