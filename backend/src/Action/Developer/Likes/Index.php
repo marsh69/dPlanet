@@ -38,7 +38,7 @@ class Index
 
     /**
      * @SWG\Get(
-     *     summary="Get the likes a developer",
+     *     summary="Get the likes of a developer",
      *     produces={"application/json"},
      *     @SWG\Response(
      *         response=200,
