@@ -16,7 +16,7 @@ trends.show:
 trends.edit:
   path: /{trend}
   controller: App\Controller\TrendController::edit
-  methods: [PATCH]
+  methods: [PUT]
 
 trends.delete:
   path: /{trend}
