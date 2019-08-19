@@ -26,7 +26,7 @@ posts.comments.create:
 posts.edit:
   path: /{post}
   controller: App\Controller\PostController::edit
-  methods: [PATCH]
+  methods: [PUT]
 
 posts.delete:
   path: /{post}
