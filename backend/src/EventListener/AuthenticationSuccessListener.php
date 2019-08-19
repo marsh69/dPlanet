@@ -8,7 +8,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 class AuthenticationSuccessListener
 {
     /**
-     * @param $event
+     * @param AuthenticationSuccessEvent $event
      */
     public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event): void
     {

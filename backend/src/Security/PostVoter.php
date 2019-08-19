@@ -40,7 +40,9 @@ class PostVoter extends Voter
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $attribute
+     * @param mixed $subject
+     * @return bool
      */
     protected function supports($attribute, $subject): bool
     {

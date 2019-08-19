@@ -14,8 +14,8 @@ trait VoteAttributeTrait
     protected $decisionManager;
 
     /**
-     * @param $attribute
-     * @param $subject
+     * @param string $attribute
+     * @param mixed $subject
      * @param TokenInterface $token
      * @return bool
      */
@@ -31,7 +31,7 @@ trait VoteAttributeTrait
     }
 
     /**
-     * @param $subject
+     * @param mixed $subject
      * @param TokenInterface $token
      * @return bool
      */
@@ -41,7 +41,7 @@ trait VoteAttributeTrait
     }
 
     /**
-     * @param $subject
+     * @param mixed $subject
      * @param TokenInterface $token
      * @return bool
      */
