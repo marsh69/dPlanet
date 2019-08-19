@@ -3,33 +3,45 @@
 namespace App\Controller;
 
 use App\Entity\Post;
-use App\Form\PostType;
 use App\Service\PostService;
 use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-class PostController extends AbstractFOSRestController
+class PostController
 {
     /** @var PostService $postService */
     protected $postService;
-    /** @var Context $defaultContext */
-    protected $defaultContext;
+    /** @var View $view */
+    protected $view;
+    /** @var Security $security */
+    protected $security;
 
     /**
      * PostController constructor.
      * @param PostService $postService
      * @param Context $context
+     * @param View $view
+     * @param Security $security
      */
-    public function __construct(PostService $postService, Context $context)
-    {
+    public function __construct(
+        PostService $postService,
+        Context $context,
+        View $view,
+        Security $security
+    ) {
         $this->postService = $postService;
-        $this->defaultContext = $context;
+        $this->view = $view;
+        $this->security = $security;
 
-        $this->defaultContext->setGroups(['default', 'post']);
+        $this->view->setContext(
+            $context->setGroups(['default', 'post'])
+        );
     }
 
     /**
@@ -43,17 +55,12 @@ class PostController extends AbstractFOSRestController
      *    )
      * )
      *
-     * @param Request $request
-     * @return Response
+     * @return View
      */
-    public function index(Request $request): Response
+    public function index(): View
     {
-        $posts = $this->postService->findActive();
-
-        $view = $this->view($posts, 200)
-            ->setContext($this->defaultContext);
-
-        return $this->handleView($view);
+        $posts = $this->postService->findAll();
+        return $this->view->setData($posts);
     }
 
     /**
@@ -67,90 +74,130 @@ class PostController extends AbstractFOSRestController
      *    )
      * )
      *
-     * @param Request $request
      * @param Post $post
-     * @return Response
+     * @return View
      */
-    public function show(Request $request, Post $post): Response
+    public function show(Post $post): View
     {
-        $view = $this->view($post, 200)
-            ->setContext($this->defaultContext);
-
-        return $this->handleView($view);
+        return $this->view->setData($post);
     }
 
     /**
-     * TODO: Api documentation
+     * @ParamConverter("post", class="App\Entity\Post", converter="fos_rest.request_body")
      *
-     * @param Request $request
-     * @return Response
+     * @SWG\Post(
+     *     summary="Add a post",
+     *     @SWG\Response(
+     *        response=200,
+     *        description="Success",
+     *        @Model(type=App\Entity\Post::class, groups={"post"})
+     *     ),
+     *     @SWG\Parameter(
+     *         name="body",
+     *         in="body",
+     *         type="json",
+     *         description="JSON Payload",
+     *         format="application/json",
+     *         @SWG\Schema(
+     *             type="object",
+     *             @SWG\Property(property="body", type="string", example="I like this platform a lot!"),
+     *             @SWG\Property(property="image", type="string"),
+     *         )
+     *     ),
+     * )
+     *
+     *
+     * @param Post $post
+     * @param ConstraintViolationListInterface $violationList
+     * @return View
      */
-    public function create(Request $request): Response
+    public function create(Post $post, ConstraintViolationListInterface $violationList): View
     {
-        $post = new Post();
-        $post->setPostedBy($this->getUser());
-
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->postService->save($post);
-
-            $view = $this->view($post, 200)
-                ->setContext($this->defaultContext);
-
-            return $this->handleView($view);
+        if ($violationList->count() > 0) {
+            return $this->view
+                ->setData($violationList)
+                ->setStatusCode(Response::HTTP_BAD_REQUEST);
         }
 
-        $view = $this->view($form->getErrors(), 400)
-            ->setContext($this->defaultContext);
+        $post->setPostedBy($this->security->getUser());
 
-        return $this->handleView($view);
+        $this->postService->save($post);
+
+        return $this->view->setData($post)
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
-     * TODO: Api documentation
+     * @ParamConverter("newPost", class="App\Entity\Post", converter="fos_rest.request_body")
      *
-     * @param Request $request
+     * @SWG\Put(
+     *     summary="Edit a post",
+     *     @SWG\Response(
+     *        response=200,
+     *        description="Success",
+     *        @Model(type=App\Entity\Post::class, groups={"post"})
+     *     ),
+     *     @SWG\Parameter(
+     *         name="body",
+     *         in="body",
+     *         type="json",
+     *         description="JSON Payload",
+     *         format="application/json",
+     *         @SWG\Schema(
+     *             type="object",
+     *             @SWG\Property(property="body", type="string", example="I like this platform a lot!"),
+     *         )
+     *     ),
+     * )
+     *
      * @param Post $post
-     * @return Response
+     * @param Post $newPost
+     * @param ConstraintViolationListInterface $violationList
+     * @return View
      */
-    public function edit(Request $request, Post $post): Response
+    public function edit(Post $post, Post $newPost, ConstraintViolationListInterface $violationList): View
     {
-        $post->setPostedBy($this->getUser());
+        if (!$this->security->isGranted('edit', $post)) {
+            return $this->view->setStatusCode(Response::HTTP_UNAUTHORIZED);
+        };
 
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->postService->save($post);
-
-            $view = $this->view($post, 200)
-                ->setContext($this->defaultContext);
-
-            return $this->handleView($view);
+        if ($violationList->count() > 0) {
+            return $this->view
+                ->setData($violationList)
+                ->setStatusCode(Response::HTTP_BAD_REQUEST);
         }
 
-        $view = $this->view($form->getErrors(), 400)
-            ->setContext($this->defaultContext);
+        $post->setBody($newPost->getBody());
 
-        return $this->handleView($view);
+        $this->postService->save($post);
+
+        return $this->view->setData($post)
+            ->setStatusCode(Response::HTTP_OK);
     }
 
     /**
-     * TODO: Api documentation
+     * @SWG\Delete(
+     *     summary="Delete a post",
+     *     produces={"application/json"},
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Success",
+     *         @Model(type=App\Entity\Post::class, groups={"post"})
+     *    )
+     * )
      *
-     * @param Request $request
      * @param Post $post
-     * @return Response
+     * @return View
      */
-    public function delete(Request $request, Post $post): Response
+    public function delete(Post $post): View
     {
+        if (!$this->security->isGranted('delete', $post)) {
+            return $this->view->setStatusCode(Response::HTTP_UNAUTHORIZED);
+        };
+
         $this->postService->delete($post);
 
-        $view = $this->view($post, 200)
-            ->setContext($this->defaultContext);
-
-        return $this->handleView($view);
+        return $this->view->setData($post)
+            ->setStatusCode(Response::HTTP_OK);
     }
 }

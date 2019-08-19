@@ -22,7 +22,7 @@ security:
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
         dev:
-            pattern: ^/(_(profiler|wdt))/
+            pattern: ^/api/(_(profiler|wdt))/
             security: false
         docs:
             pattern: ^/(api|api.json)$

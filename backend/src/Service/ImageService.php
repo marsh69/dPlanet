@@ -35,13 +35,6 @@ class ImageService
         return $this->repository->findAll();
     }
 
-    /**
-     * @return Image[]|object[]
-     */
-    public function findActive(): array
-    {
-        return $this->repository->findBy(['isDeleted' => false]);
-    }
 
     /**
      * @param Image $image
@@ -49,6 +42,17 @@ class ImageService
     public function save(Image $image): void
     {
         $this->uploadService->uploadImage($image);
+
+        $this->em->persist($image);
+        $this->em->flush();
+    }
+
+    /**
+     * @param Image $image
+     */
+    public function delete(Image $image): void
+    {
+        $image->setIsDeleted(true);
 
         $this->em->persist($image);
         $this->em->flush();

@@ -1,0 +1,35 @@
+App\Entity\Developer:
+  properties:
+    firstName:
+      - NotBlank: ~
+      - Length:
+          min: 1
+          max: 40
+    lastName:
+      - NotBlank: ~
+      - Length:
+          min: 1
+          max: 40
+    username:
+      - NotBlank: ~
+      - Length:
+          min: 6
+          max: 20
+    plainPassword:
+      - NotBlank: ~
+      - NotCompromisedPassword: ~
+      - Length:
+          min: 6
+          max: 80
+    email:
+      - NotBlank: ~
+      - Email: ~
+    profileImage:
+      - File:
+          maxSize: 2048k
+          mimeTypes: [image/jpeg, image/bpm, image/jpg, image/gif, image/png]
+      - Image:
+          maxHeight: 800
+          maxWidth: 800
+          minHeight: 50
+          minWidth: 50

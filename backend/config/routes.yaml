@@ -8,11 +8,6 @@ app.swagger:
   methods: [GET]
   controller: nelmio_api_doc.controller.swagger
 
-app.token:
-  path: /api/token
-  controller: 'App\Controller\SecurityController::login'
-  methods: [POST]
-
 main:
   prefix: /api
   resource: 'config/routes.yaml'

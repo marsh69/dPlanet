@@ -1,7 +1,17 @@
+comments.list:
+  path: /
+  controller: App\Controller\CommentController::list
+  methods: [GET]
+
+comments.show:
+  path: /{comment}
+  controller: App\Controller\CommentController::show
+  methods: [GET]
+
 comments.edit:
   path: /{comment}
   controller: App\Controller\CommentController::edit
-  methods: [PATCH]
+  methods: [PUT]
 
 comments.delete:
   path: /{comment}

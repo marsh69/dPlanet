@@ -1,15 +1,25 @@
+token:
+  path: token
+  controller: 'App\Controller\SecurityController::login'
+  methods: [POST]
+  trailing_slash_on_root: false
+
 posts:
   prefix: posts
   resource: "routes/posts.yaml"
-
-trends:
-  prefix: trends
-  resource: "routes/trends.yaml"
+  trailing_slash_on_root: false
 
 comments:
   prefix: comments
   resource: "routes/comments.yaml"
+  trailing_slash_on_root: false
 
 developer:
   prefix: developers
   resource: "routes/developers.yaml"
+  trailing_slash_on_root: false
+
+trends:
+  prefix: trends
+  resource: "routes/trends.yaml"
+  trailing_slash_on_root: false

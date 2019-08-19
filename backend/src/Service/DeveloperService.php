@@ -36,14 +36,6 @@ class DeveloperService
     }
 
     /**
-     * @return Developer[]|object[]
-     */
-    public function findActive(): array
-    {
-        return $this->repository->findBy(['isDeleted' => false]);
-    }
-
-    /**
      * @param Developer $developer
      */
     public function save(Developer $developer): void
@@ -54,6 +46,18 @@ class DeveloperService
         }
 
         $this->em->persist($developer);
+        $this->em->flush();
+    }
+
+    /**
+     * Developers are truly removed instead of deactivated due to these objects
+     * containing Personal Identifiable Information and the GDPR
+     *
+     * @param Developer $developer
+     */
+    public function delete(Developer $developer): void
+    {
+        $this->em->remove($developer);
         $this->em->flush();
     }
 }

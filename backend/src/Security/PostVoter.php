@@ -2,12 +2,12 @@
 
 namespace App\Security;
 
-use App\Entity\Comment;
+use App\Entity\Post;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CommentVoter extends Voter
+class PostVoter extends Voter
 {
     use VoteAttributeTrait;
 
@@ -21,7 +21,7 @@ class CommentVoter extends Voter
     protected $allowedSecondsToEdit;
 
     /**
-     * CommentVoter constructor.
+     * PostVoter constructor.
      * @param AccessDecisionManagerInterface $decisionManager
      * @param int $allowedSecondsToEdit
      */
@@ -35,7 +35,7 @@ class CommentVoter extends Voter
         $this->permissions = [
             'isOwner' => [self::DELETE, self::EDIT],
             'isAdmin' => [self::DELETE, self::EDIT],
-            'isModerator' => [self::DELETE, self::EDIT],
+            'isModerator' => [self::EDIT],
         ];
     }
 
@@ -44,18 +44,18 @@ class CommentVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return $subject instanceof Comment && in_array($attribute, self::ATTRIBUTES);
+        return $subject instanceof Post && in_array($attribute, self::ATTRIBUTES);
     }
 
     /**
-     * @param Comment $comment
+     * @param Post $post
      * @param TokenInterface $token
      * @return bool
      * @throws \Exception
      */
-    protected function isOwner(Comment $comment, TokenInterface $token): bool
+    protected function isOwner(Post $post, TokenInterface $token): bool
     {
-        $secondsPassed = (new \DateTime())->getTimestamp() - $comment->getCreatedAt()->getTimestamp();
-        return $comment->getPostedBy() === $token->getUser() && $secondsPassed <= $this->allowedSecondsToEdit;
+        $secondsPassed = (new \DateTime())->getTimestamp() - $post->getCreatedAt()->getTimestamp();
+        return $post->getPostedBy() === $token->getUser() && $secondsPassed <= $this->allowedSecondsToEdit;
     }
 }

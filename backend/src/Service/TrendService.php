@@ -32,19 +32,21 @@ class TrendService
     }
 
     /**
-     * @return Trend[]|object[]
+     * @param Trend $trend
      */
-    public function findActive(): array
+    public function save(Trend $trend): void
     {
-        return $this->repository->findBy(['isDeleted' => false]);
+        $this->em->persist($trend);
+        $this->em->flush();
     }
 
     /**
-     * @param Trend $image
+     * @param Trend $trend
      */
-    public function save(Trend $image): void
+    public function delete(Trend $trend): void
     {
-        $this->em->persist($image);
+        $trend->setIsDeleted(true);
+        $this->em->persist($trend);
         $this->em->flush();
     }
 }

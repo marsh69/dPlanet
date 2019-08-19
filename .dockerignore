@@ -2,6 +2,10 @@
 .gitignore
 Makefile
 README.md
+LICENSE
+.travis.yml
+.php_cs.cache
+ansible/
 docs/
 docker/nginx/Dockerfile
 docker/php-fpm/Dockerfile
@@ -10,9 +14,11 @@ docker/docker-compose.yml
 docker/docker-compose.dev.yml
 backend/var/cache/prod/*
 backend/var/cache/dev
+backend/var/cache/test
 backend/var/log/*
 backend/vendor
+backend/.php_cs.cache
 backend/bin/composer
-/backend/public/assets/*
 /backend/public/uploads/*
+/backend/public/bundles/*
 frontend/node_modules
