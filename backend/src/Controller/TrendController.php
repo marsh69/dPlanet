@@ -125,7 +125,7 @@ class TrendController
     /**
      * @ParamConverter("newTrend", class="App\Entity\Trend", converter="fos_rest.request_body")
      *
-     * @SWG\Patch(
+     * @SWG\Put(
      *     summary="Edit a trend",
      *     @SWG\Response(
      *        response=200,

@@ -46,7 +46,7 @@ class DeveloperController
 
     /**
      * @SWG\Get(
-     *     summary="Get all users",
+     *     summary="Get all developers",
      *     produces={"application/json"},
      *     @SWG\Response(
      *         response=200,
@@ -70,7 +70,7 @@ class DeveloperController
 
     /**
      * @SWG\Get(
-     *     summary="Get a user",
+     *     summary="Get a developer",
      *     produces={"application/json"},
      *     @SWG\Response(
      *         response=200,
@@ -96,7 +96,7 @@ class DeveloperController
      *
      * @SWG\Post(
      *     security={},
-     *     summary="Register a new user",
+     *     summary="Register a new developer",
      *     produces={"application/json"},
      *     @SWG\Parameter(
      *         name="body",
@@ -141,9 +141,8 @@ class DeveloperController
 
     /**
      * @ParamConverter("newDeveloper", class="App\Entity\Developer", converter="fos_rest.request_body")
-     * @SWG\Post(
-     *     security={},
-     *     summary="Register a new user",
+     * @SWG\Put(
+     *     summary="Edit an existing developer",
      *     produces={"application/json"},
      *     @SWG\Parameter(
      *         name="body",
@@ -198,7 +197,7 @@ class DeveloperController
 
     /**
      * @SWG\Delete(
-     *     summary="Delete a user",
+     *     summary="Delete a developer",
      *     produces={"application/json"},
      *     @SWG\Response(
      *         response=200,

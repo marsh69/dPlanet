@@ -130,7 +130,7 @@ class PostController
     /**
      * @ParamConverter("newPost", class="App\Entity\Post", converter="fos_rest.request_body")
      *
-     * @SWG\Patch(
+     * @SWG\Put(
      *     summary="Edit a post",
      *     @SWG\Response(
      *        response=200,
