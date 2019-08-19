@@ -1,24 +1,24 @@
 trends.index:
   path: /
-  controller: App\Controller\TrendController::index
+  controller: App\Action\Trend\Index
   methods: [GET]
 
 trends.create:
   path: /
-  controller: App\Controller\TrendController::create
+  controller: App\Action\Trend\Create
   methods: [POST]
 
 trends.show:
   path: /{trend}
-  controller: App\Controller\TrendController::show
+  controller: App\Action\Trend\Show
   methods: [GET]
 
 trends.edit:
   path: /{trend}
-  controller: App\Controller\TrendController::edit
+  controller: App\Action\Trend\Edit
   methods: [PUT]
 
 trends.delete:
   path: /{trend}
-  controller: App\Controller\TrendController::delete
+  controller: App\Action\Trend\Delete
   methods: [DELETE]

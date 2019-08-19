@@ -1,24 +1,24 @@
 developers.index:
   path: /
-  controller: App\Controller\DeveloperController::index
+  controller: App\Action\Developer\Index
   methods: [GET]
 
 developers.create:
   path: /
-  controller: App\Controller\DeveloperController::create
+  controller: App\Action\Developer\Create
   methods: [POST]
 
 developers.show:
   path: /{developer}
-  controller: App\Controller\DeveloperController::show
+  controller: App\Action\Developer\Show
   methods: [GET]
 
 developers.edit:
   path: /{developer}
-  controller: App\Controller\DeveloperController::edit
+  controller: App\Action\Developer\Edit
   methods: [PUT]
 
 developers.delete:
   path: /{developer}
-  controller: App\Controller\DeveloperController::delete
+  controller: App\Action\Developer\Delete
   methods: [DELETE]

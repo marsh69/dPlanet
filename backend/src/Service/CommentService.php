@@ -3,14 +3,14 @@
 namespace App\Service;
 
 use App\Entity\Comment;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 
 class CommentService
 {
     /** @var EntityManagerInterface $em */
     protected $em;
-    /** @var EntityRepository $commentRepository */
+    /** @var ObjectRepository $commentRepository */
     protected $commentRepository;
 
     /**
@@ -24,7 +24,7 @@ class CommentService
     }
 
     /**
-     * @return Comment[]
+     * @return Comment[]|object[]
      */
     public function findAll(): array
     {

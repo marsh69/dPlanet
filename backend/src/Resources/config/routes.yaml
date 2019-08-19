@@ -1,6 +1,6 @@
 token:
   path: token
-  controller: 'App\Controller\SecurityController::login'
+  controller: 'App\Action\Security\Login'
   methods: [POST]
   trailing_slash_on_root: false
 

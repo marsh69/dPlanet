@@ -38,6 +38,16 @@ class DeveloperVoter extends Voter
     }
 
     /**
+     * @param string $attribute
+     * @param mixed $subject
+     * @return bool
+     */
+    protected function supports($attribute, $subject): bool
+    {
+        return $subject instanceof Comment && in_array($attribute, self::ATTRIBUTES);
+    }
+
+    /**
      * @param Developer $developer
      * @param TokenInterface $token
      * @return bool
@@ -45,13 +55,5 @@ class DeveloperVoter extends Voter
     protected function isOwner(Developer $developer, TokenInterface $token): bool
     {
         return $developer === $token->getUser();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function supports($attribute, $subject): bool
-    {
-        return $subject instanceof Comment && in_array($attribute, self::ATTRIBUTES);
     }
 }

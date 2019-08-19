@@ -12,8 +12,8 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Controller,Entity,Migrations,Tests,Kernel.php}'
 
-    App\Controller\:
-        resource: '../src/Controller'
+    App\Action\:
+        resource: '../src/Action'
         tags: ['controller.service_arguments']
 
     app.cache.adapter:

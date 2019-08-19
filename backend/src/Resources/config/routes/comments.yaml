@@ -1,19 +1,19 @@
 comments.list:
   path: /
-  controller: App\Controller\CommentController::list
+  controller: App\Action\Comment\Index
   methods: [GET]
 
 comments.show:
   path: /{comment}
-  controller: App\Controller\CommentController::show
+  controller: App\Action\Comment\Show
   methods: [GET]
 
 comments.edit:
   path: /{comment}
-  controller: App\Controller\CommentController::edit
+  controller: App\Action\Comment\Edit
   methods: [PUT]
 
 comments.delete:
   path: /{comment}
-  controller: App\Controller\CommentController::delete
+  controller: App\Action\Comment\Delete
   methods: [DELETE]
