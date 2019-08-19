@@ -16,7 +16,7 @@ developers.show:
 developers.edit:
   path: /{developer}
   controller: App\Controller\DeveloperController::edit
-  methods: [PATCH]
+  methods: [PUT]
 
 developers.delete:
   path: /{developer}
