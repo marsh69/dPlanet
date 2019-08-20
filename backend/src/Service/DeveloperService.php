@@ -36,6 +36,16 @@ class DeveloperService
     }
 
     /**
+     * @param array $criteria
+     * @param array $order
+     * @return Developer[]|object[]
+     */
+    public function findBy(array $criteria, array $order = []): array
+    {
+        return $this->repository->findBy($criteria, $order);
+    }
+
+    /**
      * @param Developer $developer
      */
     public function save(Developer $developer): void
