@@ -46,7 +46,7 @@ class Edit
     /**
      * @ParamConverter("newComment", class="App\Entity\Comment", converter="fos_rest.request_body")
      * @SWG\Put(
-     *     summary="Edit a comment to a post",
+     *     summary="Edit a comment",
      *     @SWG\Response(
      *         response=200,
      *         description="Success",

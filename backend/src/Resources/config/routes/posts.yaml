@@ -15,28 +15,33 @@ posts.create:
 
 posts.comments:
   path: /{post}/comments
-  controller: App\Action\Comment\ByPost
+  controller: App\Action\Post\Comments\Index
   methods: [GET]
 
 posts.comments.create:
   path: /{post}/comments
-  controller: App\Action\Comment\Create
+  controller: App\Action\Post\Comments\Create
   methods: [POST]
 
 posts.likes.list:
   path: /{post}/likes
-  controller: App\Action\Like\ByPost
+  controller: App\Action\Post\Likes\Index
   methods: [GET]
 
 posts.likes.create:
   path: /{post}/likes
-  controller: App\Action\Like\Create
+  controller: App\Action\Post\Likes\Create
   methods: [POST]
 
 posts.likes.delete:
   path: /{post}/likes/{developer}
-  controller: App\Action\Like\Delete
+  controller: App\Action\Post\Likes\Delete
   methods: [DELETE]
+
+posts.trends.list:
+  path: /{post}/trends
+  controller: App\Action\Post\Trends\Index
+  methods: [GET]
 
 posts.edit:
   path: /{post}

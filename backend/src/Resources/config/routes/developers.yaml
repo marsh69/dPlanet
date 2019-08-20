@@ -15,7 +15,7 @@ developers.show:
 
 developers.likes.list:
   path: /{developer}/likes
-  controller: App\Action\Like\ByDeveloper
+  controller: App\Action\Developer\Likes\Index
   methods: [GET]
 
 developers.edit:

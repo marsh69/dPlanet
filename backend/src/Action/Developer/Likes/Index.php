@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Action\Post;
+namespace App\Action\Developer\Likes;
 
 use App\Entity\Developer;
-use App\Entity\Post;
-use App\Service\LikeService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -12,7 +10,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 
-class LikesIndex
+class Index
 {
     /** @var View $view */
     protected $view;
@@ -40,7 +38,7 @@ class LikesIndex
 
     /**
      * @SWG\Get(
-     *     summary="Get the comments of a post",
+     *     summary="Get the likes of a developer",
      *     produces={"application/json"},
      *     @SWG\Response(
      *         response=200,
@@ -48,19 +46,19 @@ class LikesIndex
      *         @Model(type=App\Entity\Like::class, groups={"like"})
      *    )
      * )
-     * @SWG\Tag(name="Post")
+     * @SWG\Tag(name="Developer")
      *
-     * @param Post $post
+     * @param Developer $developer
      * @return View
      */
-    public function __invoke(Post $post): View
+    public function __invoke(Developer $developer): View
     {
-        if (!$this->security->isGranted('list_likes', $post)) {
+        if (!$this->security->isGranted('list_likes', $developer)) {
             return $this->view->setStatusCode(Response::HTTP_FORBIDDEN);
         };
 
         return $this->view->setData(
-            $post->getLikes()
+            $developer->getLikes()
         );
     }
 }

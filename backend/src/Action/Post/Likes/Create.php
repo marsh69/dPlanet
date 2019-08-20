@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Action\Comment;
+namespace App\Action\Post\Likes;
 
-use App\Entity\Comment;
+use App\Entity\Like;
 use App\Entity\Post;
-use App\Service\CommentService;
+use App\Service\LikeService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -15,8 +15,8 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class Create
 {
-    /** @var CommentService $commentService */
-    protected $commentService;
+    /** @var LikeService $likeService */
+    protected $likeService;
     /** @var View $view */
     protected $view;
     /** @var Security $security */
@@ -24,54 +24,42 @@ class Create
 
     /**
      * Index constructor.
-     * @param CommentService $commentService
+     * @param LikeService $likeService
      * @param View $view
      * @param Context $context
      * @param Security $security
      */
     public function __construct(
-        CommentService $commentService,
+        LikeService $likeService,
         View $view,
         Context $context,
         Security $security
     ) {
-        $this->commentService = $commentService;
+        $this->likeService = $likeService;
         $this->view = $view;
         $this->security = $security;
 
         $this->view->setContext(
-            $context->addGroups(['default', 'comment'])
+            $context->addGroups(['default', 'like'])
         );
     }
 
     /**
-     * @ParamConverter("comment", class="App\Entity\Comment", converter="fos_rest.request_body")
+     * @ParamConverter("like", class="App\Entity\Like", converter="fos_rest.request_body")
      * @SWG\Post(
-     *     summary="Add a comment to a post",
+     *     summary="Add a like to a post",
      *     @SWG\Response(
      *         response=200,
      *         description="Success",
      *     ),
-     *     @SWG\Parameter(
-     *         name="body",
-     *         in="body",
-     *         type="json",
-     *         description="JSON Payload",
-     *         format="application/json",
-     *         @SWG\Schema(
-     *             type="object",
-     *             @SWG\Property(property="body", type="string", example="I like this post a lot!"),
-     *         )
-     *     ),
      * )
-     * @SWG\Tag(name="Comment")
+     * @SWG\Tag(name="Post")
      *
      * @param Post $post
-     * @param Comment $comment
      * @param ConstraintViolationListInterface $violationList
      * @return View
      */
-    public function __invoke(Post $post, Comment $comment, ConstraintViolationListInterface $violationList): View
+    public function __invoke(Post $post, ConstraintViolationListInterface $violationList): View
     {
         if ($violationList->count() > 0) {
             return $this->view
@@ -79,12 +67,24 @@ class Create
                 ->setStatusCode(Response::HTTP_BAD_REQUEST);
         }
 
-        $comment->setPostedTo($post)
-            ->setPostedBy($this->security->getUser());
+        $user = $this->security->getUser();
 
-        $this->commentService->save($comment);
+        $existingLike = $this->likeService->findOneBy(['post' => $post, 'developer' => $user]);
 
-        return $this->view->setData($comment)
+        if ($existingLike) {
+            return $this->view->setStatusCode(Response::HTTP_CONFLICT)
+                ->setData(['message' => 'Like already exists!']);
+        }
+
+
+        $like = (new Like())
+            ->setDeveloper($this->security->getUser())
+            ->setPost($post);
+
+        $this->likeService->save($like);
+
+
+        return $this->view->setData($like)
             ->setStatusCode(Response::HTTP_CREATED);
     }
 }
