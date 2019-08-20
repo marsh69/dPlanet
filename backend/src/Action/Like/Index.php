@@ -67,7 +67,7 @@ class Index
         }
 
         return $this->view->setData(
-            $this->likeService->findBy(['isDeleted' => false])
+            $this->likeService->findAll()
         );
     }
 }

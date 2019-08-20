@@ -2,5 +2,3 @@ App\Entity\FriendRequest:
   attributes:
     id:
       groups: [friendrequest]
-    isDeleted:
-      groups: [default]

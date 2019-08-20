@@ -48,7 +48,7 @@ class Index
     public function __invoke(): View
     {
         return $this->view->setData(
-            $this->trendService->findBy(['isDeleted' => false])
+            $this->trendService->findAll()
         );
     }
 }

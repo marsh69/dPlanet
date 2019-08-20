@@ -8,5 +8,3 @@ App\Entity\Trend:
       groups: [trend]
     posts:
       groups: [trend]
-    isDeleted:
-      groups: [default]

@@ -2,7 +2,5 @@ App\Entity\Like:
   attributes:
     developer:
       groups: [like]
-    isDeleted:
-      groups: [default]
     post:
       groups: [like]

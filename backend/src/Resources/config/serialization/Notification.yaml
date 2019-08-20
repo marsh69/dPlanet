@@ -4,5 +4,3 @@ App\Entity\Notification:
       groups: [default, notification]
     message:
       groups: [default, notification]
-    isDeleted:
-      groups: [default]

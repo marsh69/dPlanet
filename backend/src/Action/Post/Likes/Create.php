@@ -7,6 +7,7 @@ use App\Entity\Post;
 use App\Service\LikeService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
@@ -49,6 +50,12 @@ class Create
      *     @SWG\Response(
      *         response=200,
      *         description="Success",
+     *         @Model(type=App\Entity\Like::class, groups={"like"})
+     *     ),
+     *     @SWG\Response(
+     *         response=409,
+     *         description="Like already exists!",
+     *         @Model(type=App\Entity\Like::class, groups={"like"})
      *     ),
      * )
      * @SWG\Tag(name="Post")
@@ -60,11 +67,11 @@ class Create
     {
         $user = $this->security->getUser();
 
-        $existingLike = $this->likeService->findOneBy(['post' => $post, 'developer' => $user, 'isDeleted' => false]);
+        $existingLike = $this->likeService->findOneBy(['post' => $post, 'developer' => $user]);
 
         if ($existingLike) {
             return $this->view->setStatusCode(Response::HTTP_CONFLICT)
-                ->setData(['message' => 'Like already exists!']);
+                ->setData($existingLike);
         }
 
 

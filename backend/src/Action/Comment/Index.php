@@ -48,7 +48,7 @@ class Index
     public function __invoke(): View
     {
         return $this->view->setData(
-            $this->commentService->findBy(['isDeleted' => false])
+            $this->commentService->findAll()
         );
     }
 }
