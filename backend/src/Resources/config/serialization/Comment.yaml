@@ -11,4 +11,6 @@ App\Entity\Comment:
     createdAt:
       groups: [default]
     updatedAt:
+      groups: [comment]
+    isDeleted:
       groups: [default]

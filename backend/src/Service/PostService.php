@@ -36,6 +36,16 @@ class PostService
     }
 
     /**
+     * @param array $criteria
+     * @param array $order
+     * @return Post[]|object[]
+     */
+    public function findBy(array $criteria, array $order = []): array
+    {
+        return $this->repository->findBy($criteria, $order);
+    }
+
+    /**
      * @param Post $post
      */
     public function save(Post $post): void

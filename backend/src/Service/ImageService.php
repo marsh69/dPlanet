@@ -35,6 +35,16 @@ class ImageService
         return $this->repository->findAll();
     }
 
+    /**
+     * @param array $criteria
+     * @param array $order
+     * @return Image[]|object[]
+     */
+    public function findBy(array $criteria, array $order = []): array
+    {
+        return $this->repository->findBy($criteria, $order);
+    }
+
 
     /**
      * @param Image $image

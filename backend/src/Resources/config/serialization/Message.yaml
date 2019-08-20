@@ -1,4 +1,6 @@
 App\Entity\Message:
   attributes:
     id:
-      groups: [default, message]
+      groups: [default]
+    isDeleted:
+      groups: [default]

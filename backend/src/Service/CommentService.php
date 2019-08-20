@@ -32,6 +32,16 @@ class CommentService
     }
 
     /**
+     * @param array $criteria
+     * @param array $order
+     * @return Comment[]|object[]
+     */
+    public function findBy(array $criteria, array $order = []): array
+    {
+        return $this->commentRepository->findBy($criteria, $order);
+    }
+
+    /**
      * @param Comment $comment
      */
     public function save(Comment $comment): void

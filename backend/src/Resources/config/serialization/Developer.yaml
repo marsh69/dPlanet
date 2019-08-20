@@ -5,4 +5,4 @@ App\Entity\Developer:
     fullName:
       groups: [default]
     username:
-      groups: [default]
+      groups: [developer]

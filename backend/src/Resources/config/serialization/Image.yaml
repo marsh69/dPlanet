@@ -3,6 +3,8 @@ App\Entity\Image:
     publicPath:
       groups: [default, image]
     fileName:
-      groups: [default, image]
+      groups: [image]
     mimeType:
       groups: [image]
+    isDeleted:
+      groups: [default]

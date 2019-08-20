@@ -32,6 +32,16 @@ class TrendService
     }
 
     /**
+     * @param array $criteria
+     * @param array $order
+     * @return Trend[]|object[]
+     */
+    public function findBy(array $criteria, array $order = []): array
+    {
+        return $this->repository->findBy($criteria, $order);
+    }
+
+    /**
      * @param Trend $trend
      */
     public function save(Trend $trend): void

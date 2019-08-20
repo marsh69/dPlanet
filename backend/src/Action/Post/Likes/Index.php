@@ -2,9 +2,7 @@
 
 namespace App\Action\Post\Likes;
 
-use App\Entity\Developer;
 use App\Entity\Post;
-use App\Service\LikeService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;

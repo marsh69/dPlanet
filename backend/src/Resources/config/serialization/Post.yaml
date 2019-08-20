@@ -22,3 +22,5 @@ App\Entity\Post:
       groups: [default]
     updatedAt:
       groups: [default]
+    isDeleted:
+      groups: [default]
