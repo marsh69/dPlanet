@@ -2,6 +2,9 @@ developers.index:
   path: /
   controller: App\Action\Developer\Index
   methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
 
 developers.create:
   path: /
@@ -17,6 +20,9 @@ developers.likes.list:
   path: /{developer}/likes
   controller: App\Action\Developer\Likes\Index
   methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
 
 developers.edit:
   path: /{developer}

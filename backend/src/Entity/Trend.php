@@ -44,18 +44,18 @@ class Trend
     }
 
     /**
-     * @return Post[]|Collection
+     * @return Post[]
      */
-    public function getPosts()
+    public function getPosts(): array
     {
-        return $this->posts;
+        return $this->posts->toArray();
     }
 
     /**
-     * @param Post[]|Collection $posts
+     * @param Post[] $posts
      * @return Trend
      */
-    public function setPosts($posts)
+    public function setPosts($posts): Trend
     {
         $this->posts = $posts;
         return $this;

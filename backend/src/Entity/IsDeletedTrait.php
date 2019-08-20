@@ -19,7 +19,7 @@ trait IsDeletedTrait
      * @param bool $isDeleted
      * @return self
      */
-    public function setIsDeleted(bool $isDeleted)
+    public function setIsDeleted(bool $isDeleted): self
     {
         $this->isDeleted = $isDeleted;
         return $this;

@@ -3,10 +3,12 @@
 namespace App\Action\Post\Comments;
 
 use App\Entity\Post;
+use App\Model\ApiListResponse;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Request;
 
 class Index
 {
@@ -35,15 +37,40 @@ class Index
      *         response=200,
      *         description="Success",
      *         @Model(type=App\Entity\Comment::class, groups={"comment"})
-     *    )
+     *    ),
+     *    @SWG\Parameter(
+     *        name="limit",
+     *        in="query",
+     *        type="integer",
+     *        description="Limit"
+     *    ),
+     *    @SWG\Parameter(
+     *        name="offset",
+     *        in="query",
+     *        type="integer",
+     *        description="Offset"
+     *    ),
      * )
      * @SWG\Tag(name="Post")
      *
+     * @param Request $request
      * @param Post $post
      * @return View
      */
-    public function __invoke(Post $post): View
+    public function __invoke(Request $request, Post $post): View
     {
-        return $this->view->setData($post->getComments());
+        $limit = $request->query->get('limit');
+        $offset = $request->query->get('offset');
+
+        $comments = $post->getComments();
+
+        $response = new ApiListResponse(
+            array_slice($comments, $offset, $limit),
+            $limit,
+            $offset,
+            count($comments)
+        );
+
+        return $this->view->setData($response);
     }
 }
