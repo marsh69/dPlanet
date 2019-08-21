@@ -10,6 +10,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
+/**
+ * @codeCoverageIgnore
+ */
 class LoadPostData extends Fixture implements OrderedFixtureInterface
 {
     const AMOUNT = 10;

@@ -19,6 +19,7 @@ backend/var/log/*
 backend/vendor
 backend/.php_cs.cache
 backend/bin/composer
+backend/test-coverage
 /backend/public/uploads/*
 /backend/public/bundles/*
 frontend/node_modules

@@ -58,6 +58,10 @@ test.integration: ## Run phpunit integration tests
 test.functional: ## Run phpunit functional tests, please beware that this requires the application to be running
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit --testsuite=functional
 
+test.coverage: ## Run unit tests with PHPunit and create a coverage report in $PWD/PHPunitReport
+	make php.run cmd="/app/src/bin/phpunit -c /app/src --coverage-html /app/src/test-coverage"
+	@echo 'Generated a coverage report in backend/test-coverage!'
+
 composer.install: ## Run composer install in the php container in development
 	make php.run cmd="bin/composer install"
 
