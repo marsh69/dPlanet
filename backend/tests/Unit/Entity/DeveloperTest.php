@@ -17,5 +17,16 @@ class DeveloperTest extends TestCase
     protected $class = Developer::class;
 
     /** @var array $excludedGetters */
-    protected $excludedGetters = ['getRoles'];
+    protected $excludedGetters = [
+        'getRoles',
+        'getPosts',
+        'getReceivedNotifications',
+        'getSentNotifications',
+        'getSentFriendRequests',
+        'getReceivedFriendRequests',
+        'getLikes',
+        'getComments',
+        'getSentMessages',
+        'getReceivedMessages'
+    ];
 }

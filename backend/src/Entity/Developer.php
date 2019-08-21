@@ -109,162 +109,162 @@ class Developer extends User
     }
 
     /**
-     * @return Notification[]|Collection
+     * @return Notification[]
      */
-    public function getReceivedNotifications()
+    public function getReceivedNotifications(): array
     {
-        return $this->receivedNotifications;
+        return $this->receivedNotifications->toArray();
     }
 
     /**
-     * @param Notification[]|Collection $receivedNotifications
+     * @param Notification[] $receivedNotifications
      * @return Developer
      */
-    public function setReceivedNotifications($receivedNotifications)
+    public function setReceivedNotifications($receivedNotifications): self
     {
         $this->receivedNotifications = $receivedNotifications;
         return $this;
     }
 
     /**
-     * @return Message[]|Collection
+     * @return Message[]
      */
-    public function getSentMessages()
+    public function getSentMessages(): array
     {
-        return $this->sentMessages;
+        return $this->sentMessages->toArray();
     }
 
     /**
-     * @param Message[]|Collection $sentMessages
+     * @param Message[] $sentMessages
      * @return Developer
      */
-    public function setSentMessages($sentMessages)
+    public function setSentMessages($sentMessages): self
     {
         $this->sentMessages = $sentMessages;
         return $this;
     }
 
     /**
-     * @return Message[]|Collection
+     * @return Message[]
      */
-    public function getReceivedMessages()
+    public function getReceivedMessages(): array
     {
-        return $this->receivedMessages;
+        return $this->receivedMessages->toArray();
     }
 
     /**
-     * @param Message[]|Collection $receivedMessages
+     * @param Message[] $receivedMessages
      * @return Developer
      */
-    public function setReceivedMessages($receivedMessages)
+    public function setReceivedMessages($receivedMessages): self
     {
         $this->receivedMessages = $receivedMessages;
         return $this;
     }
 
     /**
-     * @return Like[]|Collection
+     * @return Like[]
      */
-    public function getLikes()
+    public function getLikes(): array
     {
-        return $this->likes;
+        return $this->likes->toArray();
     }
 
     /**
-     * @param Like[]|Collection $likes
+     * @param Like[] $likes
      * @return Developer
      */
-    public function setLikes($likes)
+    public function setLikes($likes): self
     {
         $this->likes = $likes;
         return $this;
     }
 
     /**
-     * @return Comment[]|Collection
+     * @return Comment[]
      */
-    public function getComments()
+    public function getComments(): array
     {
-        return $this->comments;
+        return $this->comments->toArray();
     }
 
     /**
-     * @param Comment[]|Collection $comments
+     * @param Comment[] $comments
      * @return Developer
      */
-    public function setComments($comments)
+    public function setComments($comments): self
     {
         $this->comments = $comments;
         return $this;
     }
 
     /**
-     * @return Notification[]|Collection
+     * @return Notification[]
      */
-    public function getSentNotifications()
+    public function getSentNotifications(): array
     {
-        return $this->sentNotifications;
+        return $this->sentNotifications->toArray();
     }
 
     /**
-     * @param Notification[]|Collection $sentNotifications
+     * @param Notification[] $sentNotifications
      * @return Developer
      */
-    public function setSentNotifications($sentNotifications)
+    public function setSentNotifications($sentNotifications): self
     {
         $this->sentNotifications = $sentNotifications;
         return $this;
     }
 
     /**
-     * @return Post[]|Collection
+     * @return Post[]
      */
-    public function getPosts()
+    public function getPosts(): array
     {
-        return $this->posts;
+        return $this->posts->toArray();
     }
 
     /**
-     * @param Post[]|Collection $posts
+     * @param Post[] $posts
      * @return Developer
      */
-    public function setPosts($posts)
+    public function setPosts($posts): self
     {
         $this->posts = $posts;
         return $this;
     }
 
     /**
-     * @return FriendRequest[]|Collection
+     * @return FriendRequest[]
      */
-    public function getSentFriendRequests()
+    public function getSentFriendRequests(): array
     {
-        return $this->sentFriendRequests;
+        return $this->sentFriendRequests->toArray();
     }
 
     /**
-     * @param FriendRequest[]|Collection $sentFriendRequests
+     * @param FriendRequest[] $sentFriendRequests
      * @return Developer
      */
-    public function setSentFriendRequests($sentFriendRequests)
+    public function setSentFriendRequests($sentFriendRequests): self
     {
         $this->sentFriendRequests = $sentFriendRequests;
         return $this;
     }
 
     /**
-     * @return FriendRequest[]|Collection
+     * @return FriendRequest[]
      */
-    public function getReceivedFriendRequests()
+    public function getReceivedFriendRequests(): array
     {
-        return $this->receivedFriendRequests;
+        return $this->receivedFriendRequests->toArray();
     }
 
     /**
-     * @param FriendRequest[]|Collection $receivedFriendRequests
+     * @param FriendRequest[] $receivedFriendRequests
      * @return Developer
      */
-    public function setReceivedFriendRequests($receivedFriendRequests)
+    public function setReceivedFriendRequests($receivedFriendRequests): self
     {
         $this->receivedFriendRequests = $receivedFriendRequests;
         return $this;

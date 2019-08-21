@@ -11,7 +11,6 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class Create
 {

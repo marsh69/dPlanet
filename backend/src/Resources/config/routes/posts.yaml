@@ -2,6 +2,9 @@ posts.index:
   path: /
   controller: App\Action\Post\Index
   methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
 
 posts.show:
   path: /{post}
@@ -13,10 +16,13 @@ posts.create:
   controller: App\Action\Post\Create
   methods: [POST]
 
-posts.comments:
+posts.comments.index:
   path: /{post}/comments
   controller: App\Action\Post\Comments\Index
   methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
 
 posts.comments.create:
   path: /{post}/comments
@@ -27,6 +33,9 @@ posts.likes.list:
   path: /{post}/likes
   controller: App\Action\Post\Likes\Index
   methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
 
 posts.likes.create:
   path: /{post}/likes
@@ -42,6 +51,9 @@ posts.trends.list:
   path: /{post}/trends
   controller: App\Action\Post\Trends\Index
   methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
 
 posts.edit:
   path: /{post}

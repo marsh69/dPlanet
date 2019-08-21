@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Like;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 class LikeService
 {
@@ -24,21 +25,25 @@ class LikeService
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
      * @return Like[]|object[]
      */
-    public function findAll(): array
+    public function findAll(?int $limit = null, ?int $offset = null): array
     {
-        return $this->likeRepository->findAll();
+        return $this->likeRepository->findBy([], [], $limit, $offset);
     }
 
     /**
      * @param array $criteria
      * @param array $order
+     * @param int $limit
+     * @param int $offset
      * @return Like[]|object[]
      */
-    public function findBy(array $criteria, array $order = []): array
+    public function findBy(array $criteria, array $order = [], ?int $limit = null, ?int $offset = null): array
     {
-        return $this->likeRepository->findBy($criteria, $order);
+        return $this->likeRepository->findBy($criteria, $order, $limit, $offset);
     }
 
     /**
@@ -48,6 +53,22 @@ class LikeService
     public function findOneBy(array $criteria): ?Like
     {
         return $this->likeRepository->findOneBy($criteria);
+    }
+
+    /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        try {
+            return $this->em->createQueryBuilder()
+                ->select('COUNT(l.id)')
+                ->from('App\Entity\Like', 'l')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            return -1;
+        }
     }
 
     /**

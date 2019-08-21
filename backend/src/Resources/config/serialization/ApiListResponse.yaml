@@ -1,0 +1,17 @@
+App\Model\ApiListResponse:
+  attributes:
+    limit:
+      groups: [default]
+      serialized_name: _limit
+    offset:
+      groups: [default]
+      serialized_name: _offset
+    total:
+      groups: [default]
+      serialized_name: _total
+    data:
+      groups: [default]
+      serialized_name: _data
+    count:
+      groups: [default]
+      serialized_name: _count

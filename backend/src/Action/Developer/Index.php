@@ -3,11 +3,13 @@
 namespace App\Action\Developer;
 
 use App\Entity\Developer;
+use App\Model\ApiListResponse;
 use App\Service\DeveloperService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 
@@ -55,19 +57,40 @@ class Index
      *        response=403,
      *        description="Forbidden",
      *    ),
+     *    @SWG\Parameter(
+     *        name="limit",
+     *        in="query",
+     *        type="integer",
+     *        description="Limit"
+     *    ),
+     *    @SWG\Parameter(
+     *        name="offset",
+     *        in="query",
+     *        type="integer",
+     *        description="Offset"
+     *    ),
      * )
      * @SWG\Tag(name="Developer")
      *
+     * @param Request $request
      * @return View
      */
-    public function __invoke(): View
+    public function __invoke(Request $request): View
     {
         if (!$this->security->isGranted('list', new Developer())) {
             return $this->view->setStatusCode(Response::HTTP_FORBIDDEN);
         }
 
-        return $this->view->setData(
-            $this->developerService->findAll()
+        $limit = $request->query->get('limit');
+        $offset = $request->query->get('offset');
+
+        $response = new ApiListResponse(
+            $this->developerService->findAll(),
+            $limit,
+            $offset,
+            $this->developerService->getCount()
         );
+
+        return $this->view->setData($response);
     }
 }

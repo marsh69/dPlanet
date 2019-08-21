@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Comment;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 class CommentService
 {
@@ -24,21 +25,41 @@ class CommentService
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
      * @return Comment[]|object[]
      */
-    public function findAll(): array
+    public function findAll(?int $limit = null, ?int $offset = null): array
     {
-        return $this->commentRepository->findAll();
+        return $this->commentRepository->findBy([], [], $limit, $offset);
     }
 
     /**
      * @param array $criteria
      * @param array $order
+     * @param int $limit
+     * @param int $offset
      * @return Comment[]|object[]
      */
-    public function findBy(array $criteria, array $order = []): array
+    public function findBy(array $criteria, array $order = [], ?int $limit = null, ?int $offset = null): array
     {
-        return $this->commentRepository->findBy($criteria, $order);
+        return $this->commentRepository->findBy($criteria, $order, $limit, $offset);
+    }
+
+    /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        try {
+            return $this->em->createQueryBuilder()
+                ->select('COUNT(c.id)')
+                ->from('App\Entity\Comment', 'c')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            return -1;
+        }
     }
 
     /**
