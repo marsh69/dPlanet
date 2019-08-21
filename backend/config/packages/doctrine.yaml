@@ -32,3 +32,8 @@ doctrine:
                         type: yml
                         dir: '%kernel.project_dir%/src/Resources/config/doctrine'
                         prefix: 'App\Entity'
+
+                filters:
+                    is_deleted_filter:
+                        class: App\Filter\IsDeletedFilter
+                        enabled: true

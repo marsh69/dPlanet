@@ -11,6 +11,7 @@ before_script:
   - echo -e $pkey > ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/id_rsa
   - echo -e $vaultpassword > ../.vault-password
+  - export ANSIBLE_STDOUT_CALLBACK=debug
 
 script:
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ansible-playbook -i ansible/inventories/test.yml ansible/site.yml -e docker_tag=stable-$TRAVIS_COMMIT --vault-password-file=../.vault-password --skip-tags=server_install -e publish_images=true; fi

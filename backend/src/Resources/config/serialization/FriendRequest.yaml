@@ -1,4 +1,4 @@
 App\Entity\FriendRequest:
   attributes:
     id:
-      groups: [default, friendrequest]
+      groups: [friendrequest]

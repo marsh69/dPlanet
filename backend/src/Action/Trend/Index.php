@@ -2,11 +2,13 @@
 
 namespace App\Action\Trend;
 
+use App\Model\ApiListResponse;
 use App\Service\TrendService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Request;
 
 class Index
 {
@@ -39,16 +41,37 @@ class Index
      *         response=200,
      *         description="Success",
      *         @Model(type=App\Entity\Trend::class, groups={"trend"})
-     *    )
+     *    ),
+     *    @SWG\Parameter(
+     *        name="limit",
+     *        in="query",
+     *        type="integer",
+     *        description="Limit"
+     *    ),
+     *    @SWG\Parameter(
+     *        name="offset",
+     *        in="query",
+     *        type="integer",
+     *        description="Offset"
+     *    ),
      * )
      * @SWG\Tag(name="Trend")
      *
+     * @param Request $request
      * @return View
      */
-    public function __invoke(): View
+    public function __invoke(Request $request): View
     {
-        return $this->view->setData(
-            $this->trendService->findAll()
+        $limit = $request->query->get('limit');
+        $offset = $request->query->get('offset');
+
+        $response = new ApiListResponse(
+            $this->trendService->findAll(),
+            $limit,
+            $offset,
+            $this->trendService->getCount()
         );
+
+        return $this->view->setData($response);
     }
 }

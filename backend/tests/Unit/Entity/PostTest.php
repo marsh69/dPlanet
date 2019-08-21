@@ -15,4 +15,6 @@ class PostTest extends TestCase
 
     /** @var string $class */
     protected $class = Post::class;
+
+    protected $excludedGetters = ['getComments', 'getTrends', 'getLikes'];
 }

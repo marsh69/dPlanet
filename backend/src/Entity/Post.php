@@ -20,11 +20,11 @@ class Post
     protected $isDeleted = false;
     /** @var bool $isClosedByUser */
     protected $isClosedByUser = false;
-    /** @var Comment[]|Collection $comments */
+    /** @var Collection|Comment[] $comments */
     protected $comments;
     /** @var Collection|Like[] $likes */
     protected $likes;
-    /** @var Trend[]|Collection $trends */
+    /** @var Collection|Trend[] $trends */
     protected $trends;
     /** @var Image|null $image */
     protected $image;
@@ -112,18 +112,18 @@ class Post
     }
 
     /**
-     * @return Like[]|Collection
+     * @return Like[]
      */
-    public function getLikes()
+    public function getLikes(): array
     {
-        return $this->likes;
+        return $this->likes->toArray();
     }
 
     /**
-     * @param Like[]|Collection $likes
+     * @param Like[] $likes
      * @return Post
      */
-    public function setLikes($likes)
+    public function setLikes($likes): Post
     {
         $this->likes = $likes;
         return $this;
@@ -148,36 +148,36 @@ class Post
     }
 
     /**
-     * @return Comment[]|Collection
+     * @return Comment[]
      */
-    public function getComments()
+    public function getComments(): array
     {
-        return $this->comments;
+        return $this->comments->toArray();
     }
 
     /**
-     * @param Comment[]|Collection $comments
+     * @param Comment[] $comments
      * @return Post
      */
-    public function setComments($comments)
+    public function setComments($comments): Post
     {
         $this->comments = $comments;
         return $this;
     }
 
     /**
-     * @return Trend[]|Collection
+     * @return Trend[]
      */
-    public function getTrends()
+    public function getTrends(): array
     {
-        return $this->trends;
+        return $this->trends->toArray();
     }
 
     /**
-     * @param Trend[]|Collection $trends
+     * @param Trend[] $trends
      * @return Post
      */
-    public function setTrends($trends)
+    public function setTrends($trends): Post
     {
         $this->trends = $trends;
         return $this;

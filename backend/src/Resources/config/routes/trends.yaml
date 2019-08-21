@@ -2,6 +2,9 @@ trends.index:
   path: /
   controller: App\Action\Trend\Index
   methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
 
 trends.create:
   path: /

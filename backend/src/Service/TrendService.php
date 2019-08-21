@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Trend;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 class TrendService
 {
@@ -24,11 +25,29 @@ class TrendService
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
      * @return Trend[]|object[]
      */
-    public function findAll(): array
+    public function findAll(?int $limit = null, ?int $offset = null): array
     {
-        return $this->repository->findAll();
+        return $this->repository->findBy([], [], $limit, $offset);
+    }
+
+    /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        try {
+            return $this->em->createQueryBuilder()
+                ->select('COUNT(t.id)')
+                ->from('App\Entity\Trend', 't')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            return -1;
+        }
     }
 
     /**
