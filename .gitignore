@@ -9,6 +9,7 @@ backend/var
 /backend/vendor/
 /backend/bin/.phpunit
 /backend/.phpunit
+backend/test-coverage
 /backend/.phpunit.result.cache
 *.retry
 .php_cs

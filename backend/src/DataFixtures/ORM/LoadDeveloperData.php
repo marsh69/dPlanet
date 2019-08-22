@@ -10,6 +10,9 @@ use Faker\Factory;
 use Faker\Generator;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 
+/**
+ * @codeCoverageIgnore
+ */
 class LoadDeveloperData extends Fixture implements OrderedFixtureInterface
 {
     const AMOUNT = 10;

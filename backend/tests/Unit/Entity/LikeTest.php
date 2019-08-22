@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 
 /**
  * @coversDefaultClass \App\Entity\Like
- * @covers \App\Entity\Message
+ * @covers \App\Entity\Like
  */
 class LikeTest extends TestCase
 {

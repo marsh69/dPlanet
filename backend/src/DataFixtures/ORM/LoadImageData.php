@@ -9,6 +9,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
+/**
+ * @codeCoverageIgnore
+ */
 class LoadImageData extends Fixture implements OrderedFixtureInterface
 {
     const AMOUNT = 10;

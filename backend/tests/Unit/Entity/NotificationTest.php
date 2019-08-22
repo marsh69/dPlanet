@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 
 /**
  * @coversDefaultClass \App\Entity\Notification
- * @covers \App\Entity\Message
+ * @covers \App\Entity\Notification
  */
 class NotificationTest extends TestCase
 {
