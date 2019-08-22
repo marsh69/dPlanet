@@ -36,6 +36,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
     networks:
       - mysql
       - nginx
@@ -77,6 +78,7 @@ services:
   node:
     image: node:12.8.1-alpine
     user: node
+    restart: unless-stopped
     expose:
       - 3000
     networks:
