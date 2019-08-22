@@ -14,7 +14,7 @@ use Faker\Generator;
  */
 class LoadImageData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 10;
+    const AMOUNT = 4;
 
     /** @var Generator $faker */
     protected $faker;

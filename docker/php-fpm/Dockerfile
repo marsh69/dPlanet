@@ -50,8 +50,9 @@ COPY --chown=php:php backend/ /app/src/
 # Test with composer
 FROM runtime AS test
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN composer install -d /app/src --optimize-autoloader --no-interaction --no-suggest --no-scripts \
-    && /app/src/bin/phpunit --testsuite=unit,integration
+RUN apk add php7-pdo_sqlite php7-sqlite3 \
+    && composer install -d /app/src --optimize-autoloader --no-interaction --no-suggest --no-scripts \
+    && /app/src/bin/phpunit --testsuite=unit,integration,functional
 
 # Final image
 FROM runtime

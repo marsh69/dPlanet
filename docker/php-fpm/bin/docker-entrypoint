@@ -9,7 +9,9 @@ then
         coreutils \
         php7-phar \
         php7-pecl-xdebug \
-        php7-xmlwriter
+        php7-xmlwriter \
+        php7-pdo_sqlite \
+        php7-sqlite3
   else
     echo "Skipping APK installation, already done"
   fi

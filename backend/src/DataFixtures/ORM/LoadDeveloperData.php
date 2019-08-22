@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
  */
 class LoadDeveloperData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 10;
+    const AMOUNT = 5;
 
     /** @var Generator $faker */
     protected $faker;

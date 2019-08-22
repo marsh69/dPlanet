@@ -14,12 +14,7 @@
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="6.5" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
-
-        <!-- ###+ lexik/jwt-authentication-bundle ### -->
-        <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/jwt/private.pem"/>
-        <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/jwt/public.pem"/>
-        <env name="JWT_PASSPHRASE" value="08a071d1ce0afa0932f2eebae18df75f"/>
-        <!-- ###- lexik/jwt-authentication-bundle ### -->
+        <env name="KERNEL_CLASS" value="\App\Kernel"/>
     </php>
 
     <testsuites>
@@ -39,6 +34,7 @@
             <directory>src</directory>
             <exclude>
                 <directory>src/Kernel.php</directory>
+                <directory>src/Migrations</directory>
             </exclude>
         </whitelist>
     </filter>
