@@ -37,6 +37,9 @@
     <filter>
         <whitelist>
             <directory>src</directory>
+            <exclude>
+                <directory>src/Kernel.php</directory>
+            </exclude>
         </whitelist>
     </filter>
 
