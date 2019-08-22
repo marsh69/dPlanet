@@ -78,24 +78,6 @@ class Post
     /**
      * @return bool
      */
-    public function isDeleted(): bool
-    {
-        return $this->isDeleted;
-    }
-
-    /**
-     * @param bool $isDeleted
-     * @return Post
-     */
-    public function setIsDeleted(bool $isDeleted): Post
-    {
-        $this->isDeleted = $isDeleted;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
     public function isClosedByUser(): bool
     {
         return $this->isClosedByUser;
