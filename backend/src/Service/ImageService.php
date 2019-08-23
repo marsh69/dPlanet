@@ -13,19 +13,15 @@ class ImageService
     protected $em;
     /** @var ObjectRepository $repository */
     protected $repository;
-    /** @var UploadService $uploadService */
-    protected $uploadService;
 
     /**
      * ImageService constructor.
      * @param EntityManagerInterface $em
-     * @param UploadService $uploadService
      */
-    public function __construct(EntityManagerInterface $em, UploadService $uploadService)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
         $this->repository = $em->getRepository(Image::class);
-        $this->uploadService = $uploadService;
     }
 
     /**
@@ -72,8 +68,6 @@ class ImageService
      */
     public function save(Image $image): void
     {
-        $this->uploadService->uploadImage($image);
-
         $this->em->persist($image);
         $this->em->flush();
     }

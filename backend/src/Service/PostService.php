@@ -13,19 +13,15 @@ class PostService
     protected $em;
     /** @var ObjectRepository $repository */
     protected $repository;
-    /** @var UploadService $uploadService */
-    protected $uploadService;
 
     /**
      * PostService constructor.
      * @param EntityManagerInterface $em
-     * @param UploadService $uploadService
      */
-    public function __construct(EntityManagerInterface $em, UploadService $uploadService)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
         $this->repository = $em->getRepository(Post::class);
-        $this->uploadService = $uploadService;
     }
 
     /**
@@ -71,11 +67,6 @@ class PostService
      */
     public function save(Post $post): void
     {
-        if ($post->getImage()) {
-            $newImage = $this->uploadService->uploadImage($post->getImage());
-            $post->setImage($newImage);
-        }
-
         $this->em->persist($post);
         $this->em->flush();
     }

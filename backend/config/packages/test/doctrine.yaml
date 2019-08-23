@@ -1,7 +1,15 @@
 doctrine:
-  dbal:
-    default_connection: default
-    connections:
-      default:
-        driver:   pdo_sqlite
-        path:     '%kernel.cache_dir%/test.db'
+    dbal:
+        driver: pdo_sqlite
+        path: '%kernel.cache_dir%/test.db'
+        host: ~
+        dbname: ~
+        user: ~
+        password: ~
+    orm:
+        entity_managers:
+            default:
+                second_level_cache:
+                  enabled: false
+                metadata_cache_driver: ~
+                query_cache_driver: ~

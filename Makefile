@@ -17,6 +17,9 @@ up: ## Start containers in development mode
 down: ## Stop containers
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet down
 
+php.restart: ## Restart php container
+	docker restart dplanet_php-fpm_1
+
 php.run: ## Run a command in the php container, requires a 'cmd' argument
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm ${cmd}
 

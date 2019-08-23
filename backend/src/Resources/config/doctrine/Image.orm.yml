@@ -23,6 +23,9 @@ App\Entity\Image:
       type: string
       options:
         default: ''
+    imageUpdated:
+      type: datetime
+      nullable: true
     publicPath:
       type: string
       options:

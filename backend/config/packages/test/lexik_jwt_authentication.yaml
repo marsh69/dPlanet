@@ -1,4 +1,4 @@
 lexik_jwt_authentication:
-  secret_key: ~
-  public_key: ~
+  secret_key: '/app/src/config/packages/test/jwt_keys/private-test.pem'
+  public_key: '/app/src/config/packages/test/jwt_keys/public-test.pem'
   pass_phrase: 'test'

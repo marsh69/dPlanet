@@ -18,7 +18,10 @@
         <env name="DATABASE_HOSTNAME" value=""/>
         <env name="DATABASE_USER" value=""/>
         <env name="DATABASE_PASSWORD" value=""/>
+        <env name="CORS_ALLOW_ORIGIN" value=""/>
         <env name="DATABASE_NAME" value=""/>
+        <env name="REDIS_PASSWORD" value=""/>
+        <env name="REDIS_HOST" value=""/>
         <env name="JWT_KEY" value=""/>
         <env name="JWT_SECRET" value=""/>
     </php>

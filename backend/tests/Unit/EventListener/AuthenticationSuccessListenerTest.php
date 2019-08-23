@@ -20,12 +20,14 @@ class AuthenticationSuccessListenerTest extends TestCase
     {
         $event = $this->createMock(AuthenticationSuccessEvent::class);
 
+        $image = new Image();
+
         $developer = new Developer();
         $developer->setUsername('username');
         $developer->setFirstName('John');
         $developer->setLastName('Doe');
         $developer->setRoles(['ROLE_TEST']);
-        $developer->setProfileImage(new Image());
+        $developer->setProfileImage($image);
 
         $event->expects($this->once())
             ->method('getData')
@@ -45,7 +47,7 @@ class AuthenticationSuccessListenerTest extends TestCase
                     'firstName' => 'John',
                     'lastName' => 'Doe',
                     'roles' => ['ROLE_TEST', 'ROLE_USER'],
-                    'profileImage' => new Image(),
+                    'profileImage' => $image,
                     'amountOfNotifications' => 0
                 ]
             ]);

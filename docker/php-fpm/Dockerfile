@@ -51,9 +51,9 @@ COPY --chown=php:php backend/ /app/src/
 FROM runtime AS test
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN apk add php7-pdo_sqlite php7-sqlite3 \
+    && composer install -d /app/src --optimize-autoloader --no-interaction --no-suggest --no-scripts \
     && openssl genrsa -out /app/src/config/packages/test/jwt_keys/private-test.pem -passout pass:test -aes256 4096 \
     && openssl rsa -passin pass:test -pubout -in /app/src/config/packages/test/jwt_keys/private-test.pem -out /app/src/config/packages/test/jwt_keys/public-test.pem \
-    && composer install -d /app/src --optimize-autoloader --no-interaction --no-suggest --no-scripts \
     && /app/src/bin/phpunit --testsuite=unit,integration,functional
 
 # Final image
