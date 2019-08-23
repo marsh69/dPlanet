@@ -3,6 +3,7 @@
 namespace App\DataFixtures\ORM;
 
 use App\Entity\Developer;
+use App\Entity\Image;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
  */
 class LoadDeveloperData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 10;
+    const AMOUNT = 20;
 
     /** @var Generator $faker */
     protected $faker;
@@ -66,6 +67,9 @@ class LoadDeveloperData extends Fixture implements OrderedFixtureInterface
         $this->setReference('user_1', $developer);
 
         for ($i = 2; $i < self::AMOUNT + 1; $i++) {
+            /** @var Image $image */
+            $image = $this->hasReference("image_$i") ? $this->getReference("image_$i") : null;
+
             $developer = (new Developer())
                 ->setFirstName($this->faker->firstName)
                 ->setLastName($this->faker->lastName)
@@ -73,7 +77,8 @@ class LoadDeveloperData extends Fixture implements OrderedFixtureInterface
                 ->setEnabled($this->faker->boolean(80))
                 ->setPassword($this->developerPassword)
                 ->setRoles(['ROLE_DEVELOPER'])
-                ->setUsername($this->faker->userName);
+                ->setUsername($this->faker->userName)
+                ->setProfileImage($image);
 
             $this->setReference("user_$i", $developer);
 

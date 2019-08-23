@@ -15,7 +15,7 @@ use Faker\Generator;
  */
 class LoadPostData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 10;
+    const AMOUNT = 20;
 
     /** @var Generator $faker */
     protected $faker;
@@ -30,6 +30,7 @@ class LoadPostData extends Fixture implements OrderedFixtureInterface
 
     /**
      * {@inheritDoc}
+     * @throws \Exception
      */
     public function load(ObjectManager $manager)
     {
@@ -40,10 +41,10 @@ class LoadPostData extends Fixture implements OrderedFixtureInterface
                 )
                 ->setBody($this->faker->realText(400))
                 ->setIsClosedByUser($this->faker->boolean(90))
-                ->setTrends(new ArrayCollection([
-                    $this->getReference('trend_'. random_int(0, LoadTrendData::AMOUNT / 2)),
-                    $this->getReference('trend_'. random_int(LoadTrendData::AMOUNT / 2, LoadTrendData::AMOUNT)),
-                ]));
+                ->setTrends($this->getRandomTrends(5))
+                ->setImage(
+                    $this->hasReference("image_$i") ? $this->getReference("image_$i") : null
+                );
 
             $this->setReference("post_$i", $post);
 
@@ -51,6 +52,26 @@ class LoadPostData extends Fixture implements OrderedFixtureInterface
         }
 
         $manager->flush();
+    }
+
+    /**
+     * @param int $max
+     * @return array
+     * @throws \Exception
+     */
+    protected function getRandomTrends(int $max = 5): array
+    {
+        $amount = random_int(0, $max);
+
+        $trends = [];
+
+        for ($i = 0; $i < $amount; $i++) {
+            $trend = $this->getReference('trend_' . random_int(0, LoadTrendData::AMOUNT));
+
+            in_array($trend, $trends) ? $i-- : $trends[] = $trend;
+        }
+
+        return $trends;
     }
 
     /**

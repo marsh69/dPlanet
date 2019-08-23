@@ -7,6 +7,7 @@ backend/var
 /backend/public/uploads
 /backend/var/
 /backend/vendor/
+/backend/assets/fixtureimages/*.test
 /backend/bin/.phpunit
 /backend/.phpunit
 backend/test-coverage
