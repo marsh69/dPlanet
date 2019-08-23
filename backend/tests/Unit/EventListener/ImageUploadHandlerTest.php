@@ -10,4 +10,11 @@ use PHPUnit\Framework\TestCase;
  */
 class ImageUploadHandlerTest extends TestCase
 {
+    /**
+     * @covers ::prePersist
+     */
+    public function testIfImageIsUploadedOnPrePersist(): void
+    {
+        $this->markTestIncomplete('Work in progress');
+    }
 }
