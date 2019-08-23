@@ -15,6 +15,12 @@
         <server name="SYMFONY_PHPUNIT_VERSION" value="6.5" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
         <env name="KERNEL_CLASS" value="\App\Kernel"/>
+        <env name="DATABASE_HOSTNAME" value=""/>
+        <env name="DATABASE_USER" value=""/>
+        <env name="DATABASE_PASSWORD" value=""/>
+        <env name="DATABASE_NAME" value=""/>
+        <env name="JWT_KEY" value=""/>
+        <env name="JWT_SECRET" value=""/>
     </php>
 
     <testsuites>

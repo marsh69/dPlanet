@@ -9,6 +9,8 @@ backend/var
 /backend/vendor/
 /backend/bin/.phpunit
 /backend/.phpunit
+!/backend/config/packages/test/jwt_keys/.gitkeep
+/backend/config/packages/test/jwt_keys/*
 backend/test-coverage
 /backend/.phpunit.result.cache
 *.retry
