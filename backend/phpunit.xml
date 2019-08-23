@@ -20,8 +20,8 @@
         <env name="DATABASE_PASSWORD" value=""/>
         <env name="CORS_ALLOW_ORIGIN" value=""/>
         <env name="DATABASE_NAME" value=""/>
-        <env name="REDIS_PASSWORD" value=""/>
-        <env name="REDIS_HOST" value=""/>
+        <env name="REDIS_PASSWORD" value="test"/>
+        <env name="REDIS_HOST" value="localhost"/>
         <env name="JWT_KEY" value=""/>
         <env name="JWT_SECRET" value=""/>
     </php>
@@ -44,6 +44,7 @@
             <exclude>
                 <directory>src/Kernel.php</directory>
                 <directory>src/Migrations</directory>
+                <directory>src/DataFixtures</directory>
             </exclude>
         </whitelist>
     </filter>

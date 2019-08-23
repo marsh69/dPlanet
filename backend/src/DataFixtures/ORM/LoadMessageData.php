@@ -14,7 +14,7 @@ use Faker\Generator;
  */
 class LoadMessageData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 10;
+    const AMOUNT = 30;
 
     /** @var Generator $faker */
     protected $faker;

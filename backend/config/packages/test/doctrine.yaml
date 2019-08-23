@@ -2,14 +2,3 @@ doctrine:
     dbal:
         driver: pdo_sqlite
         path: '%kernel.cache_dir%/test.db'
-        host: ~
-        dbname: ~
-        user: ~
-        password: ~
-    orm:
-        entity_managers:
-            default:
-                second_level_cache:
-                  enabled: false
-                metadata_cache_driver: ~
-                query_cache_driver: ~
