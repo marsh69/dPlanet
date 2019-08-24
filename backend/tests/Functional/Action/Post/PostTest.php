@@ -30,7 +30,7 @@ class PostTest extends FixtureAwareTestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertObjectHasAttribute('_data', $content);
 
-        $this->assertCount(26, $content->_data);
+        $this->assertCount(16, $content->_data);
 
         $randomPost = $content->_data[0];
 
