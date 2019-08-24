@@ -48,18 +48,15 @@ class PostService
 
     /**
      * @return int
+     * @throws NonUniqueResultException
      */
     public function getCount(): int
     {
-        try {
-            return $this->em->createQueryBuilder()
-                ->select('COUNT(p.id)')
-                ->from('App\Entity\Post', 'p')
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return -1;
-        }
+        return $this->em->createQueryBuilder()
+            ->select('COUNT(p.id)')
+            ->from('App\Entity\Post', 'p')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**

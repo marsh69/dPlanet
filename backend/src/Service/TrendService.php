@@ -36,18 +36,15 @@ class TrendService
 
     /**
      * @return int
+     * @throws NonUniqueResultException
      */
     public function getCount(): int
     {
-        try {
-            return $this->em->createQueryBuilder()
-                ->select('COUNT(t.id)')
-                ->from('App\Entity\Trend', 't')
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return -1;
-        }
+        return $this->em->createQueryBuilder()
+            ->select('COUNT(t.id)')
+            ->from('App\Entity\Trend', 't')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**

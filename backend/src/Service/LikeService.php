@@ -57,18 +57,15 @@ class LikeService
 
     /**
      * @return int
+     * @throws NonUniqueResultException
      */
     public function getCount(): int
     {
-        try {
-            return $this->em->createQueryBuilder()
-                ->select('COUNT(l.id)')
-                ->from('App\Entity\Like', 'l')
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return -1;
-        }
+        return $this->em->createQueryBuilder()
+            ->select('COUNT(l.id)')
+            ->from('App\Entity\Like', 'l')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**

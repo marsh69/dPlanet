@@ -14,7 +14,7 @@ use Faker\Generator;
  */
 class LoadTrendData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 20;
+    const AMOUNT = 10;
     const TRENDS = [
         'Java',
         'Deep Learning',
@@ -27,16 +27,6 @@ class LoadTrendData extends Fixture implements OrderedFixtureInterface
         'Javascript',
         'ReactJS', #10
         'AngularJS',
-        'VueJS',
-        'Docker',
-        'Kubernetes',
-        'K8S', #15
-        'OpenShift',
-        'Ansible',
-        'Symfony',
-        'EntityFramework',
-        'A.I.', #20
-        'UX'
     ];
 
     /** @var Generator $faker */

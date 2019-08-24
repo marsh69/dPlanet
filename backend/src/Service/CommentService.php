@@ -48,18 +48,15 @@ class CommentService
 
     /**
      * @return int
+     * @throws NonUniqueResultException
      */
     public function getCount(): int
     {
-        try {
-            return $this->em->createQueryBuilder()
-                ->select('COUNT(c.id)')
-                ->from('App\Entity\Comment', 'c')
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return -1;
-        }
+        return $this->em->createQueryBuilder()
+            ->select('COUNT(c.id)')
+            ->from('App\Entity\Comment', 'c')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**

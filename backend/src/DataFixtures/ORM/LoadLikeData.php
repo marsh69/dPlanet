@@ -14,7 +14,7 @@ use Faker\Generator;
  */
 class LoadLikeData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 15;
+    const AMOUNT = 30;
 
     /** @var Generator $faker */
     protected $faker;

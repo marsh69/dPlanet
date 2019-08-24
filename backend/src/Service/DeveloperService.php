@@ -48,18 +48,15 @@ class DeveloperService
 
     /**
      * @return int
+     * @throws NonUniqueResultException
      */
     public function getCount(): int
     {
-        try {
-            return $this->em->createQueryBuilder()
-                ->select('COUNT(d.id)')
-                ->from('App\Entity\Developer', 'd')
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return -1;
-        }
+        return $this->em->createQueryBuilder()
+            ->select('COUNT(d.id)')
+            ->from('App\Entity\Developer', 'd')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**

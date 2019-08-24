@@ -45,7 +45,7 @@ class DeveloperVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return $subject instanceof Comment && in_array($attribute, self::ATTRIBUTES);
+        return $subject instanceof Developer && in_array($attribute, self::ATTRIBUTES);
     }
 
     /**

@@ -46,10 +46,12 @@ class FixtureAwareTestCase extends WebTestCase
      */
     public static function setUpBeforeClass()
     {
+        ini_set('memory_limit', '455M');
+
         self::runCommand('doctrine:database:drop --force');
         self::runCommand('doctrine:database:create');
         self::runCommand('doctrine:schema:update --force');
-        self::runCommand('doctrine:fixtures:load --append');
+        self::runCommand('doctrine:fixtures:load -n');
     }
 
     /**
@@ -62,11 +64,8 @@ class FixtureAwareTestCase extends WebTestCase
      */
     protected static function runCommand(string $command)
     {
-        echo "\r\n" . $command . "\r\n";
         $command = sprintf('%s -n -v --env=test', $command);
-
         $result = self::getApplication()->run(new StringInput($command));
-
         return $result;
     }
 
