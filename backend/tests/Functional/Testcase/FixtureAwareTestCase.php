@@ -39,7 +39,7 @@ class FixtureAwareTestCase extends WebTestCase
      * {@inheritdoc}
      * @throws \Exception
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         StaticDriver::setKeepStaticConnections(true);
     }
@@ -56,7 +56,7 @@ class FixtureAwareTestCase extends WebTestCase
     /**
      * {@inheritdoc}
      */
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         StaticDriver::setKeepStaticConnections(false);
     }
