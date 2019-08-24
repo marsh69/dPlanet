@@ -35,18 +35,6 @@ class PostService
     }
 
     /**
-     * @param array $criteria
-     * @param array $order
-     * @param int $limit
-     * @param int $offset
-     * @return Post[]|object[]
-     */
-    public function findBy(array $criteria, array $order = [], ?int $limit = null, ?int $offset = null): array
-    {
-        return $this->repository->findBy($criteria, $order, $limit, $offset);
-    }
-
-    /**
      * @return int
      * @throws NonUniqueResultException
      */

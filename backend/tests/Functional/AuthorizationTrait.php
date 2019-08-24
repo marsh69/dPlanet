@@ -9,13 +9,18 @@ trait AuthorizationTrait
 {
     /** @var Client $client */
     protected $client;
+    /** @var string $currentUserId */
+    protected $currentUserId;
 
     /**
-     * @param string $username
-     * @param string $password
+     * Add a authorization header to the client object with a JWT token
+     * belonging to a certain user
+     *
+     * @param string $username of the user you want to authenticate
+     * @param string $password of the user you want to authenticate
      * @return void
      */
-    protected function setAuthorizationToken(string $username, string $password): void
+    protected function becomeUser(string $username, string $password): void
     {
         $credentials = json_encode([
             'username' => $username,
@@ -28,6 +33,14 @@ trait AuthorizationTrait
             $this->client->getResponse()->getContent()
         );
 
-        $this->client->setServerParameter('HTTP_AUTHORIZATION', 'Bearer ' . $content->token);
+        try {
+            $this->currentUserId = $content->user->id;
+            $this->client->setServerParameter('HTTP_AUTHORIZATION', 'Bearer ' . $content->token);
+        } catch (\Exception $exception) {
+            echo PHP_EOL . PHP_EOL;
+            echo "Something went wrong while logging in! Message: {$exception->getMessage()}" . PHP_EOL;
+            var_dump($content);
+            echo PHP_EOL . PHP_EOL;
+        }
     }
 }

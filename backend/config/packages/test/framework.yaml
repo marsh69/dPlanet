@@ -4,4 +4,5 @@ framework:
         storage_id: session.storage.mock_file
     profiler:
         collect: false
+        enabled: false
     cache: ~

@@ -33,3 +33,9 @@ developers.delete:
   path: /{developer}
   controller: App\Action\Developer\Delete
   methods: [DELETE]
+
+# TODO: This route isn't RESTful, ensure the POST developers is exposed
+developers.register:
+  path: /register
+  controller: 'App\Action\Developer\Create'
+  methods: [POST]

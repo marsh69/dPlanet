@@ -11,13 +11,15 @@ class ModeratorUserRoutesTest extends FixtureAwareTestCase
     use AuthorizationTrait;
 
     /**
+     * Test if moderators can utilize a certain set of urls without getting 401 or 403 errors
+     *
      * @dataProvider urlProvider
      * @param string $location
      * @param string $method
      */
     public function testIfModeratorIsAuthorized(string $location, string $method): void
     {
-        $this->setAuthorizationToken('moderator', 'moderator');
+        $this->becomeUser('moderator', 'moderator');
 
         $this->client->request($method, $location);
         $statusCode = $this->client->getResponse()->getStatusCode();

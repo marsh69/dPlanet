@@ -35,18 +35,6 @@ class CommentService
     }
 
     /**
-     * @param array $criteria
-     * @param array $order
-     * @param int $limit
-     * @param int $offset
-     * @return Comment[]|object[]
-     */
-    public function findBy(array $criteria, array $order = [], ?int $limit = null, ?int $offset = null): array
-    {
-        return $this->commentRepository->findBy($criteria, $order, $limit, $offset);
-    }
-
-    /**
      * @return int
      * @throws NonUniqueResultException
      */
@@ -73,7 +61,9 @@ class CommentService
      */
     public function delete(Comment $comment): void
     {
-        $this->em->remove($comment);
+        $comment->setIsDeleted(true);
+
+        $this->em->persist($comment);
         $this->em->flush();
     }
 }

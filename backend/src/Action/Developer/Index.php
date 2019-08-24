@@ -74,6 +74,7 @@ class Index
      *
      * @param Request $request
      * @return View
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function __invoke(Request $request): View
     {

@@ -19,6 +19,8 @@
 
 A simple social media website to enhance your development skills.
 
+// TODO: Expand description
+
 ## Prerequisites
 
 In order to run this application in an isolated environment and to make installing it
@@ -71,6 +73,25 @@ Please consider these our code standards:
 - All javascript helper functions **must** contain a docblock with associated typehints
 
 Rules may be subject to change in the future.
+
+
+### Tests
+
+#### Backend
+
+The backend tests are executed with PHPUnit, these tests are divided into three test suites: **Functional tests**, **Integration
+tests** and **Unit tests**. 
+
+**Unit tests** usually test individual methods in classes and any dependencies are mocked to see if the proper
+methods are called or the correct output is returned. **Integration tests** go a step further and throw together multiple
+components to see how they work together. Finally, **Functional tests** test the entire application and actually assembles
+the framework together. These tests are all executed in the pipeline and you are expected to write them along with new features.
+
+We strive to keep our test coverage above 90%.
+
+#### Frontend
+
+There is no test framework set up yet for the frontend.
 
 ### Infrastructure
 

@@ -11,13 +11,15 @@ class ApiResponseListTest extends FixtureAwareTestCase
     use AuthorizationTrait;
 
     /**
+     * Test if the 5 default attributes are present when retrieving a list of items
+     *
      * @dataProvider urlProvider
      * @param string $url
      * @return void
      */
     public function testIfApiResponseDisplaysProperLimitWithNoLimit(string $url): void
     {
-        $this->setAuthorizationToken('admin', 'admin');
+        $this->becomeUser('admin', 'admin');
 
         $this->client->request(Request::METHOD_GET, $url);
 
@@ -35,12 +37,14 @@ class ApiResponseListTest extends FixtureAwareTestCase
     }
 
     /**
+     * Test if a provided limit is reflected in the resulting list
+     *
      * @dataProvider urlProvider
      * @param string $url
      */
     public function testIfLimitWorks(string $url): void
     {
-        $this->setAuthorizationToken('admin', 'admin');
+        $this->becomeUser('admin', 'admin');
 
         $parameters = [
             'limit' => 1,
@@ -64,13 +68,16 @@ class ApiResponseListTest extends FixtureAwareTestCase
     }
 
     /**
+     * Test if the 5 default attributes are present when retrieving a list of items from a
+     * nested collection
+     *
      * @dataProvider nestedUrlProvider
      * @param string $url
      * @param string $nestedUrl
      */
     public function testIfLimitWorksOnSubItems(string $url, string $nestedUrl): void
     {
-        $this->setAuthorizationToken('admin', 'admin');
+        $this->becomeUser('admin', 'admin');
 
         $this->client->request(Request::METHOD_GET, $url);
 

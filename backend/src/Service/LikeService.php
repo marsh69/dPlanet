@@ -36,18 +36,6 @@ class LikeService
 
     /**
      * @param array $criteria
-     * @param array $order
-     * @param int $limit
-     * @param int $offset
-     * @return Like[]|object[]
-     */
-    public function findBy(array $criteria, array $order = [], ?int $limit = null, ?int $offset = null): array
-    {
-        return $this->likeRepository->findBy($criteria, $order, $limit, $offset);
-    }
-
-    /**
-     * @param array $criteria
      * @return Like|null
      */
     public function findOneBy(array $criteria): ?Like

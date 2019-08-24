@@ -11,12 +11,14 @@ trait JsonRequestTrait
     protected $client;
 
     /**
-     * @param string $method
-     * @param string $url
-     * @param array $parameters
-     * @param array $files
-     * @param array $server
-     * @param array $content
+     * Send a POST/PUT/DELETE request with json data
+     *
+     * @param string $method HTTP Method like PUT, POST or DELETE
+     * @param string $url The URL you want to send the request to
+     * @param array $content The data you want to send to the endpoint
+     * @param array $parameters Request parameters to add to the request
+     * @param array $files Any files to add to the request
+     * @param array $server Any other server parameters
      * @return Response
      */
     protected function jsonRequest(

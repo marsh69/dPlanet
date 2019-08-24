@@ -8,11 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 class AnonymousUserRoutesTest extends FixtureAwareTestCase
 {
     /**
+     * Test if an anonymous user is not able to utilize member-only routes
+     *
      * @dataProvider urlProvider
      * @param string $location
      * @param string $method
      */
-    public function testIfRouteIsProtected(string $location, string $method): void
+    public function testIfAnonymousIsUnauthorized(string $location, string $method): void
     {
         $this->client->request($method, $location);
 

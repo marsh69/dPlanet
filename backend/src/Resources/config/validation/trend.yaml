@@ -3,5 +3,5 @@ App\Entity\Trend:
     name:
       - NotBlank: ~
       - Length:
-          min: 1
+          min: 2
           max: 20

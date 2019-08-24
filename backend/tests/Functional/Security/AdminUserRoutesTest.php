@@ -11,13 +11,15 @@ class AdminUserRoutesTest extends FixtureAwareTestCase
     use AuthorizationTrait;
 
     /**
+     * Test if an admin does not get 401 or 403 errors when requesting admin urls
+     *
      * @dataProvider urlProvider
      * @param string $location
      * @param string $method
      */
     public function testIfAdminIsAuthorized(string $location, string $method): void
     {
-        $this->setAuthorizationToken('admin', 'admin');
+        $this->becomeUser('admin', 'admin');
 
         $this->client->request($method, $location);
         $statusCode = $this->client->getResponse()->getStatusCode();

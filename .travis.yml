@@ -20,5 +20,3 @@ script:
 
 services:
   - docker
-
-# TODO: Add deploy configuration

@@ -25,7 +25,7 @@ security:
             pattern: ^/api/(_(profiler|wdt))
             security: false
         docs:
-            pattern: ^/(api|api.json)$
+            pattern: ^/(api|api.json|api/developers/register)$
             security: false
         api:
             pattern:   ^/api
@@ -34,9 +34,3 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
                 provider: fos_userbundle
-
-    access_control:
-        - { path: ^/api/token,    roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/user,     roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [POST] }
-        - { path: ^/(api|api.json)$,         roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,          roles: IS_AUTHENTICATED_FULLY }

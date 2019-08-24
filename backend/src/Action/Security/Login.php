@@ -5,6 +5,9 @@ namespace App\Action\Security;
 use FOS\RestBundle\View\View;
 use Swagger\Annotations as SWG;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Login
 {
     /**
