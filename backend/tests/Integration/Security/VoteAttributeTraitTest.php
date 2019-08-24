@@ -62,8 +62,7 @@ class VoteAttributeTraitTest extends TestCase
 
 
     /**
-     * @covers ::voteOnAttribute
-     * @covers ::isAdmin
+     * @return void
      */
     public function testIfIsAdminIsCalled(): void
     {
@@ -82,8 +81,7 @@ class VoteAttributeTraitTest extends TestCase
     }
 
     /**
-     * @covers ::voteOnAttribute
-     * @covers ::isAdmin
+     * @return void
      */
     public function testIfIsModeratorIsCalled(): void
     {

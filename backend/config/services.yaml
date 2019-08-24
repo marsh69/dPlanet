@@ -16,6 +16,12 @@ services:
         resource: '../src/Action'
         tags: ['controller.service_arguments']
 
+    App\EventListener\ImageUploadListener:
+        arguments:
+            $uploadDir: '%uploadDir%'
+            $publicDir: '%publicDir%'
+        tags: [doctrine.event_subscriber]
+
     app.cache.adapter:
         class: Symfony\Component\Cache\Adapter\RedisAdapter
         arguments:
@@ -40,12 +46,6 @@ services:
 
     FOS\RestBundle\View\View:
         class: FOS\RestBundle\View\View
-
-    App\Service\UploadService:
-        class: App\Service\UploadService
-        arguments:
-            $uploadDir: '%uploadDir%'
-            $publicDir: '%publicDir%'
 
     App\Security\CommentVoter:
         $allowedSecondsToEdit: '%allowed_seconds_to_edit%'

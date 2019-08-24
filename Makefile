@@ -17,6 +17,9 @@ up: ## Start containers in development mode
 down: ## Stop containers
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet down
 
+php.restart: ## Restart php container
+	docker restart dplanet_php-fpm_1
+
 php.run: ## Run a command in the php container, requires a 'cmd' argument
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm ${cmd}
 
@@ -46,19 +49,23 @@ js.fix: node.fix
 node.fix: ## Run prettier over the code
 	docker exec -itu node dplanet_node_1 /app/node_modules/prettier/bin-prettier.js fix --write /app/src/**/*
 
-test: ## Run phpunit tests
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit
+test.keys: ## Generate openssl keys in php container for testing purposes
+	make php.run cmd='openssl genrsa -out /app/src/config/packages/test/jwt_keys/private-test.pem -passout pass:test -aes256 4096'
+	make php.run cmd='openssl rsa -passin pass:test -pubout -in /app/src/config/packages/test/jwt_keys/private-test.pem -out /app/src/config/packages/test/jwt_keys/public-test.pem'
+
+test: test.keys ## Run phpunit tests
+	make php.run cmd="/app/src/bin/phpunit"
 
 test.unit: ## Run phpunit unit tests
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit --testsuite=unit
+	make php.run cmd="/app/src/bin/phpunit --testsuite=unit"
 
 test.integration: ## Run phpunit integration tests
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit --testsuite=integration
+	make php.run cmd="/app/src/bin/phpunit --testsuite=integration"
 
-test.functional: ## Run phpunit functional tests, please beware that this requires the application to be running
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit --testsuite=functional
+test.functional: test.keys ## Run phpunit functional tests, please beware that this requires the application to be running
+	make php.run cmd="/app/src/bin/phpunit --testsuite=functional"
 
-test.coverage: ## Run unit tests with PHPunit and create a coverage report in $PWD/PHPunitReport
+test.coverage: test.keys ## Run unit tests with PHPunit and create a coverage report in $PWD/PHPunitReport
 	make php.run cmd="/app/src/bin/phpunit -c /app/src --coverage-html /app/src/test-coverage"
 	@echo 'Generated a coverage report in backend/test-coverage!'
 

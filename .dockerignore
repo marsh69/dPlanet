@@ -22,4 +22,6 @@ backend/bin/composer
 backend/test-coverage
 /backend/public/uploads/*
 /backend/public/bundles/*
+/backend/config/packages/test/jwt_keys/private-test.pem
+/backend/config/packages/test/jwt_keys/public-test.pem
 frontend/node_modules
