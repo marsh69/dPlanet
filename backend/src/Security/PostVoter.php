@@ -14,7 +14,7 @@ class PostVoter extends Voter
     const LIST_LIKES = 'list_likes';
     const EDIT = 'edit';
     const DELETE = 'delete';
-    const ATTRIBUTES = [self::EDIT, self::DELETE];
+    const ATTRIBUTES = [self::EDIT, self::DELETE, self::LIST_LIKES];
 
     /** @var AccessDecisionManagerInterface $decisionManager */
     protected $decisionManager;

@@ -66,7 +66,7 @@ class Index
         $offset = $request->query->get('offset');
 
         $response = new ApiListResponse(
-            $this->trendService->findAll(),
+            $this->trendService->findAll($limit, $offset),
             $limit,
             $offset,
             $this->trendService->getCount()

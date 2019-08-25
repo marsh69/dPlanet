@@ -7,8 +7,12 @@ backend/var
 /backend/public/uploads
 /backend/var/
 /backend/vendor/
+/backend/assets/fixtureimages/*.test
 /backend/bin/.phpunit
 /backend/.phpunit
+!/backend/config/packages/test/jwt_keys/.gitkeep
+/backend/config/packages/test/jwt_keys/*
+backend/test-coverage
 /backend/.phpunit.result.cache
 *.retry
 .php_cs

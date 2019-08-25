@@ -14,12 +14,16 @@
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="6.5" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
-
-        <!-- ###+ lexik/jwt-authentication-bundle ### -->
-        <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/jwt/private.pem"/>
-        <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/jwt/public.pem"/>
-        <env name="JWT_PASSPHRASE" value="08a071d1ce0afa0932f2eebae18df75f"/>
-        <!-- ###- lexik/jwt-authentication-bundle ### -->
+        <env name="KERNEL_CLASS" value="\App\Kernel"/>
+        <env name="DATABASE_HOSTNAME" value=""/>
+        <env name="DATABASE_USER" value=""/>
+        <env name="DATABASE_PASSWORD" value=""/>
+        <env name="CORS_ALLOW_ORIGIN" value=""/>
+        <env name="DATABASE_NAME" value=""/>
+        <env name="REDIS_PASSWORD" value="test"/>
+        <env name="REDIS_HOST" value="localhost"/>
+        <env name="JWT_KEY" value=""/>
+        <env name="JWT_SECRET" value=""/>
     </php>
 
     <testsuites>
@@ -37,10 +41,16 @@
     <filter>
         <whitelist>
             <directory>src</directory>
+            <exclude>
+                <directory>src/Kernel.php</directory>
+                <directory>src/Migrations</directory>
+                <directory>src/DataFixtures</directory>
+            </exclude>
         </whitelist>
     </filter>
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+        <listener class="App\Tests\BootstrapListener" />
     </listeners>
 </phpunit>

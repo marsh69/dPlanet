@@ -1,0 +1,7 @@
+App\Entity\Trend:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          min: 2
+          max: 20

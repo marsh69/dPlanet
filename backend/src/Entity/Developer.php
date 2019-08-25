@@ -307,7 +307,7 @@ class Developer extends User
      */
     public function getAmountOfReceivedMessages(): int
     {
-        return count($this->receivedFriendRequests);
+        return count($this->receivedMessages);
     }
 
     /**

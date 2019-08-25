@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 
 volumes:
   development_ssl: ~
@@ -8,6 +8,7 @@ services:
     build:
       context: ../
       dockerfile: docker/php-fpm/Dockerfile
+      target: runtime
       args:
         USER_ID: 1000
         GROUP_ID: 1000
@@ -36,6 +37,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
     networks:
       - mysql
       - nginx
@@ -77,6 +79,7 @@ services:
   node:
     image: node:12.8.1-alpine
     user: node
+    restart: unless-stopped
     expose:
       - 3000
     networks:

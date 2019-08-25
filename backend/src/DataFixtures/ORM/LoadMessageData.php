@@ -9,9 +9,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
+/**
+ * @codeCoverageIgnore
+ */
 class LoadMessageData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 30;
+    const AMOUNT = 10;
 
     /** @var Generator $faker */
     protected $faker;

@@ -19,8 +19,19 @@ class Image
     protected $filePath = '';
     /** @var string $publicPath */
     protected $publicPath = '';
+    /** @var \DateTime $imageUpdated */
+    protected $imageUpdated;
     /** @var UploadedFile|null $resource */
     protected $resource;
+
+    /**
+     * Image constructor.
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        $this->imageUpdated = new \DateTime();
+    }
 
     /**
      * @return string|null
@@ -103,11 +114,24 @@ class Image
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getImageUpdated(): \DateTime
+    {
+        return $this->imageUpdated;
+    }
+
+    /**
      * @param UploadedFile|null $resource
      * @return Image
+     * @throws \Exception
      */
     public function setResource(?UploadedFile $resource): Image
     {
+        if ($resource) {
+            $this->imageUpdated = new \DateTime();
+        }
+
         $this->resource = $resource;
         return $this;
     }

@@ -85,7 +85,7 @@ class Index
         $offset = $request->query->get('offset');
 
         $response = new ApiListResponse(
-            $this->likeService->findAll(),
+            $this->likeService->findAll($limit, $offset),
             $limit,
             $offset,
             $this->likeService->getCount()

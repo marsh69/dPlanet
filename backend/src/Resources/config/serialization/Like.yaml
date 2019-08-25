@@ -4,3 +4,5 @@ App\Entity\Like:
       groups: [like]
     post:
       groups: [like]
+    id:
+      groups: [like]

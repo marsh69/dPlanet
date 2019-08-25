@@ -1,4 +1,4 @@
-SHELL := /bin/sh
+SHELL := /bin/bash
 
 MAKEFLAGS := --silent --no-print-directory
 
@@ -16,6 +16,9 @@ up: ## Start containers in development mode
 
 down: ## Stop containers
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet down
+
+php.restart: ## Restart php container
+	docker restart dplanet_php-fpm_1
 
 php.run: ## Run a command in the php container, requires a 'cmd' argument
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm ${cmd}
@@ -46,17 +49,25 @@ js.fix: node.fix
 node.fix: ## Run prettier over the code
 	docker exec -itu node dplanet_node_1 /app/node_modules/prettier/bin-prettier.js fix --write /app/src/**/*
 
-test: ## Run phpunit tests
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit
+test.keys: ## Generate openssl keys in php container for testing purposes
+	make php.run cmd='openssl genrsa -out /app/src/config/packages/test/jwt_keys/private-test.pem -passout pass:test -aes256 4096'
+	make php.run cmd='openssl rsa -passin pass:test -pubout -in /app/src/config/packages/test/jwt_keys/private-test.pem -out /app/src/config/packages/test/jwt_keys/public-test.pem'
+
+test: test.keys ## Run phpunit tests
+	make php.run cmd="/app/src/bin/phpunit"
 
 test.unit: ## Run phpunit unit tests
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit --testsuite=unit
+	make php.run cmd="/app/src/bin/phpunit --testsuite=unit"
 
 test.integration: ## Run phpunit integration tests
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit --testsuite=integration
+	make php.run cmd="/app/src/bin/phpunit --testsuite=integration"
 
-test.functional: ## Run phpunit functional tests, please beware that this requires the application to be running
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm bin/phpunit --testsuite=functional
+test.functional: test.keys ## Run phpunit functional tests, please beware that this requires the application to be running
+	make php.run cmd="/app/src/bin/phpunit --testsuite=functional"
+
+test.coverage: test.keys ## Run unit tests with PHPunit and create a coverage report in $PWD/PHPunitReport
+	make php.run cmd="/app/src/bin/phpunit -c /app/src --coverage-html /app/src/test-coverage"
+	@echo 'Generated a coverage report in backend/test-coverage!'
 
 composer.install: ## Run composer install in the php container in development
 	make php.run cmd="bin/composer install"
@@ -97,8 +108,36 @@ cache.clear: ## Clear the cache
 restart: ## Restart containers
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet restart
 
-vault.edit: ## Edit the secrets in the vault (requires .dplanet_password to be present
-	ansible-vault edit ansible/shared_vars/vault.yml --vault-password-file=../.dplanet-vault-password
+ansible.vault.password: ## Input the vault password and save it to ../.devnl-backend-vault-password
+	@echo "Please ask one of your fellow developers for the vault password and input it here:"
+	@echo
+	read -s -p "Enter Password: " password; \
+	echo $$password > ${CURDIR}/../.dplanet-vault-password
+	@echo "Thanks!"
 
-vault.expand: ## Expand the vault secrets locally
-	ansible-playbook -i ansible/inventories/development --vault-password-file=../.dplanet-vault-password ansible/expand-secrets-dev.yml
+ansible.vault.expand: ## Expose ansible-vault secrets, assuming password file exists
+	docker run \
+		--rm \
+		--workdir=/ansible \
+		-v ${CURDIR}/../.dplanet-vault:/rootdir \
+		-v ${CURDIR}/ansible:/ansible \
+		-v ${CURDIR}/../.dplanet-vault-password:/.password \
+		-it survivorbat/ansible:v0.2 \
+		ansible-playbook expand-secrets-dev.yml -e output_folder=/rootdir --vault-password-file=/.password -e uid=$(shell id -u) -e gid=$(shell id -g)
+
+ansible.vault.edit: ## Edit the vault file to remove or add secrets, assuming password file exists
+	docker run \
+		--rm \
+		--workdir=/ansible \
+		-v $(CURDIR)/ansible:/ansible \
+		-v ${CURDIR}/../.dplanet-vault-password:/.password \
+		-it survivorbat/ansible:v0.2 \
+		ansible-vault edit /ansible/shared_vars/vault.yml --vault-password-file=/.password
+
+ansible.lint: ## Run Ansible Lint
+	docker run \
+		--rm \
+		--workdir=/ansible \
+		-v $(CURDIR)/ansible:/ansible \
+		-it survivorbat/ansible:v0.2 \
+		ansible-lint /ansible/site.yml

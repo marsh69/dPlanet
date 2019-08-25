@@ -15,4 +15,19 @@ class MessageTest extends TestCase
 
     /** @var string $class */
     protected $class = Message::class;
+
+    /**
+     * @covers ::isOpened
+     * @covers ::setIsOpened
+     */
+    public function testIfOpenedWorks(): void
+    {
+        $message = new Message();
+
+        $message->setIsOpened(true);
+        $this->assertTrue($message->isOpened());
+
+        $message->setIsOpened(false);
+        $this->assertFalse($message->isOpened());
+    }
 }
