@@ -25,8 +25,6 @@ class LoginTest extends FixtureAwareTestCase
 
         $this->assertNotEmpty($content->token);
         $this->assertEquals('developer', $content->user->username);
-        $this->assertEquals('developer', $content->user->firstName);
-        $this->assertEquals('developer', $content->user->lastName);
     }
 
     /**
@@ -44,7 +42,6 @@ class LoginTest extends FixtureAwareTestCase
 
         $this->assertEquals(401, $response->getStatusCode());
         $this->assertEquals('Bad credentials.', $content->message);
-        $this->assertEquals(401, $content->code);
     }
 
     /**

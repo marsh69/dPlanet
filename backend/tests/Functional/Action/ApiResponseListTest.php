@@ -11,32 +11,6 @@ class ApiResponseListTest extends FixtureAwareTestCase
     use AuthorizationTrait;
 
     /**
-     * Test if the 5 default attributes are present when retrieving a list of items
-     *
-     * @dataProvider urlProvider
-     * @param string $url
-     * @return void
-     */
-    public function testIfApiResponseDisplaysProperLimitWithNoLimit(string $url): void
-    {
-        $this->becomeUser('admin', 'admin');
-
-        $this->client->request(Request::METHOD_GET, $url);
-
-        $response = $this->client->getResponse();
-        $content = json_decode($response->getContent());
-
-        $this->assertObjectHasAttribute('_limit', $content);
-        $this->assertObjectHasAttribute('_data', $content);
-        $this->assertObjectHasAttribute('_total', $content);
-        $this->assertObjectHasAttribute('_count', $content);
-        $this->assertObjectHasAttribute('_offset', $content);
-
-        $this->assertEquals(null, $content->_offset);
-        $this->assertEquals(null, $content->_limit);
-    }
-
-    /**
      * Test if a provided limit is reflected in the resulting list
      *
      * @dataProvider urlProvider
@@ -56,11 +30,8 @@ class ApiResponseListTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertObjectHasAttribute('_limit', $content);
-        $this->assertObjectHasAttribute('_data', $content);
         $this->assertObjectHasAttribute('_total', $content);
         $this->assertObjectHasAttribute('_count', $content);
-        $this->assertObjectHasAttribute('_offset', $content);
 
         $this->assertEquals(0, $content->_offset);
         $this->assertEquals(1, $content->_limit);
@@ -96,17 +67,17 @@ class ApiResponseListTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertObjectHasAttribute('_limit', $content);
         $this->assertObjectHasAttribute('_data', $content);
         $this->assertObjectHasAttribute('_total', $content);
         $this->assertObjectHasAttribute('_count', $content);
-        $this->assertObjectHasAttribute('_offset', $content);
 
         $this->assertEquals(0, $content->_offset);
         $this->assertEquals(1, $content->_limit);
     }
 
     /**
+     * Two randomly selected routes to see if nested routes have limits
+     *
      * @return array
      */
     public function nestedUrlProvider(): array
@@ -120,6 +91,8 @@ class ApiResponseListTest extends FixtureAwareTestCase
     }
 
     /**
+     * Two randomly selected routes to see if routes have limits
+     *
      * @return array
      */
     public function urlProvider(): array

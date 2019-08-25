@@ -29,6 +29,8 @@ class AdminUserRoutesTest extends FixtureAwareTestCase
     }
 
     /**
+     * A few randomly selected routes that an admin should be able to utilize
+     *
      * @return array
      */
     public function urlProvider(): array
@@ -44,8 +46,7 @@ class AdminUserRoutesTest extends FixtureAwareTestCase
             ['/api/comments/test', Request::METHOD_DELETE],
             ['/api/comments/test', Request::METHOD_PUT],
             ['/api/likes', Request::METHOD_GET],
-            ['/api/posts/0/likes', Request::METHOD_GET],
-            ['/api/posts/0/likes', Request::METHOD_DELETE],
+            ['/api/posts/0/likes', Request::METHOD_GET]
         ];
     }
 }
