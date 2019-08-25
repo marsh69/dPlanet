@@ -52,7 +52,7 @@ class Edit
 
     /**
      * @SWG\Post(
-     *     summary="Add/Set an image for a post",
+     *     summary="Add/Set an image for a post (this is a POST route due to technical limitations)",
      *     @SWG\Response(
      *        response=200,
      *        description="Success",
