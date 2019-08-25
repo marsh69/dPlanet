@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Action\Like;
+namespace App\Action\Notification;
 
-use App\Entity\Like;
+use App\Entity\Notification;
 use App\Model\ApiListResponse;
-use App\Service\LikeService;
+use App\Service\NotificationService;
+use Doctrine\ORM\NonUniqueResultException;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -15,8 +16,8 @@ use Symfony\Component\Security\Core\Security;
 
 class Index
 {
-    /** @var LikeService $likeService */
-    protected $likeService;
+    /** @var NotificationService $notificationService */
+    protected $notificationService;
     /** @var View $view */
     protected $view;
     /** @var Security $security */
@@ -24,34 +25,34 @@ class Index
 
     /**
      * Index constructor.
-     * @param LikeService $likeService
+     * @param NotificationService $notificationService
      * @param View $view
      * @param Context $context
      * @param Security $security
      */
     public function __construct(
-        LikeService $likeService,
+        NotificationService $notificationService,
         View $view,
         Context $context,
         Security $security
     ) {
-        $this->likeService = $likeService;
+        $this->notificationService = $notificationService;
         $this->view = $view;
         $this->security = $security;
 
         $this->view->setContext(
-            $context->addGroups(['default', 'like'])
+            $context->addGroups(['default', 'notification'])
         );
     }
 
     /**
      * @SWG\Get(
-     *     summary="Get all likes",
+     *     summary="Get all notifications",
      *     produces={"application/json"},
      *     @SWG\Response(
      *         response=200,
      *         description="Success",
-     *         @Model(type=App\Entity\Like::class, groups={"like"})
+     *         @Model(type=App\Entity\Notification::class, groups={"notification"})
      *    ),
      *    @SWG\Response(
      *        response=403,
@@ -70,15 +71,15 @@ class Index
      *        description="Offset"
      *    ),
      * )
-     * @SWG\Tag(name="Like")
+     * @SWG\Tag(name="Notification")
      *
      * @param Request $request
      * @return View
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function __invoke(Request $request): View
     {
-        if (!$this->security->isGranted('list', new Like())) {
+        if (!$this->security->isGranted('list', new Notification())) {
             return $this->view->setStatusCode(Response::HTTP_FORBIDDEN);
         }
 
@@ -86,10 +87,10 @@ class Index
         $offset = $request->query->get('offset');
 
         $response = new ApiListResponse(
-            $this->likeService->findAll($limit, $offset),
+            $this->notificationService->findAll($limit, $offset),
             $limit,
             $offset,
-            $this->likeService->getCount()
+            $this->notificationService->getCount()
         );
 
         return $this->view->setData($response);

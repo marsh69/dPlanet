@@ -14,7 +14,7 @@ use Faker\Generator;
  */
 class LoadNotificationData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 10;
+    const AMOUNT = 5;
 
     /** @var Generator $faker */
     protected $faker;
@@ -32,21 +32,21 @@ class LoadNotificationData extends Fixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < self::AMOUNT + 1; $i++) {
-            $notification = (new Notification())
-                ->setSender(
-                    $this->getReference('user_' . random_int(0, LoadDeveloperData::AMOUNT))
-                )
-                ->setReceiver(
-                    $this->getReference('user_' . random_int(0, LoadDeveloperData::AMOUNT))
-                )
-                ->setIsOpened($this->faker->boolean(15))
-                ->setIsViewed($this->faker->boolean(30))
-                ->setMessage($this->faker->realText(100));
+        for ($i = 0; $i < LoadDeveloperData::AMOUNT; $i++) {
+            for ($notifNr = 0; $notifNr < self::AMOUNT; $notifNr++) {
+                $notification = (new Notification())
+                    ->setMessage($this->faker->realText(30))
+                    ->setIsViewed($this->faker->boolean)
+                    ->setIsOpened($this->faker->boolean)
+                    ->setReceiver(
+                        $this->getReference("user_$i")
+                    )
+                    ->setSender(
+                        $this->getReference('user_' . random_int(0, LoadDeveloperData::AMOUNT))
+                    );
 
-            $this->setReference("notification_$i", $notification);
-
-            $manager->persist($notification);
+                $manager->persist($notification);
+            }
         }
 
         $manager->flush();

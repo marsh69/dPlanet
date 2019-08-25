@@ -1,6 +1,10 @@
 App\Entity\Notification:
   attributes:
     id:
-      groups: [default, notification]
+      groups: [default]
     message:
-      groups: [default, notification]
+      groups: [default]
+    viewed:
+      groups: [default]
+    opened:
+      groups: [default]

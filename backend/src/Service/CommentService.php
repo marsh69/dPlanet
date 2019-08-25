@@ -9,6 +9,8 @@ use Doctrine\ORM\NonUniqueResultException;
 
 class CommentService
 {
+    use DatabaseEntityCountTrait;
+
     /** @var EntityManagerInterface $em */
     protected $em;
     /** @var ObjectRepository $commentRepository */
@@ -40,11 +42,7 @@ class CommentService
      */
     public function getCount(): int
     {
-        return $this->em->createQueryBuilder()
-            ->select('COUNT(c.id)')
-            ->from('App\Entity\Comment', 'c')
-            ->getQuery()
-            ->getSingleScalarResult();
+        return $this->getEntityCount(Comment::class);
     }
 
     /**
