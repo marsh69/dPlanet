@@ -24,7 +24,7 @@ class TrendTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
 
         $list = $content->_data;
 
@@ -48,7 +48,7 @@ class TrendTest extends FixtureAwareTestCase
         $response = $this->jsonRequest(Request::METHOD_POST, '/api/trends', $content);
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
 
         $this->assertObjectHasAttribute('name', $content);
         $this->assertObjectHasAttribute('id', $content);
@@ -93,7 +93,7 @@ class TrendTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('Secret trend', $content->name);
     }
 
@@ -138,7 +138,7 @@ class TrendTest extends FixtureAwareTestCase
 
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('Good trend', $content->name);
     }
 

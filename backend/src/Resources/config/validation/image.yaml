@@ -1,0 +1,12 @@
+App\Entity\Image:
+  properties:
+    resource:
+      - NotBlank: ~
+      - File:
+          maxSize: 2048k
+          mimeTypes: [image/jpeg, image/bpm, image/jpg, image/gif, image/png]
+      - Image:
+          maxHeight: 800
+          maxWidth: 800
+          minHeight: 50
+          minWidth: 50

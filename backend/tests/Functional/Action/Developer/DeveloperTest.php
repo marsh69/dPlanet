@@ -31,7 +31,7 @@ class DeveloperTest extends FixtureAwareTestCase
         $response = $this->jsonRequest(Request::METHOD_POST, '/api/developers/register', $developer);
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('TheLegend27', $content->username);
         $this->assertEquals('John Doe', $content->fullName);
     }
@@ -137,7 +137,7 @@ class DeveloperTest extends FixtureAwareTestCase
         $response = $this->jsonRequest(Request::METHOD_PUT, $url, $newDeveloper);
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('TheLegend27', $content->username);
     }
 
@@ -203,7 +203,7 @@ class DeveloperTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('TheLegend27', $content->username);
     }
 
@@ -259,7 +259,7 @@ class DeveloperTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('TheLegend27', $content->username);
     }
 }
