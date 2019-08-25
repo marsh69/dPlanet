@@ -16,6 +16,16 @@ posts.create:
   controller: App\Action\Post\Create
   methods: [POST]
 
+posts.image.update:
+  path: /{post}/image
+  controller: App\Action\Post\Image\Edit
+  methods: [POST]
+
+posts.image.delete:
+  path: /{post}/image
+  controller: App\Action\Post\Image\Delete
+  methods: [DELETE]
+
 posts.comments.index:
   path: /{post}/comments
   controller: App\Action\Post\Comments\Index

@@ -31,7 +31,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->jsonRequest(Request::METHOD_POST, $url, $comment);
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('Hey welcome!', $content->body);
     }
 
@@ -84,7 +84,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->jsonRequest(Request::METHOD_PUT, $url, $newComment);
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('Oops, you\'re not welcome here sorry!', $content->body);
     }
 
@@ -143,7 +143,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('Hey welcome!', $content->body);
     }
 
@@ -172,7 +172,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('Hey welcome!', $content->body);
     }
 }

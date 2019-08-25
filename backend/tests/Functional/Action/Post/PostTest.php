@@ -27,7 +27,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertObjectHasAttribute('_data', $content);
 
         $this->assertCount(16, $content->_data);
@@ -50,7 +50,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->jsonRequest(Request::METHOD_POST, '/api/posts', $post);
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('Hello all! This is my first post :)', $content->body);
     }
 
@@ -88,7 +88,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('Hello all! This is my first post :)', $content->body);
     }
 
@@ -111,7 +111,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->jsonRequest(Request::METHOD_PUT, $url, $newPost);
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals('Oops sorry, this is actually my second post!', $content->body);
     }
 

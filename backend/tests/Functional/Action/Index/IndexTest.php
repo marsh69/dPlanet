@@ -18,6 +18,6 @@ class IndexTest extends FixtureAwareTestCase
 
         $response = $this->client->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
     }
 }
