@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 
 volumes:
   development_ssl: ~
@@ -8,6 +8,7 @@ services:
     build:
       context: ../
       dockerfile: docker/php-fpm/Dockerfile
+      target: runtime
       args:
         USER_ID: 1000
         GROUP_ID: 1000

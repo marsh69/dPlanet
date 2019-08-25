@@ -146,4 +146,33 @@ class PostTest extends FixtureAwareTestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('Hey welcome!', $content->body);
     }
+
+    /**
+     * @return void
+     */
+    public function testIfCommentCanBeShown(): void
+    {
+        $this->becomeUser('developer', 'developer');
+
+        $post = ['body' => 'Hello all! This is my first post :)'];
+
+        $response = $this->jsonRequest(Request::METHOD_POST, '/api/posts', $post);
+        $content = json_decode($response->getContent());
+
+        $url = "/api/posts/{$content->id}/comments";
+
+        $comment = ['body' => 'Hey welcome!'];
+
+        $response = $this->jsonRequest(Request::METHOD_POST, $url, $comment);
+        $content = json_decode($response->getContent());
+
+        $url = "/api/comments/{$content->id}";
+
+        $this->client->request(Request::METHOD_GET, $url);
+        $response = $this->client->getResponse();
+        $content = json_decode($response->getContent());
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('Hey welcome!', $content->body);
+    }
 }

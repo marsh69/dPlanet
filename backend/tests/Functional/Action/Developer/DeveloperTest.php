@@ -230,8 +230,36 @@ class DeveloperTest extends FixtureAwareTestCase
         $this->client->request(Request::METHOD_DELETE, $url);
 
         $response = $this->client->getResponse();
-        $content = json_decode($response->getContent());
 
         $this->assertEquals(403, $response->getStatusCode());
+    }
+
+    /**
+     * @return void
+     */
+    public function testIfDeveloperCanBeShown(): void
+    {
+        $developer = [
+            'username' => 'TheLegend27',
+            'plainPassword' => '28legendzzz',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'email' => 'johndoe@gmail.com'
+        ];
+
+        $response = $this->jsonRequest(Request::METHOD_POST, '/api/developers/register', $developer);
+        $newUserId = json_decode($response->getContent())->id;
+
+        $this->becomeUser('admin', 'admin');
+
+        $url = "/api/developers/{$newUserId}";
+
+        $this->client->request(Request::METHOD_GET, $url);
+
+        $response = $this->client->getResponse();
+        $content = json_decode($response->getContent());
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('TheLegend27', $content->username);
     }
 }
