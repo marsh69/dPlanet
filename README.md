@@ -87,7 +87,8 @@ methods are called or the correct output is returned. **Integration tests** go a
 components to see how they work together. Finally, **Functional tests** test the entire application and actually assembles
 the framework together. These tests are all executed in the pipeline and you are expected to write them along with new features.
 
-We strive to keep our test coverage above 90%.
+We strive to keep our test coverage above 90%. You can use `make php.sh` to get into the php container and test several functional
+tests individually with /app/src/bin/phpunit /app/src/tests/Functional/<your>/<test>/<here> -c /app/src
 
 #### Frontend
 
