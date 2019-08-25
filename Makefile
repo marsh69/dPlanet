@@ -1,4 +1,4 @@
-SHELL := /bin/sh
+SHELL := /bin/bash
 
 MAKEFLAGS := --silent --no-print-directory
 
@@ -108,8 +108,36 @@ cache.clear: ## Clear the cache
 restart: ## Restart containers
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet restart
 
-vault.edit: ## Edit the secrets in the vault (requires .dplanet_password to be present
-	ansible-vault edit ansible/shared_vars/vault.yml --vault-password-file=../.dplanet-vault-password
+ansible.vault.password: ## Input the vault password and save it to ../.devnl-backend-vault-password
+	@echo "Please ask one of your fellow developers for the vault password and input it here:"
+	@echo
+	read -s -p "Enter Password: " password; \
+	echo $$password > ${CURDIR}/../.dplanet-vault-password
+	@echo "Thanks!"
 
-vault.expand: ## Expand the vault secrets locally
-	ansible-playbook -i ansible/inventories/development --vault-password-file=../.dplanet-vault-password ansible/expand-secrets-dev.yml
+ansible.vault.expand: ## Expose ansible-vault secrets, assuming password file exists
+	docker run \
+		--rm \
+		--workdir=/ansible \
+		-v ${CURDIR}/../.dplanet-vault:/rootdir \
+		-v ${CURDIR}/ansible:/ansible \
+		-v ${CURDIR}/../.dplanet-vault-password:/.password \
+		-it survivorbat/ansible:v0.2 \
+		ansible-playbook expand-secrets-dev.yml -e output_folder=/rootdir --vault-password-file=/.password -e uid=$(shell id -u) -e gid=$(shell id -g)
+
+ansible.vault.edit: ## Edit the vault file to remove or add secrets, assuming password file exists
+	docker run \
+		--rm \
+		--workdir=/ansible \
+		-v $(CURDIR)/ansible:/ansible \
+		-v ${CURDIR}/../.dplanet-vault-password:/.password \
+		-it survivorbat/ansible:v0.2 \
+		ansible-vault edit /ansible/shared_vars/vault.yml --vault-password-file=/.password
+
+ansible.lint: ## Run Ansible Lint
+	docker run \
+		--rm \
+		--workdir=/ansible \
+		-v $(CURDIR)/ansible:/ansible \
+		-it survivorbat/ansible:v0.2 \
+		ansible-lint /ansible/site.yml

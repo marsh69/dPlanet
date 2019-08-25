@@ -15,7 +15,7 @@ use Faker\Generator;
  */
 class LoadPostData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 20;
+    const AMOUNT = 15;
 
     /** @var Generator $faker */
     protected $faker;

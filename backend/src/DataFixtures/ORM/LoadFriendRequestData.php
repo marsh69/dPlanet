@@ -14,7 +14,7 @@ use Faker\Generator;
  */
 class LoadFriendRequestData extends Fixture implements OrderedFixtureInterface
 {
-    const AMOUNT = 15;
+    const AMOUNT = 5;
 
     /** @var Generator $faker */
     protected $faker;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\EventListener;
+namespace App\Tests\Intergration\EventListener;
 
 use PHPUnit\Framework\TestCase;
 

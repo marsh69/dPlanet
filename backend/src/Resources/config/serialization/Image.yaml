@@ -6,3 +6,5 @@ App\Entity\Image:
       groups: [image]
     mimeType:
       groups: [image]
+    imageUpdated:
+      groups: [image]

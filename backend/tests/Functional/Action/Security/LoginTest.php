@@ -2,28 +2,57 @@
 
 namespace App\Tests\Functional\Action\Security;
 
+use App\Tests\Functional\JsonRequestTrait;
 use App\Tests\Functional\Testcase\FixtureAwareTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class LoginTest extends FixtureAwareTestCase
 {
+    use JsonRequestTrait;
+
     /**
      * @return void
      */
     public function testLogin(): void
     {
-        $credentials = json_encode([
+        $credentials = [
             'username' => 'developer',
             'password' => 'developer'
-        ]);
+        ];
 
-        $this->client->request(Request::METHOD_POST, '/api/token', [], [], [], $credentials);
+        $response = $this->jsonRequest(Request::METHOD_POST, '/api/token', $credentials);
+        $content = json_decode($response->getContent());
 
-        $response = json_decode($this->client->getResponse()->getContent());
+        $this->assertNotEmpty($content->token);
+        $this->assertEquals('developer', $content->user->username);
+    }
 
-        $this->assertNotEmpty($response->token);
-        $this->assertEquals('developer', $response->user->username);
-        $this->assertEquals('developer', $response->user->firstName);
-        $this->assertEquals('developer', $response->user->lastName);
+    /**
+     * @return void
+     */
+    public function testLoginWithWrongPassword(): void
+    {
+        $credentials = [
+            'username' => 'test',
+            'password' => 'john'
+        ];
+
+        $response = $this->jsonRequest(Request::METHOD_POST, '/api/token', $credentials);
+        $content = json_decode($response->getContent());
+
+        $this->assertEquals(401, $response->getStatusCode());
+        $this->assertEquals('Bad credentials.', $content->message);
+    }
+
+    /**
+     * @return void
+     */
+    public function testLoginWithEmptyObject(): void
+    {
+        $credentials = [];
+
+        $response = $this->jsonRequest(Request::METHOD_POST, '/api/token', $credentials);
+
+        $this->assertEquals(400, $response->getStatusCode());
     }
 }

@@ -29,7 +29,6 @@ class TrendVoter extends Voter
 
         $this->permissions = [
             'isAdmin' => [self::DELETE, self::EDIT, self::CREATE],
-            'isModerator' => [self::DELETE, self::EDIT, self::CREATE],
         ];
     }
 

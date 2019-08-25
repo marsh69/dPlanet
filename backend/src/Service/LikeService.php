@@ -36,18 +36,6 @@ class LikeService
 
     /**
      * @param array $criteria
-     * @param array $order
-     * @param int $limit
-     * @param int $offset
-     * @return Like[]|object[]
-     */
-    public function findBy(array $criteria, array $order = [], ?int $limit = null, ?int $offset = null): array
-    {
-        return $this->likeRepository->findBy($criteria, $order, $limit, $offset);
-    }
-
-    /**
-     * @param array $criteria
      * @return Like|null
      */
     public function findOneBy(array $criteria): ?Like
@@ -57,18 +45,15 @@ class LikeService
 
     /**
      * @return int
+     * @throws NonUniqueResultException
      */
     public function getCount(): int
     {
-        try {
-            return $this->em->createQueryBuilder()
-                ->select('COUNT(l.id)')
-                ->from('App\Entity\Like', 'l')
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return -1;
-        }
+        return $this->em->createQueryBuilder()
+            ->select('COUNT(l.id)')
+            ->from('App\Entity\Like', 'l')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**

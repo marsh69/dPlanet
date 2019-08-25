@@ -74,6 +74,7 @@ class Index
      *
      * @param Request $request
      * @return View
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function __invoke(Request $request): View
     {
@@ -85,7 +86,7 @@ class Index
         $offset = $request->query->get('offset');
 
         $response = new ApiListResponse(
-            $this->developerService->findAll(),
+            $this->developerService->findAll($limit, $offset),
             $limit,
             $offset,
             $this->developerService->getCount()

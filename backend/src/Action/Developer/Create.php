@@ -42,7 +42,6 @@ class Create
      * @ParamConverter("developer", class="App\Entity\Developer", converter="fos_rest.request_body")
      *
      * @SWG\Post(
-     *     security={},
      *     summary="Register a new developer",
      *     produces={"application/json"},
      *     @SWG\Parameter(
@@ -56,7 +55,7 @@ class Create
      *             @SWG\Property(property="firstName", type="string", example="John"),
      *             @SWG\Property(property="lastName", type="string", example="Doe"),
      *             @SWG\Property(property="username", type="string", example="TheLegend27"),
-     *             @SWG\Property(property="password", type="string", example="TheMyth28"),
+     *             @SWG\Property(property="plainPassword", type="string", example="TheMyth28"),
      *             @SWG\Property(property="email", type="string", example="thelegend27@gmail.com"),
      *             @SWG\Property(property="profileImage", type="file"),
      *         )
@@ -80,6 +79,8 @@ class Create
                 ->setData($violationList)
                 ->setStatusCode(Response::HTTP_BAD_REQUEST);
         }
+
+        $developer->setEnabled(true);
 
         $this->developerService->save($developer);
 

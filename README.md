@@ -19,6 +19,8 @@
 
 A simple social media website to enhance your development skills.
 
+// TODO: Expand description
+
 ## Prerequisites
 
 In order to run this application in an isolated environment and to make installing it
@@ -66,11 +68,35 @@ Please consider these our code standards:
 - Every PHP method **must** have an associated docblock (make sure you use types like `Developer[]`) if possible
 - Every PHP method **should** have type hints *unless* it created need for overloading OR vendor code gets in the way
 - Every PHP property **must** have a one-line docblock determining its type
-- All PHP code **should** be tested, however we are not too strict on this at the moment
+- All PHP code **should** be tested, preferably with functional tests
 - All PHP code **should** be php-stan tested with `make php.stan`
 - All javascript helper functions **must** contain a docblock with associated typehints
 
 Rules may be subject to change in the future.
+
+
+### Tests
+
+#### Backend
+
+The backend tests are executed with PHPUnit, these tests are divided into three test suites: **Functional tests**, **Integration
+tests** and **Unit tests**. 
+
+**Unit tests** usually test individual methods in classes and any dependencies are mocked to see if the proper
+methods are called or the correct output is returned. **Integration tests** go a step further and throw together multiple
+components to see how they work together. Finally, **Functional tests** test the entire application and actually assembles
+the framework together. These tests are all executed in the pipeline and you are expected to write them along with new features.
+
+We strive to keep our test coverage above 90%. You can use `make php.sh` to get into the php container and test several functional
+tests individually with /app/src/bin/phpunit /app/src/tests/Functional/<your>/<test>/<here> -c /app/src
+
+#### Frontend
+
+There is no test framework set up yet for the frontend.
+
+#### E2E tests
+
+We do not have any e2e tests yet.
 
 ### Infrastructure
 

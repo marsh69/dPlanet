@@ -2,11 +2,9 @@
 
 namespace App\Tests\Functional\Testcase;
 
-use Doctrine\ORM\EntityManager;
+use DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver;
 use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -14,23 +12,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class FixtureAwareTestCase extends WebTestCase
 {
-    /** @var  Application $application */
-    protected static $application;
     /** @var  Client $client */
     protected $client;
     /** @var  ContainerInterface $container */
     protected static $container;
-    /** @var  EntityManager $entityManager */
-    protected $entityManager;
 
     /**
      * {@inheritDoc}
      */
     public function setUp()
     {
+        StaticDriver::beginTransaction();
         $this->client = parent::createClient();
+
         self::$container = $this->client->getContainer();
-        $this->entityManager = self::$container->get('doctrine.orm.entity_manager');
 
         // Make sure we are in the test environment
         if (self::$container->get('kernel')->getEnvironment() !== 'test') {
@@ -39,64 +34,30 @@ class FixtureAwareTestCase extends WebTestCase
     }
 
     /**
-     * Creates the database, clears the cache, runs migrations and loads fixtures
+     * Update the database schema and run fixtures
      *
      * {@inheritdoc}
      * @throws \Exception
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
-        self::runCommand('doctrine:database:drop --force');
-        self::runCommand('doctrine:database:create');
-        self::runCommand('doctrine:schema:update --force');
-        self::runCommand('doctrine:fixtures:load --append');
+        StaticDriver::setKeepStaticConnections(true);
     }
 
-    /**
-     * Runs a symfony application (bin/console) command with the flags -v -n --env=test
-     *
-     * @param string $command
-     * @return int
-     * @throws \RuntimeException
-     * @throws \Exception
-     */
-    protected static function runCommand(string $command)
-    {
-        echo "\r\n" . $command . "\r\n";
-        $command = sprintf('%s -n -v --env=test', $command);
-
-        $result = self::getApplication()->run(new StringInput($command));
-
-        return $result;
-    }
-
-    /**
-     * @return Application
-     */
-    protected static function getApplication()
-    {
-        $client = parent::createClient();
-
-        self::$application = new Application($client->getKernel());
-        self::$application->setAutoExit(false);
-
-        return self::$application;
-    }
 
     /**
      * {@inheritDoc}
      */
     protected function tearDown()
     {
-        $this->entityManager->close();
-        $this->entityManager = null; // avoid memory leaks
+        StaticDriver::rollBack();
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
-        self::runCommand('doctrine:database:drop --force');
+        StaticDriver::setKeepStaticConnections(false);
     }
 }
