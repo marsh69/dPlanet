@@ -68,7 +68,7 @@ Please consider these our code standards:
 - Every PHP method **must** have an associated docblock (make sure you use types like `Developer[]`) if possible
 - Every PHP method **should** have type hints *unless* it created need for overloading OR vendor code gets in the way
 - Every PHP property **must** have a one-line docblock determining its type
-- All PHP code **should** be tested, however we are not too strict on this at the moment
+- All PHP code **should** be tested, preferably with functional tests
 - All PHP code **should** be php-stan tested with `make php.stan`
 - All javascript helper functions **must** contain a docblock with associated typehints
 
@@ -92,6 +92,10 @@ We strive to keep our test coverage above 90%.
 #### Frontend
 
 There is no test framework set up yet for the frontend.
+
+#### E2E tests
+
+We do not have any e2e tests yet.
 
 ### Infrastructure
 
