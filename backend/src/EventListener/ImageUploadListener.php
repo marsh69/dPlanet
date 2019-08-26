@@ -35,23 +35,13 @@ class ImageUploadListener implements EventSubscriber
      */
     public function getSubscribedEvents(): array
     {
-        return ['prePersist', 'preUpdate', 'preRemove'];
+        return ['prePersist', 'preRemove'];
     }
 
     /**
      * @param LifecycleEventArgs $args
      */
     public function prePersist(LifecycleEventArgs $args): void
-    {
-        if ($args->getEntity() instanceof Image) {
-            $this->handleUpload($args->getEntity());
-        }
-    }
-
-    /**
-     * @param LifecycleEventArgs $args
-     */
-    public function preUpdate(LifecycleEventArgs $args): void
     {
         if ($args->getEntity() instanceof Image) {
             $this->handleUpload($args->getEntity());

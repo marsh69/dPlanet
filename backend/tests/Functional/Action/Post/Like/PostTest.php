@@ -33,7 +33,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertObjectHasAttribute('developer', $content);
         $this->assertObjectHasAttribute('post', $content);
     }
@@ -90,7 +90,7 @@ class PostTest extends FixtureAwareTestCase
         $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
         $this->assertObjectHasAttribute('developer', $content);
         $this->assertObjectHasAttribute('post', $content);
     }
@@ -114,7 +114,7 @@ class PostTest extends FixtureAwareTestCase
         $this->client->request(Request::METHOD_DELETE, $url);
         $response = $this->client->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
     }
 
     /**
@@ -137,6 +137,6 @@ class PostTest extends FixtureAwareTestCase
 
         $response = $this->client->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->isSuccessful());
     }
 }

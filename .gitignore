@@ -15,6 +15,7 @@ backend/var
 backend/test-coverage
 /backend/.phpunit.result.cache
 *.retry
+*.tmp
 .php_cs
 .php_cs.cache
 
