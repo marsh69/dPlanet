@@ -36,7 +36,7 @@ class BootstrapListener extends BaseTestListener
         $application->setAutoExit(false);
 
         foreach ($this->getBootstrapCommands() as $command) {
-            $application->run(new StringInput("$command --env=test"));
+            $application->run(new StringInput("$command --env=test --no-debug"));
         }
     }
 
@@ -46,10 +46,11 @@ class BootstrapListener extends BaseTestListener
     protected function getBootstrapCommands(): array
     {
         return [
-            'doctrine:cache:clear-metadata',
-            'doctrine:database:drop --force',
-            'doctrine:database:create',
-            'doctrine:schema:update --force',
+            'cache:warmup',
+            'doctrine:cache:clear-metadata --quiet',
+            'doctrine:database:drop --force --quiet',
+            'doctrine:database:create --quiet',
+            'doctrine:schema:update --force --quiet',
             'doctrine:fixtures:load -n',
         ];
     }
