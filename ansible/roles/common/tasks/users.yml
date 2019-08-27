@@ -5,7 +5,7 @@
     state: present
     system: "{{ item.system | default(omit) }}"
     gid: "{{ item.gid }}"
-  with_items: "{{ common_groups }}"
+  loop: "{{ common_groups }}"
 
 - name: "Ensure users"
   user:
@@ -15,7 +15,7 @@
     password: "{{ item.password | default(omit) }}"
     shell: /bin/bash
     uid: "{{ item.uid }}"
-  with_items: "{{ common_users }}"
+  loop: "{{ common_users }}"
 
 - name: "Ensure sudo permissions"
   lineinfile:
@@ -23,10 +23,10 @@
     regexp: '^%{{ item }}'
     line: '%{{ item }} ALL=(ALL:ALL) NOPASSWD:ALL'
     validate: 'visudo -cf %s'
-  with_items: "{{ sudo_groups }}"
+  loop: "{{ sudo_groups }}"
 
 - name: "Ensure authorized keys"
   authorized_key:
     user: "{{ item.name }}"
     key: "{{ item.authorized_key | default('') }}"
-  with_items: "{{ common_users }}"
+  loop: "{{ common_users }}"
