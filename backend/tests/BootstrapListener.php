@@ -46,7 +46,6 @@ class BootstrapListener extends BaseTestListener
     protected function getBootstrapCommands(): array
     {
         return [
-            'cache:warmup',
             'doctrine:cache:clear-metadata --quiet',
             'doctrine:database:drop --force --quiet',
             'doctrine:database:create --quiet',
