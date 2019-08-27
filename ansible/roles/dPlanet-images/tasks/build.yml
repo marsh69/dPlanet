@@ -11,7 +11,7 @@
         - "{{ item.name }}:latest"
     name: "{{ item.name }}"
     tag: "{{ docker_tag }}"
-  loop: "{{ docker_images }}"
+  with_items: "{{ docker_images }}"
 
 - name: "Add latest tag to built images"
   docker_image:
@@ -20,5 +20,5 @@
       pull: no
     name: "{{ item.name }}:{{ docker_tag }}"
     repository: "{{ item.name }}:latest"
-  loop: "{{ docker_images }}"
+  with_items: "{{ docker_images }}"
   when: add_latest_tag|bool

@@ -36,7 +36,7 @@ class BootstrapListener extends BaseTestListener
         $application->setAutoExit(false);
 
         foreach ($this->getBootstrapCommands() as $command) {
-            $application->run(new StringInput("$command --env=test --no-debug --quiet"));
+            $application->run(new StringInput("$command --env=test"));
         }
     }
 

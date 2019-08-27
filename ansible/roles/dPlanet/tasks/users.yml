@@ -4,4 +4,4 @@
     name: "{{ item.name }}"
     groups: [docker]
     append: yes
-  loop: "{{ common_users }}"
+  with_items: "{{ common_users }}"
