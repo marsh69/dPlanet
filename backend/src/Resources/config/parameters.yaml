@@ -1,0 +1,4 @@
+parameters:
+  uploadDir: "%kernel.project_dir%/public/uploads"
+  publicDir: "/uploads"
+  allowed_seconds_to_edit: 300

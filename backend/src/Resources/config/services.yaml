@@ -1,0 +1,51 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  App\:
+    resource: '../../*'
+    exclude: '../../{DependencyInjection,Controller,Entity,Migrations,Tests,Kernel.php}'
+
+  App\Action\:
+    resource: '../../Action'
+    tags: ['controller.service_arguments']
+
+  App\EventListener\ImageUploadListener:
+    arguments:
+      $uploadDir: '%uploadDir%'
+      $publicDir: '%publicDir%'
+    tags:
+      - name: doctrine.orm.entity_listener
+        event: preUpdate
+        entity: App\Entity\Image
+        method: handleUpload
+      - name: doctrine.orm.entity_listener
+        event: prePersist
+        entity: App\Entity\Image
+        method: handleUpload
+      - name: doctrine.orm.entity_listener
+        event: preRemove
+        entity: App\Entity\Image
+        method: handleRemove
+
+  app.cache.adapter:
+    class: Symfony\Component\Cache\Adapter\RedisAdapter
+    arguments:
+      - "@snc_redis.default"
+
+  app.session.handler:
+    class: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
+    arguments:
+      - '@snc_redis.default'
+
+  App\EventListener\AuthenticationSuccessListener:
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
+
+  App\Security\CommentVoter:
+    $allowedSecondsToEdit: '%allowed_seconds_to_edit%'
+
+  App\Security\PostVoter:
+    $allowedSecondsToEdit: '%allowed_seconds_to_edit%'

@@ -1,0 +1,16 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Gedmo\Sortable\SortableListener:
+    class: Gedmo\Sortable\SortableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+
+  FOS\RestBundle\Context\Context:
+    class: FOS\RestBundle\Context\Context
+
+  FOS\RestBundle\View\View:
+    class: FOS\RestBundle\View\View

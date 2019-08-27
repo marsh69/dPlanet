@@ -17,10 +17,7 @@ class AnonymousUserRoutesTest extends FixtureAwareTestCase
     public function testIfAnonymousIsUnauthorized(string $location, string $method): void
     {
         $this->client->request($method, $location);
-
         $response = $this->client->getResponse();
-        $content = json_decode($response->getContent());
-
         $this->assertEquals(401, $response->getStatusCode());
     }
 
