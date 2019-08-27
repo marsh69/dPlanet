@@ -17,7 +17,7 @@
 
 
 
-A simple social media website to enhance your development skills.
+This repository started as a small side project with three inspiring developers and quickly grew into an open-source international collaborative project to build a social media platform for developers.
 
 // TODO: Expand description
 
