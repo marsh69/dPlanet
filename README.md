@@ -17,7 +17,7 @@
 
 
 
-This repository started as a small side project with three inspiring developers and quickly grew into an open-source international collaborative project to build a social media platform for developers.
+This repository started as a small side project with three inspiring developers and quickly grew into an open-source international collaborative project to build a social media platform.
 
 // TODO: Expand description
 
