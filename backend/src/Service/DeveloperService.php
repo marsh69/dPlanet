@@ -9,6 +9,8 @@ use Doctrine\ORM\NonUniqueResultException;
 
 class DeveloperService
 {
+    use DatabaseEntityCountTrait;
+
     /** @var EntityManagerInterface $em */
     protected $em;
     /** @var ObjectRepository $repository */
@@ -40,11 +42,7 @@ class DeveloperService
      */
     public function getCount(): int
     {
-        return $this->em->createQueryBuilder()
-            ->select('COUNT(d.id)')
-            ->from('App\Entity\Developer', 'd')
-            ->getQuery()
-            ->getSingleScalarResult();
+        return $this->getEntityCount(Developer::class);
     }
 
     /**

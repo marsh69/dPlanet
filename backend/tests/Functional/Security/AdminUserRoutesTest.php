@@ -41,10 +41,6 @@ class AdminUserRoutesTest extends FixtureAwareTestCase
             ['/api/developers', Request::METHOD_GET],
             ['/api/developers/test', Request::METHOD_DELETE],
             ['/api/developers/test', Request::METHOD_PUT],
-            ['/api/posts/test', Request::METHOD_DELETE],
-            ['/api/posts/test', Request::METHOD_PUT],
-            ['/api/comments/test', Request::METHOD_DELETE],
-            ['/api/comments/test', Request::METHOD_PUT],
             ['/api/likes', Request::METHOD_GET],
             ['/api/posts/0/likes', Request::METHOD_GET]
         ];

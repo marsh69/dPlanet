@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Action\Like;
+namespace App\Action\Developer\Notifications;
 
-use App\Entity\Like;
+use App\Entity\Developer;
 use App\Model\ApiListResponse;
-use App\Service\LikeService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -15,8 +14,6 @@ use Symfony\Component\Security\Core\Security;
 
 class Index
 {
-    /** @var LikeService $likeService */
-    protected $likeService;
     /** @var View $view */
     protected $view;
     /** @var Security $security */
@@ -24,38 +21,31 @@ class Index
 
     /**
      * Index constructor.
-     * @param LikeService $likeService
      * @param View $view
      * @param Context $context
      * @param Security $security
      */
     public function __construct(
-        LikeService $likeService,
         View $view,
         Context $context,
         Security $security
     ) {
-        $this->likeService = $likeService;
         $this->view = $view;
         $this->security = $security;
 
         $this->view->setContext(
-            $context->addGroups(['default', 'like'])
+            $context->addGroups(['default', 'notification'])
         );
     }
 
     /**
      * @SWG\Get(
-     *     summary="Get all likes",
+     *     summary="Get the notifications of a developer",
      *     produces={"application/json"},
      *     @SWG\Response(
      *         response=200,
      *         description="Success",
-     *         @Model(type=App\Entity\Like::class, groups={"like"})
-     *    ),
-     *    @SWG\Response(
-     *        response=403,
-     *        description="Forbidden",
+     *         @Model(type=App\Entity\Notification::class, groups={"notification"})
      *    ),
      *    @SWG\Parameter(
      *        name="limit",
@@ -70,26 +60,28 @@ class Index
      *        description="Offset"
      *    ),
      * )
-     * @SWG\Tag(name="Like")
+     * @SWG\Tag(name="Developer")
      *
      * @param Request $request
+     * @param Developer $developer
      * @return View
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function __invoke(Request $request): View
+    public function __invoke(Request $request, Developer $developer): View
     {
-        if (!$this->security->isGranted('list', new Like())) {
+        if (!$this->security->isGranted('list_notifications', $developer)) {
             return $this->view->setStatusCode(Response::HTTP_FORBIDDEN);
-        }
+        };
 
         $limit = $request->query->get('limit');
         $offset = $request->query->get('offset');
 
+        $notifications = $developer->getReceivedNotifications();
+
         $response = new ApiListResponse(
-            $this->likeService->findAll($limit, $offset),
+            array_slice($notifications, $offset, $limit),
             $limit,
             $offset,
-            $this->likeService->getCount()
+            count($notifications)
         );
 
         return $this->view->setData($response);

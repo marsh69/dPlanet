@@ -98,10 +98,12 @@ class DeveloperTest extends FixtureAwareTestCase
         ];
 
         $response = $this->jsonRequest(Request::METHOD_POST, '/api/developers/register', $developer);
-        $newUserId = json_decode($response->getContent())->id;
 
         $this->becomeUser('TheLegend27', '28legendzzz');
-        $this->assertEquals($newUserId, $this->currentUserId);
+
+        // Test if user can use a random route
+        $this->client->request(Request::METHOD_GET, '/api/posts');
+        $this->assertTrue($response->isSuccessful());
     }
 
     /**

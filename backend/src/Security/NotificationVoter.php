@@ -2,29 +2,26 @@
 
 namespace App\Security;
 
-use App\Entity\Comment;
-use App\Entity\Developer;
+use App\Entity\Notification;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class DeveloperVoter extends Voter
+class NotificationVoter extends Voter
 {
     use VoteAttributeTrait;
 
     const LIST = 'list';
+    const LIST_DEVELOPER = 'list_developer';
     const SHOW = 'show';
-    const EDIT = 'edit';
     const DELETE = 'delete';
-    const LIST_LIKES = 'list_likes';
-    const LIST_NOTIFICATIONS = 'list_notifications';
-    const ATTRIBUTES = [self::LIST, self::EDIT, self::DELETE, self::SHOW, self::LIST_LIKES, self::LIST_NOTIFICATIONS];
+    const ATTRIBUTES = [self::LIST, self::DELETE, self::LIST_DEVELOPER, self::SHOW];
 
     /** @var AccessDecisionManagerInterface $decisionManager */
     protected $decisionManager;
 
     /**
-     * CommentVoter constructor.
+     * NotificationVoter constructor.
      * @param AccessDecisionManagerInterface $decisionManager
      */
     public function __construct(
@@ -33,9 +30,8 @@ class DeveloperVoter extends Voter
         $this->decisionManager = $decisionManager;
 
         $this->permissions = [
-            'isOwner' => [self::SHOW, self::LIST_LIKES, self::LIST_NOTIFICATIONS],
-            'isAdmin' => [self::DELETE, self::EDIT, self::LIST, self::SHOW, self::LIST_LIKES, self::LIST_NOTIFICATIONS],
-            'isModerator' => [self::SHOW],
+            'isOwner' => [self::DELETE, self::LIST_DEVELOPER, self::SHOW],
+            'isAdmin' => [self::DELETE, self::LIST, self::LIST_DEVELOPER, self::SHOW],
         ];
     }
 
@@ -46,16 +42,16 @@ class DeveloperVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return $subject instanceof Developer && in_array($attribute, self::ATTRIBUTES);
+        return $subject instanceof Notification && in_array($attribute, self::ATTRIBUTES);
     }
 
     /**
-     * @param Developer $developer
+     * @param Notification $subject
      * @param TokenInterface $token
      * @return bool
      */
-    protected function isOwner(Developer $developer, TokenInterface $token): bool
+    protected function isOwner($subject, TokenInterface $token): bool
     {
-        return $developer === $token->getUser();
+        return $subject->getReceiver() == $token->getUser();
     }
 }

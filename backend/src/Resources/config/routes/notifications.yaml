@@ -1,0 +1,12 @@
+notifications.list:
+  path: /
+  controller: App\Action\Notification\Index
+  methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
+
+notifications.show:
+  path: /{notification}
+  controller: App\Action\Notification\Show
+  methods: [GET]

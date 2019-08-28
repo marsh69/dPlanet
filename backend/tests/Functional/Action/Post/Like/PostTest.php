@@ -83,8 +83,11 @@ class PostTest extends FixtureAwareTestCase
         $this->becomeUser('developer', 'developer');
 
         $this->client->request(Request::METHOD_POST, $url);
+        $response = $this->client->getResponse();
 
-        $url = "/api/posts/{$content->id}/likes/{$this->currentUserId}";
+        $developerId = json_decode($response->getContent())->developer->id;
+
+        $url = "/api/posts/{$content->id}/likes/{$developerId}";
         $this->client->request(Request::METHOD_DELETE, $url);
 
         $response = $this->client->getResponse();
@@ -93,28 +96,6 @@ class PostTest extends FixtureAwareTestCase
         $this->assertTrue($response->isSuccessful());
         $this->assertObjectHasAttribute('developer', $content);
         $this->assertObjectHasAttribute('post', $content);
-    }
-
-    /**
-     * @return void
-     */
-    public function testIfRemovingANonExistingLikeReturns200(): void
-    {
-        $this->becomeUser('moderator', 'moderator');
-
-        $post = ['body' => 'Hello all! This is my first post :)'];
-
-        $response = $this->jsonRequest(Request::METHOD_POST, '/api/posts', $post);
-        $content = json_decode($response->getContent());
-
-        $this->becomeUser('developer', 'developer');
-
-        $url = "/api/posts/{$content->id}/likes/{$this->currentUserId}";
-
-        $this->client->request(Request::METHOD_DELETE, $url);
-        $response = $this->client->getResponse();
-
-        $this->assertTrue($response->isSuccessful());
     }
 
     /**

@@ -9,6 +9,8 @@ use Doctrine\ORM\NonUniqueResultException;
 
 class TrendService
 {
+    use DatabaseEntityCountTrait;
+
     /** @var EntityManagerInterface $em */
     protected $em;
     /** @var ObjectRepository $repository */
@@ -40,11 +42,7 @@ class TrendService
      */
     public function getCount(): int
     {
-        return $this->em->createQueryBuilder()
-            ->select('COUNT(t.id)')
-            ->from('App\Entity\Trend', 't')
-            ->getQuery()
-            ->getSingleScalarResult();
+        return $this->getEntityCount(Trend::class);
     }
 
     /**
