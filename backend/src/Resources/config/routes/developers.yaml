@@ -30,6 +30,14 @@ developers.likes.list:
     offset: ~
     limit: ~
 
+developers.notifications.list:
+  path: /{developer}/notifications
+  controller: App\Action\Developer\Notifications\Index
+  methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
+
 developers.edit:
   path: /{developer}
   controller: App\Action\Developer\Edit

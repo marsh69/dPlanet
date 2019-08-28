@@ -17,7 +17,8 @@ class DeveloperVoter extends Voter
     const EDIT = 'edit';
     const DELETE = 'delete';
     const LIST_LIKES = 'list_likes';
-    const ATTRIBUTES = [self::LIST, self::EDIT, self::DELETE, self::SHOW, self::LIST_LIKES];
+    const LIST_NOTIFICATIONS = 'list_notifications';
+    const ATTRIBUTES = [self::LIST, self::EDIT, self::DELETE, self::SHOW, self::LIST_LIKES, self::LIST_NOTIFICATIONS];
 
     /** @var AccessDecisionManagerInterface $decisionManager */
     protected $decisionManager;
@@ -32,8 +33,8 @@ class DeveloperVoter extends Voter
         $this->decisionManager = $decisionManager;
 
         $this->permissions = [
-            'isOwner' => [self::SHOW, self::LIST_LIKES],
-            'isAdmin' => [self::DELETE, self::EDIT, self::LIST, self::SHOW, self::LIST_LIKES],
+            'isOwner' => [self::SHOW, self::LIST_LIKES, self::LIST_NOTIFICATIONS],
+            'isAdmin' => [self::DELETE, self::EDIT, self::LIST, self::SHOW, self::LIST_LIKES, self::LIST_NOTIFICATIONS],
             'isModerator' => [self::SHOW],
         ];
     }

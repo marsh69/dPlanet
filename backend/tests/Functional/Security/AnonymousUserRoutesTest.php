@@ -29,7 +29,6 @@ class AnonymousUserRoutesTest extends FixtureAwareTestCase
     public function urlProvider(): array
     {
         return [
-            ['/api/trends', Request::METHOD_GET],
             ['/api/posts', Request::METHOD_GET],
         ];
     }
