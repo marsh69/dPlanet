@@ -9,6 +9,8 @@ use Doctrine\ORM\NonUniqueResultException;
 
 class LikeService
 {
+    use DatabaseEntityCountTrait;
+
     /** @var EntityManagerInterface $em */
     protected $em;
     /** @var ObjectRepository $likeRepository */
@@ -49,11 +51,7 @@ class LikeService
      */
     public function getCount(): int
     {
-        return $this->em->createQueryBuilder()
-            ->select('COUNT(l.id)')
-            ->from('App\Entity\Like', 'l')
-            ->getQuery()
-            ->getSingleScalarResult();
+        return $this->getEntityCount(Like::class);
     }
 
     /**

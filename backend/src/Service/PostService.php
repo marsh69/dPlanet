@@ -9,6 +9,8 @@ use Doctrine\ORM\NonUniqueResultException;
 
 class PostService
 {
+    use DatabaseEntityCountTrait;
+
     /** @var EntityManagerInterface $em */
     protected $em;
     /** @var ObjectRepository $repository */
@@ -40,11 +42,7 @@ class PostService
      */
     public function getCount(): int
     {
-        return $this->em->createQueryBuilder()
-            ->select('COUNT(p.id)')
-            ->from('App\Entity\Post', 'p')
-            ->getQuery()
-            ->getSingleScalarResult();
+        return $this->getEntityCount(Post::class);
     }
 
     /**

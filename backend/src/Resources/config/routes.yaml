@@ -27,3 +27,8 @@ likes:
   prefix: likes
   resource: "routes/likes.yaml"
   trailing_slash_on_root: false
+
+notifications:
+  prefix: notifications
+  resource: "routes/notifications.yaml"
+  trailing_slash_on_root: false

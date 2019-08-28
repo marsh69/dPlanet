@@ -74,7 +74,6 @@ Please consider these our code standards:
 
 Rules may be subject to change in the future.
 
-
 ### Tests
 
 #### Backend
@@ -89,6 +88,13 @@ the framework together. These tests are all executed in the pipeline and you are
 
 We strive to keep our test coverage above 90%. You can use `make php.sh` to get into the php container and test several functional
 tests individually with /app/src/bin/phpunit /app/src/tests/Functional/<your>/<test>/<here> -c /app/src
+
+Commands you might find interesting:
+- `make test`
+- `make test.unit`
+- `make test.integration`
+- `make test.functional`
+- `make test.coverage`
 
 #### Frontend
 
