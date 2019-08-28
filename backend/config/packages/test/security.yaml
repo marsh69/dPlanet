@@ -1,5 +1,0 @@
-security:
-    firewalls:
-        api:
-            http_basic:
-                provider: fos_userbundle
