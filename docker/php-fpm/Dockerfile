@@ -27,10 +27,12 @@ COPY --from=builder /etc/passwd /etc/group /etc/
 RUN mkdir -p /app \
     && chown php:php /app \
     && apk add --update --no-cache \
+       alpine-sdk \
        php7-redis \
        php7-opcache \
        php7-pdo_mysql \
        php7-pdo \
+       autoconf \
     && pecl install -o -f redis \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable redis \
