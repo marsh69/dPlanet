@@ -3,22 +3,24 @@
   docker_image:
     source: build
     build:
-      dockerfile: "{{ item.dockerfile }}"
       path: "{{ item.path }}"
-      pull: false
+      dockerfile: "{{ item.dockerfile }}"
+      pull: no
       args: "{{ item.buildargs | default(omit) }}"
       cache_from:
         - "{{ item.name }}:latest"
     name: "{{ item.name }}"
     tag: "{{ docker_tag }}"
-  with_items: "{{ docker_images }}"
+  loop: "{{ docker_images }}"
+  tags: build_images
 
 - name: "Add latest tag to built images"
   docker_image:
     source: pull
-    build:
-      pull: no
     name: "{{ item.name }}:{{ docker_tag }}"
     repository: "{{ item.name }}:latest"
-  with_items: "{{ docker_images }}"
-  when: add_latest_tag|bool
+    build:
+      pull: no
+  loop: "{{ docker_images }}"
+  when: add_latest_tag | bool
+  tags: build_images

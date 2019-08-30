@@ -32,20 +32,19 @@ RUN mkdir -p /app \
        php7-opcache \
        php7-pdo_mysql \
        php7-pdo \
-       php7-mysqli \
-       php7-gd \
        autoconf \
     && pecl install -o -f redis \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable redis \
-    && docker-php-ext-install opcache pdo mysqli pdo_mysql
+    && docker-php-ext-install opcache pdo pdo_mysql
 
 WORKDIR /app/src
 
 ENV APP_ENV prod
 ENV APP_DEBUG false
 
-ENTRYPOINT "docker-entrypoint"
+ENTRYPOINT ["docker-entrypoint"]
+CMD ["/usr/local/sbin/php-fpm"]
 
 COPY --chown=php:php docker/php-fpm /
 COPY --chown=php:php docker/expand-secrets.sh /bin/expand-secrets.sh
@@ -58,6 +57,8 @@ COPY --chown=php:php backend/ /app/src/
 # Including a redis server to make sure the functional tests run
 #
 FROM runtime AS test
+
+ENV SYMFONY_PHPUNIT_VERSION 8.0.0
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 

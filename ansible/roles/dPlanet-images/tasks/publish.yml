@@ -4,22 +4,20 @@
     username: "{{ docker_username }}"
     email: "{{ docker_email }}"
     password: "{{ docker_password }}"
-  when: publish_images|bool
+  when: publish_images | bool
 
 - name: "Push tagged images to registry with tag {{ docker_tag }}"
   docker_image:
-    source: pull
     name: "{{ item.name }}"
     tag: "{{ docker_tag }}"
     push: yes
-  with_items: "{{ docker_images }}"
-  when: publish_images|bool
+  loop: "{{ docker_images }}"
+  when: publish_images | bool
 
 - name: "Push tagged images to registry with tag latest"
   docker_image:
-    source: pull
     name: "{{ item.name }}"
     tag: "latest"
     push: yes
-  with_items: "{{ docker_images }}"
-  when: add_latest_tag|bool and publish_images|bool
+  loop: "{{ docker_images }}"
+  when: add_latest_tag | bool and publish_images | bool

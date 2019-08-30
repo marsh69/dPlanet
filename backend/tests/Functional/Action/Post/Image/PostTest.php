@@ -36,7 +36,7 @@ class PostTest extends FixtureAwareTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->fs->remove([self::TEST_IMAGE_2_TMP, self::TEST_IMAGE_TMP]);
