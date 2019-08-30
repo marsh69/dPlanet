@@ -19,7 +19,7 @@ echo "- Expanding secrets and running startup commands"
     && bin/console doctrine:migrations:migrate --no-interaction --no-debug \
     && bin/console assets:install \
     && bin/console cache:warmup --env=${APP_ENV} --no-debug" \
-    www-data
+    php
 
 if [ "$APP_DEBUG" = 'true' ]
 then

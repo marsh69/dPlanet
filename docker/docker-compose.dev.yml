@@ -15,6 +15,7 @@ services:
     volumes:
       - ../backend:/app/src:cached
       - ./php-fpm/bin/docker-entrypoint:/bin/docker-entrypoint:cached
+      - ./php-fpm/bin/develop:/bin/develop:cached
       - development_ssl:/ssl
     networks:
       - mysql
