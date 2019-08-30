@@ -1,0 +1,64 @@
+#!/bin/sh
+
+cd /app
+
+# Add disable-xdebug executable
+cat <<-EOF > /bin/xdebug-disable
+#!/bin/sh
+rm -f /usr/local/etc/php/conf.d/xdebug.ini
+EOF
+
+# Add enable-xdebug executable
+cat <<-EOF > /bin/xdebug-enable
+#!/bin/sh
+cat <<-EOF > /usr/local/etc/php/conf.d/xdebug.ini
+zend_extension=/usr/lib/php7/modules/xdebug.so
+xdebug.remote_enable=1
+xdebug.remote_autostart=1
+xdebug.remote_connect_back=off
+xdebug.default_enable=1
+xdebug.remote_port=9000
+xdebug.idekey=PHPSTORM
+xdebug.scream = 1
+display_errors = On
+EOF
+
+# Add PHP Coverage ini configuration (faster than xdebug)
+cat <<-EOF > /usr/local/etc/php/conf.d/pcov.ini
+extension=pcov
+pcov.enable=1
+EOF
+
+chmod u+x,g+x /bin/xdebug-disable /bin/xdebug-enable
+xdebug-disable
+
+if ! apk list | grep php7-pear >/dev/null 2>&1;
+then
+  apk add --update \
+      coreutils \
+      php7-phar \
+      php7-pecl-xdebug \
+      php7-xmlwriter \
+      php7-pear \
+      php7-dev \
+      php7-pdo_sqlite \
+      php7-sqlite3 \
+      g++ \
+      make
+  pecl install pcov
+else
+  echo "- Skipping APK installation, already done"
+fi
+
+if ! test -f /usr/bin/composer;
+then
+  wget -q https://getcomposer.org/installer -O composer-setup.php \
+   && wget -q https://composer.github.io/installer.sha384sum -O installer.sha384sum \
+   && sha384sum installer.sha384sum \
+   && php -d memory_limit=-1 composer-setup.php --install-dir /usr/bin --filename=composer
+   mkdir -p /home/php/.composer
+   chown -R php:php /home/php
+   composer install -d /app/src
+else
+  echo "- Skipping composer installation, already done"
+fi

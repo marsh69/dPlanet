@@ -3,53 +3,27 @@ set -e
 
 if [ "$APP_DEBUG" = 'true' ]
 then
-  if ! apk list | grep php7-pecl-xdebug >/dev/null 2>&1;
-  then
-    apk add --update \
-        coreutils \
-        php7-phar \
-        php7-pecl-xdebug \
-        php7-xmlwriter \
-        php7-pdo_sqlite \
-        php7-sqlite3
-  else
-    echo "Skipping APK installation, already done"
-  fi
-  mkdir -p /home/php/.composer
-  chown -R php:php /home/php
-  cp /app/src/bin/composer /bin/composer
-  su -s /bin/sh -c "composer install -d /app/src" php
-
-  cat <<-EOF > /usr/local/etc/php/conf.d/xdebug.ini
-[xdebug]
-zend_extension=/usr/lib/php7/modules/xdebug.so
-xdebug.remote_enable=1
-xdebug.remote_autostart=1
-xdebug.remote_connect_back=off
-xdebug.default_enable=1
-xdebug.remote_port=9000
-xdebug.idekey=PHPSTORM
-xdebug.scream = 1
-display_errors = On
-EOF
-
+    . /bin/develop
 fi
 
-# Ensure named volumes are owned by php
-chown -Rc php:php /app/src/public/bundles
-chown -Rc php:php /app/src/public/uploads
-chown -Rc php:php /ssl
+cd /app/src
 
-. /bin/expand-secrets.sh && \
-  su -s /bin/sh -c \
+echo "- Expanding secrets and running startup commands"
+. /bin/expand-secrets.sh \
+    && su -s /bin/sh -c \
     "bin/console cache:clear --env=${APP_ENV} --no-debug \
-    && bin/console assets:install \
     && bin/console --no-interaction doctrine:cache:clear-metadata \
     && bin/console --no-interaction doctrine:cache:clear-query \
     && bin/console --no-interaction doctrine:cache:clear-result \
-    && bin/console doctrine:database:create --no-interaction --if-not-exists \
+    && bin/console --no-interaction doctrine:database:create --if-not-exists \
     && bin/console doctrine:migrations:migrate --no-interaction --no-debug \
+    && bin/console assets:install \
     && bin/console cache:warmup --env=${APP_ENV} --no-debug" \
-  php
+    php
 
-php-fpm
+if [ "$APP_DEBUG" = 'true' ]
+then
+  xdebug-enable
+fi
+
+exec "$@"

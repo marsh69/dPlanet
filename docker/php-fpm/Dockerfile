@@ -43,7 +43,8 @@ WORKDIR /app/src
 ENV APP_ENV prod
 ENV APP_DEBUG false
 
-ENTRYPOINT "docker-entrypoint"
+ENTRYPOINT ["docker-entrypoint"]
+CMD ["/usr/local/sbin/php-fpm"]
 
 COPY --chown=php:php docker/php-fpm /
 COPY --chown=php:php docker/expand-secrets.sh /bin/expand-secrets.sh
@@ -56,6 +57,8 @@ COPY --chown=php:php backend/ /app/src/
 # Including a redis server to make sure the functional tests run
 #
 FROM runtime AS test
+
+ENV SYMFONY_PHPUNIT_VERSION 8.0.0
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 

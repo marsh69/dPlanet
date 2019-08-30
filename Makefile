@@ -23,6 +23,9 @@ php.restart: ## Restart php container
 php.run: ## Run a command in the php container, requires a 'cmd' argument
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u php php-fpm ${cmd}
 
+php.run.root: ## Run a command in the php container as root, requires a `cmd` argument
+	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet exec -u root php-fpm ${cmd}
+
 php.sh: ## Open the shell of the php container
 	docker exec -u php -it dplanet_php-fpm_1 sh
 
@@ -49,47 +52,78 @@ js.fix: node.fix
 node.fix: ## Run prettier over the code
 	docker exec -itu node dplanet_node_1 /app/node_modules/prettier/bin-prettier.js fix --write /app/src/**/*
 
-test.keys: ## Generate openssl keys in php container for testing purposes
+xdebug.disable:
+	make php.run.root cmd='xdebug-disable'
+	@echo '!!! xDebug disabled !!!'
+
+xdebug.enable:
+	make php.run.root cmd='xdebug-enable'
+	@echo '!!! xDebug enabled !!!'
+
+test.keys:
 	make php.run cmd='openssl genrsa -out /app/src/config/packages/test/jwt_keys/private-test.pem -passout pass:test -aes256 4096'
 	make php.run cmd='openssl rsa -passin pass:test -pubout -in /app/src/config/packages/test/jwt_keys/private-test.pem -out /app/src/config/packages/test/jwt_keys/public-test.pem'
 
 test: test.keys ## Run phpunit tests
+	make xdebug.disable
 	make php.run cmd="/app/src/bin/phpunit"
+	make xdebug.enable
 
 test.unit: ## Run phpunit unit tests
+	make xdebug.disable
 	make php.run cmd="/app/src/bin/phpunit --testsuite=unit"
+	make xdebug.enable
 
 test.integration: ## Run phpunit integration tests
+	make xdebug.disable
 	make php.run cmd="/app/src/bin/phpunit --testsuite=integration"
+	make xdebug.enable
 
 test.functional: test.keys ## Run phpunit functional tests, please beware that this requires the application to be running
+	make xdebug.disable
 	make php.run cmd="/app/src/bin/phpunit --testsuite=functional"
+	make xdebug.enable
 
 test.coverage: test.keys ## Run unit tests with PHPunit and create a coverage report in $PWD/PHPunitReport
+	make xdebug.disable
 	make php.run cmd="/app/src/bin/phpunit -c /app/src --coverage-html /app/src/test-coverage"
 	@echo 'Generated a coverage report in backend/test-coverage!'
+	make xdebug.enable
 
 composer.install: ## Run composer install in the php container in development
+	make xdebug.disable
 	make php.run cmd="bin/composer install"
+	make xdebug.enable
 
 composer.update: ## Run composer update in the php container in development
+	make xdebug.disable
 	make php.run cmd="bin/composer update"
+	make xdebug.enable
 
 fixtures: ## Throw away the database and fill it with test data (only in development!)
+	make xdebug.disable
 	make php.run cmd="bin/console doctrine:fixtures:load -n"
+	make xdebug.enable
 
 migrations.diff: ## Generate a new migration based on the ORM files
+	make xdebug.disable
 	make php.run cmd="bin/console doctrine:cache:clear-metadata"
 	make php.run cmd="bin/console doctrine:migrations:diff"
+	make xdebug.enable
 
 migrations.migrate: ## Migrate the database
+	make xdebug.disable
 	make php.run cmd="bin/console doctrine:migrations:migrate -n"
+	make xdebug.enable
 
 schema.validate: ## Validate the mapping settings
+	make xdebug.disable
 	make php.run cmd="bin/console doctrine:cache:clear-metadata"
 	make php.run cmd="bin/console doctrine:schema:validate"
+	make xdebug.enable
 
 database.reset: ## Delete and recreate the database, then fill it with fixture data
+	make xdebug.disable
 	echo ""
 	echo "I sincerely hope you know what you're doing..."
 	echo "Deleting database..."
@@ -98,12 +132,15 @@ database.reset: ## Delete and recreate the database, then fill it with fixture d
 	make php.run cmd="bin/console doctrine:database:create"
 	make migrations.migrate
 	make fixtures
+	make xdebug.enable
 
 cache.clear: ## Clear the cache
+	make xdebug.disable
 	make php.run cmd="bin/console cache:clear"
 	make php.run cmd="bin/console doctrine:cache:clear-metadata"
 	make php.run cmd="bin/console doctrine:cache:clear-query"
 	make php.run cmd="bin/console doctrine:cache:clear-result"
+	make xdebug.enable
 
 restart: ## Restart containers
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -p dplanet restart
