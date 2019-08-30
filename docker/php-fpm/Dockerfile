@@ -43,8 +43,8 @@ WORKDIR /app/src
 ENV APP_ENV prod
 ENV APP_DEBUG false
 
-ENTRYPOINT "docker-entrypoint"
-CMD "/usr/sbin/php-fpm7"
+ENTRYPOINT ["docker-entrypoint"]
+CMD ["/usr/local/sbin/php-fpm"]
 
 COPY --chown=php:php docker/php-fpm /
 COPY --chown=php:php docker/expand-secrets.sh /bin/expand-secrets.sh

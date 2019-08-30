@@ -20,7 +20,7 @@ class FixtureAwareTestCase extends WebTestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp()
+    public function setUp(): void
     {
         StaticDriver::beginTransaction();
         $this->client = parent::createClient();
@@ -48,7 +48,7 @@ class FixtureAwareTestCase extends WebTestCase
     /**
      * {@inheritDoc}
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         StaticDriver::rollBack();
     }

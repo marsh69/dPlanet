@@ -5,13 +5,13 @@ cd /app
 # Add disable-xdebug executable
 cat <<-EOF > /bin/xdebug-disable
 #!/bin/sh
-rm -f /etc/php7/conf.d/xdebug.ini
+rm -f /usr/local/etc/php/conf.d/xdebug.ini
 EOF
 
 # Add enable-xdebug executable
 cat <<-EOF > /bin/xdebug-enable
 #!/bin/sh
-cat <<-EOF > /etc/php7/conf.d/xdebug.ini
+cat <<-EOF > /usr/local/etc/php/conf.d/xdebug.ini
 zend_extension=/usr/lib/php7/modules/xdebug.so
 xdebug.remote_enable=1
 xdebug.remote_autostart=1
@@ -24,7 +24,7 @@ display_errors = On
 EOF
 
 # Add PHP Coverage ini configuration (faster than xdebug)
-cat <<-EOF > /etc/php7/conf.d/pcov.ini
+cat <<-EOF > /usr/local/etc/php/conf.d/pcov.ini
 extension=pcov
 pcov.enable=1
 EOF
