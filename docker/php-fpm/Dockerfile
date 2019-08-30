@@ -57,6 +57,8 @@ COPY --chown=php:php backend/ /app/src/
 #
 FROM runtime AS test
 
+ENV SYMFONY_PHPUNIT_VERSION 8.0.0
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN apk add php7-pdo_sqlite php7-sqlite3 redis \

@@ -19,6 +19,7 @@ services:
     networks:
       - mysql
     environment:
+      SYMFONY_PHPUNIT_VERSION: 8.0.0
       DATABASE_PASSWORD: development
       CORS_ALLOW_ORIGIN: localhost
       REDIS_PASSWORD: developmentredispassword
