@@ -6,7 +6,7 @@ messages.list:
     offset: ~
     limit: ~
 
-notifications.show:
+messages.show:
   path: /{message}
   controller: App\Action\Message\Show
   methods: [GET]
