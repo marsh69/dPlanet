@@ -1,0 +1,12 @@
+messages.list:
+  path: /
+  controller: App\Action\Message\Index
+  methods: [GET]
+  defaults:
+    offset: ~
+    limit: ~
+
+notifications.show:
+  path: /{message}
+  controller: App\Action\Message\Show
+  methods: [GET]
