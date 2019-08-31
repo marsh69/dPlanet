@@ -32,6 +32,7 @@ notifications:
   prefix: notifications
   resource: "routes/notifications.yaml"
   trailing_slash_on_root: false
+
 messages:
   prefix: messages
   resource: "routes/messages.yaml"
